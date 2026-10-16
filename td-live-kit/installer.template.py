@@ -29,7 +29,8 @@ Documented APIs used (see also router.py for the per-call doc citations):
 #    empty with a TODO note so you can paste the contents manually.
 # ---------------------------------------------------------------------------
 ROUTER_PY_PATH = r'__ROUTER_PATH__'   # filled in by setup.mjs
-TOKEN_FILE = r'__TOKEN_FILE__'        # inside td-live-kit/, read by the MCP server
+TOKEN_FILE = r'__TOKEN_FILE__'        # inside td-live-kit/, read by the MCP server ('' = don't write one)
+ROUTER_B64 = ''                       # portable build: router.py embedded as base64 (build_portable.mjs)
 
 BRIDGE_PATH = '/td_mcp'
 SANDBOX_PATH = '/td_mcp/sandbox'
@@ -38,6 +39,8 @@ WEB_PORT = 9981
 
 def _save_token(tok):
     """Mirror the token to the kit's .token file so the MCP server finds it automatically."""
+    if not TOKEN_FILE:
+        return
     try:
         with open(TOKEN_FILE, 'w') as fh:
             fh.write(tok)
@@ -47,6 +50,9 @@ def _save_token(tok):
 
 def _read_router_source():
     """Try to read router.py from disk; return its text or a placeholder."""
+    if ROUTER_B64:
+        import base64
+        return base64.b64decode(ROUTER_B64).decode('utf-8')
     try:
         with open(ROUTER_PY_PATH, 'r', encoding='utf-8') as fh:
             return fh.read()
@@ -115,7 +121,8 @@ def build():
         "        t = str(tok.text).strip()\n"
         "        print('[td_mcp] TD_MCP_TOKEN =', t)\n"
         "        try:\n"
-        "            open(r'__TOKEN_FILE__', 'w').write(t)\n"
+        "            if r'__TOKEN_FILE__':\n"
+        "                open(r'__TOKEN_FILE__', 'w').write(t)\n"
         "        except Exception as e:\n"
         "            print('[td_mcp] token file error:', e)\n"
         "    return\n"
@@ -168,7 +175,11 @@ def build():
     print('[td_mcp]   sandbox  :', sandbox.path)
     print('[td_mcp]   web server: port', WEB_PORT, '(active =', web.par.active.eval(), ')')
     print('[td_mcp]')
-    print('[td_mcp] Token saved to', TOKEN_FILE)
+    if TOKEN_FILE:
+        print('[td_mcp] Token saved to', TOKEN_FILE)
+    else:
+        print('[td_mcp] TD_MCP_TOKEN =', str(token_dat.text).strip())
+        print('[td_mcp] Port:', WEB_PORT, '- give this token to the MCP server (TD_MCP_TOKEN).')
     print('[td_mcp] Ready: Claude can now control /td_mcp/sandbox.')
     print('=' * 64)
     return bridge
