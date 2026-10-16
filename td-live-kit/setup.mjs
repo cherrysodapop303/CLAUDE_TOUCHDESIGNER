@@ -43,6 +43,11 @@ Listo. Pasos siguientes:
 `);
 
 if (process.argv.includes('--register')) {
-  const r = spawnSync('claude', ['mcp', 'add', '-s', 'user', 'touchdesigner', '--', 'node', serverPath], { stdio: 'inherit' });
-  process.exit(r.status ?? 0);
+  // On Windows `claude` is a .cmd shim, which spawnSync can't resolve without a shell.
+  const cmd = `claude mcp add -s user touchdesigner -- node "${serverPath}"`;
+  const r = spawnSync(cmd, { stdio: 'inherit', shell: true });
+  if (r.error || r.status) {
+    console.error('\nNo se pudo registrar automáticamente. Ejecuta tú este comando:\n\n  ' + cmd + '\n');
+    process.exit(r.status || 1);
+  }
 }
