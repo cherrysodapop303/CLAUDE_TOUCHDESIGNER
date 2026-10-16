@@ -1,0 +1,67 @@
+{
+  "name": "Cache Select POP",
+  "id": "cache_select_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Cache Select POP takes a reference to a Cache POP and outputs one of its cached data sets based on the Cache Index parameter. A Cache Index value of 0 outputs the Cache POP's current frame's data, -1 outputs its previous cached data (the second newest set), and so on. So the values you provide for index are negative integers and 0. Indexes that are out of range are clamped to be the Cache POP's -(Cache Size-1), and 0. See also: [[Cache POP]], [[Cache Blend POP]]",
+  "parameters": [
+    {
+      "name": "Cache POP",
+      "parName": "cachepop",
+      "label": "Cache POP",
+      "type": "POP",
+      "description": "The Cache POP to fetch cache snapshots from.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Cache Index",
+      "parName": "index",
+      "label": "Cache Index",
+      "type": "Float",
+      "description": "The cache index to output.",
+      "isReadOnly": false,
+      "menuItems": [
+        "index",
+        "cacheindexunit"
+      ],
+      "menuLabels": [
+        "Cache Index",
+        "Cache Index Unit"
+      ]
+    },
+    {
+      "name": "Interpolate Frames",
+      "parName": "interp",
+      "label": "Interpolate Frames",
+      "type": "Toggle",
+      "description": "When on the selected index can interpolate between the cached frames if each snapshot has the same number of points. Otherwise, the nearest cached frame is used.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Cache_Select_POP.htm",
+  "parsedAt": "2025-08-08T03:03:54.571Z",
+  "url": "https://docs.derivative.ca/Cache_Select_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Cache_Select_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Cache_Select_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Cache_Select_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

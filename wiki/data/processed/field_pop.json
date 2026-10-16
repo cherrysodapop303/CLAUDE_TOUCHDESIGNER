@@ -1,0 +1,637 @@
+{
+  "name": "Field POP",
+  "id": "field_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Field POP adds a <code>Weight</code> attribute that determines how much each point is within a 3D shape. Fields are bounding regions in 3D space. The shapes include spheres (ellipsoids), cylinders, planes, paraboloids, etc, where all points within the shape (or on one side of the shape) are given a Weight of 1 and all other points are 0. The Field POP is often used to isolate or cut out sections of points in point clouds. It also can output a <code>Dist</code> attribute, which is a distance to the surface for points that are outside the shape. The Transition Range parameter softens the <code>Weight</code> transition from 1 to 0. It is the distance over which the weight goes from 1 to 0. Transition Align determines where the transition from 1 to 0 starts. By default the weight is .5 at the Radius for a sphere field. if Align is -.5 the weight has dropped to 0 at the radius, and if align is .5, the weight is 1 at the radius and drops to 0 outside the radius. Similar for other field shapes. The Transition Type allows for linear, ease-in ease-out, or smooth step transitions from 1 to 0. '''Multiple fields in one Field POP''': A parameter called Specification POP is a pointer to a POP where each point is a specification defining a separate field - one point per field. The attributes of the specification POP are named the same as parameters tokens in the Field POP, and override the parameters for each field. Menus and toggles are represented as integers, starting at 0 for the first menu entry. You need only to create a Point POP with attributes named as the Field POP parameters, and then add a point per field, and set their values. (An attribute <code>sizex</code> will override the Size X (<code>sizex</code>) parameter.) Alternately you can generate points procedurally with attributes that match the Field POP parameter names. The workflow is the same as multiple strings defined in a specification DAT of the [[Geo Text COMP]] and the [[Text COMP]]. '''Using P as field position''': Although the rule is that the attribute name must be the same as the name of the parameter of the Field POP, <code>P</code> (position attribute) is a special case as it overrides <code>tx</code>, <code>ty</code> and <code>tz</code> parameters of the Field POP. If the node <code>point1</code> has attributes <code>radx</code> and <code>P</code>, they override the Field POP's <code>radx</code>, <code>tx</code>, <code>ty</code> and <code>tz</code> parameters. '''Multiple weights raw or mixed''': When you specify multiple fields, their weights are mixed together into the <code>Weight</code> attribute (using a blend mode like Screen of the [[Composite TOP]] - combining multi-fields increase the <code>Weight</code> but it never exceeds 1). Alternately the weight for each field can be output raw in a multi-value <code>Weights</code> array attribute. The <code>Weight</code> or <code>Distance</code> attribute can be added/multiplied with any another attribute, like a <code>PartForce</code> attribute to confine forces to certain regions.",
+  "parameters": [
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Field Attribute Scope",
+      "parName": "fieldattrscope",
+      "label": "Field Attribute Scope",
+      "type": "StrMenu",
+      "description": "Determines the scope of the attribute used to output the weight.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Specification POP",
+      "parName": "specpop",
+      "label": "Specification POP",
+      "type": "POP",
+      "description": "Reference to a POP where each point is a specification defining a separate field.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Mode",
+      "parName": "mode",
+      "label": "Mode",
+      "type": "Menu",
+      "description": "Select the shape of the field.",
+      "isReadOnly": false,
+      "menuItems": [
+        "sphere",
+        "box",
+        "torus",
+        "tubeinfinite",
+        "tubecapped",
+        "tuberounded",
+        "capsule",
+        "xplane",
+        "yplane",
+        "zplane",
+        "parabola",
+        "lineprojection"
+      ],
+      "menuLabels": [
+        "Sphere",
+        "Box",
+        "Torus",
+        "Tube Infinite",
+        "Tube Capped",
+        "Tube Rounded",
+        "Capsule",
+        "X-Plane",
+        "Y-Plane",
+        "Z-Plane",
+        "Parabola",
+        "Line Projection"
+      ]
+    },
+    {
+      "name": "Size",
+      "parName": "size",
+      "label": "Size",
+      "type": "XYZW",
+      "description": "The geometry 3D size.",
+      "isReadOnly": false,
+      "menuItems": [
+        "sizex",
+        "sizey",
+        "sizez"
+      ],
+      "menuLabels": [
+        "Size",
+        "Size",
+        "Size"
+      ]
+    },
+    {
+      "name": "Radius",
+      "parName": "rad",
+      "label": "Radius",
+      "type": "XYZW",
+      "description": "Radius of field.",
+      "isReadOnly": false,
+      "menuItems": [
+        "radx",
+        "rady",
+        "radz"
+      ],
+      "menuLabels": [
+        "Radius",
+        "Radius",
+        "Radius"
+      ]
+    },
+    {
+      "name": "Height",
+      "parName": "height",
+      "label": "Height",
+      "type": "Float",
+      "description": "The height of the tube.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Roundness",
+      "parName": "roundness",
+      "label": "Roundness",
+      "type": "Float",
+      "description": "Roundness factor for rounded fields modes.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Point A",
+      "parName": "pointa",
+      "label": "Point A",
+      "type": "XYZW",
+      "description": "Shape first point.",
+      "isReadOnly": false,
+      "menuItems": [
+        "pointax",
+        "pointay",
+        "pointaz"
+      ],
+      "menuLabels": [
+        "Point A",
+        "Point A",
+        "Point A"
+      ]
+    },
+    {
+      "name": "Point B",
+      "parName": "pointb",
+      "label": "Point B",
+      "type": "XYZW",
+      "description": "Shape second point.",
+      "isReadOnly": false,
+      "menuItems": [
+        "pointbx",
+        "pointby",
+        "pointbz"
+      ],
+      "menuLabels": [
+        "Point B",
+        "Point B",
+        "Point B"
+      ]
+    },
+    {
+      "name": "Strength",
+      "parName": "strength",
+      "label": "Strength",
+      "type": "XYZW",
+      "description": "Sets the field strength.",
+      "isReadOnly": false,
+      "menuItems": [
+        "strengthx",
+        "strengthy"
+      ],
+      "menuLabels": [
+        "Strength",
+        "Strength"
+      ]
+    },
+    {
+      "name": "Exponent",
+      "parName": "exponent",
+      "label": "Exponent",
+      "type": "Float",
+      "description": "Sets the exponent on parabola fields.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Transition Range",
+      "parName": "transitionrange",
+      "label": "Transition Range",
+      "type": "Float",
+      "description": "Determines a transition range for weights.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Transition Align",
+      "parName": "transitionalign",
+      "label": "Transition Align",
+      "type": "Float",
+      "description": "With Transition Range > 0, by default the weight is .5 at the Radius. if Align is -.5 the weight has dropped to 0 at the radius, and if align is .5, the weight is 1 at the radius and drops to 0 outside the radius.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Transition Type",
+      "parName": "transitiontype",
+      "label": "Transition Type",
+      "type": "Menu",
+      "description": "Determines a transition function for weights.",
+      "isReadOnly": false,
+      "menuItems": [
+        "linear",
+        "smoothstep",
+        "easeinout"
+      ],
+      "menuLabels": [
+        "Linear",
+        "Smooth Step",
+        "Ease In Ease Out"
+      ]
+    },
+    {
+      "name": "Absolute Value",
+      "parName": "absvalue",
+      "label": "Absolute Value",
+      "type": "Toggle",
+      "description": "Enable using the absolute value on the transitioned weight.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Invert",
+      "parName": "invert",
+      "label": "Invert",
+      "type": "Toggle",
+      "description": "Invert the attribute value resulting from the field.",
+      "isReadOnly": false
+    },
+    {
+      "name": "To Range",
+      "parName": "torange",
+      "label": "To Range",
+      "type": "Float",
+      "description": "Sets the output range on the weigths.",
+      "isReadOnly": false,
+      "menuItems": [
+        "torangemin",
+        "torangemax"
+      ],
+      "menuLabels": [
+        "To Range",
+        "To Range"
+      ]
+    },
+    {
+      "name": "Delete Zeros",
+      "parName": "deletezeros",
+      "label": "Delete Zeros",
+      "type": "Toggle",
+      "description": "Enable removal of points with weigth zero.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Line Strip Behavior",
+      "parName": "linestripbehavior",
+      "label": "Line Strip Behavior",
+      "type": "Menu",
+      "description": "What to do when points of a line strip are deleted.",
+      "isReadOnly": false,
+      "menuItems": [
+        "delpointoflinestrip",
+        "splitlinestrip",
+        "dellinestrip"
+      ],
+      "menuLabels": [
+        "Delete Point of Line Strip",
+        "Split Line Strip",
+        "Delete Line Strip"
+      ]
+    },
+    {
+      "name": "Transform Order",
+      "parName": "xord",
+      "label": "Transform Order",
+      "type": "Menu",
+      "description": "Sets the overall transform order for the transformations.",
+      "isReadOnly": false,
+      "menuItems": [
+        "srt",
+        "str",
+        "rst",
+        "rts",
+        "tsr",
+        "trs"
+      ],
+      "menuLabels": [
+        "Scale Rotate Translate",
+        "Scale Translate Rotate",
+        "Rotate Scale Translate",
+        "Rotate Translate Scale",
+        "Translate Scale Rotate",
+        "Translate Rotate Scale"
+      ]
+    },
+    {
+      "name": "Rotate Order",
+      "parName": "rord",
+      "label": "Rotate Order",
+      "type": "Menu",
+      "description": "Sets the order of the rotations within the overall transform order.",
+      "isReadOnly": false,
+      "menuItems": [
+        "xyz",
+        "xzy",
+        "yxz",
+        "yzx",
+        "zxy",
+        "zyx"
+      ],
+      "menuLabels": [
+        "Rx Ry Rz",
+        "Rx Rz Ry",
+        "Ry Rx Rz",
+        "Ry Rz Rx",
+        "Rz Rx Ry",
+        "Rz Ry Rx"
+      ]
+    },
+    {
+      "name": "Translate",
+      "parName": "t",
+      "label": "Translate",
+      "type": "XYZW",
+      "description": "Translate the field in the three axes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "tx",
+        "ty",
+        "tz"
+      ],
+      "menuLabels": [
+        "Translate",
+        "Translate",
+        "Translate"
+      ]
+    },
+    {
+      "name": "Rotate",
+      "parName": "r",
+      "label": "Rotate",
+      "type": "XYZW",
+      "description": "Rotate the points around the corresponding X, Y and Z axes. Angles are given in degrees.",
+      "isReadOnly": false,
+      "menuItems": [
+        "rx",
+        "ry",
+        "rz"
+      ],
+      "menuLabels": [
+        "Rotate",
+        "Rotate",
+        "Rotate"
+      ]
+    },
+    {
+      "name": "Scale",
+      "parName": "s",
+      "label": "Scale",
+      "type": "XYZW",
+      "description": "These three fields scale the Source geometry in the three axes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "sx",
+        "sy",
+        "sz"
+      ],
+      "menuLabels": [
+        "Scale",
+        "Scale",
+        "Scale"
+      ]
+    },
+    {
+      "name": "Pivot",
+      "parName": "p",
+      "label": "Pivot",
+      "type": "XYZW",
+      "description": "The pivot point for the transform rotates and scales.",
+      "isReadOnly": false,
+      "menuItems": [
+        "px",
+        "py",
+        "pz"
+      ],
+      "menuLabels": [
+        "Pivot",
+        "Pivot",
+        "Pivot"
+      ]
+    },
+    {
+      "name": "Weight",
+      "parName": "weight",
+      "label": "Weight",
+      "type": "Toggle",
+      "description": "Output a field weight attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "weight",
+        "outputattr"
+      ],
+      "menuLabels": [
+        "Weight",
+        "Weight Output Attribute"
+      ]
+    },
+    {
+      "name": "Signed Distance",
+      "parName": "signeddistance",
+      "label": "Signed Distance",
+      "type": "Toggle",
+      "description": "Output a signed distance attribute for each point.",
+      "isReadOnly": false,
+      "menuItems": [
+        "signeddistance",
+        "sdoutputattr"
+      ],
+      "menuLabels": [
+        "Signed Distance",
+        "Signed Distance Output Attribute"
+      ]
+    },
+    {
+      "name": "Per-Field Weights",
+      "parName": "perfieldweights",
+      "label": "Per-Field Weights",
+      "type": "Toggle",
+      "description": "Output an attribute array value for each field in the Specification POP.",
+      "isReadOnly": false,
+      "menuItems": [
+        "perfieldweights",
+        "perfieldweightsoutputattr"
+      ],
+      "menuLabels": [
+        "Per-Field Weights",
+        "Weights"
+      ]
+    },
+    {
+      "name": "Per-Field Distances",
+      "parName": "perfielddistances",
+      "label": "Per-Field Distances",
+      "type": "Toggle",
+      "description": "Output an attribute array value for each field in the Specification POP.",
+      "isReadOnly": false,
+      "menuItems": [
+        "perfielddistances",
+        "perfielddistancesoutputattr"
+      ],
+      "menuLabels": [
+        "Per-Field Distances",
+        "Distances"
+      ]
+    },
+    {
+      "name": "Combine Operation",
+      "parName": "combineop",
+      "label": "Combine Operation",
+      "type": "Menu",
+      "description": "Specify how to combine the output value with the combine attribute value.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "add",
+        "mult"
+      ],
+      "menuLabels": [
+        "None",
+        "Add",
+        "Multiply"
+      ]
+    },
+    {
+      "name": "Combine Entity",
+      "parName": "combineentity",
+      "label": "Combine Entity",
+      "type": "Menu",
+      "description": "Specify which computed value to use for the combine operation.",
+      "isReadOnly": false,
+      "menuItems": [
+        "weight",
+        "signeddistance"
+      ],
+      "menuLabels": [
+        "Weight",
+        "Signed Distance"
+      ]
+    },
+    {
+      "name": "Combine Attribute",
+      "parName": "combineattr",
+      "label": "Combine Attribute",
+      "type": "StrMenu",
+      "description": "Input attribute scope for the combine operation.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Combine Output Attribute",
+      "parName": "combineoutputattr",
+      "label": "Combine Output Attribute",
+      "type": "StrMenu",
+      "description": "Output attribute scope for the combine operation.",
+      "isReadOnly": false,
+      "menuItems": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth"
+      ],
+      "menuLabels": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth"
+      ]
+    },
+    {
+      "name": "Override Automatic Attribute",
+      "parName": "combineoverrideautoattr",
+      "label": "Override Automatic Attribute",
+      "type": "Toggle",
+      "description": "Whether to override the kind of attribute automatically created based on the POP input and parameters. Allows to specify manually the type and number of components of the new attribute.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Attribute Type",
+      "parName": "combineattrtype",
+      "label": "Attribute Type",
+      "type": "Menu",
+      "description": "The combined output attribute's data type, default float.",
+      "isReadOnly": false,
+      "menuItems": [
+        "float",
+        "double",
+        "int",
+        "uint",
+        "color",
+        "dcolor",
+        "dir",
+        "ddir"
+      ],
+      "menuLabels": [
+        "float",
+        "double",
+        "int",
+        "uint",
+        "Color",
+        "Color (double)",
+        "Direction",
+        "Direction (double)"
+      ]
+    },
+    {
+      "name": "Components",
+      "parName": "combineattrnumcomps",
+      "label": "Components",
+      "type": "Menu",
+      "description": "The number of components in the new custom attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "menuLabels": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "name": "Default Value",
+      "parName": "combineattrdefaultval",
+      "label": "Default Value",
+      "type": "Float",
+      "description": "Default values of the output attribute components if they cannot be computed.",
+      "isReadOnly": false,
+      "menuItems": [
+        "combineattrdefaultval0",
+        "combineattrdefaultval1",
+        "combineattrdefaultval2",
+        "combineattrdefaultval3"
+      ],
+      "menuLabels": [
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Field_POP.htm",
+  "parsedAt": "2025-08-08T03:03:55.692Z",
+  "url": "https://docs.derivative.ca/Field_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Field_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Field_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Field_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

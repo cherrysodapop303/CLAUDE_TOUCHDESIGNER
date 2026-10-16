@@ -1,0 +1,216 @@
+{
+  "schemaVersion": "1.0",
+  "description": "Key features and highlights introduced in each major TouchDesigner version",
+  "_provenance": [
+    {
+      "fact": "POPs (Point Operators) are the flagship new operator family in the 2025 official release; first new operator family in over a decade",
+      "url": "https://derivative.ca/community-post/2025-official-update/73153",
+      "quote": "This year's release is quite special with the introduction of a completely new family of operators called Point Operators (POPs)"
+    },
+    {
+      "fact": "POPs are described as the first new operator family in over a decade",
+      "url": "https://derivative.ca/community-post/2025-official-update/73153",
+      "quote": "This is the first new operator family we've added in over a decade"
+    },
+    {
+      "fact": "2025 official release bundles Python 3.11.10",
+      "url": "https://derivative.ca/community-post/2025-official-update/73153",
+      "quote": "TouchDesigner's core python version has been updated to 3.11.10."
+    },
+    {
+      "fact": "POPs run on the GPU and create or modify 3D data (2025.30000 release notes)",
+      "url": "https://docs.derivative.ca/Release_Notes/2025.30000",
+      "quote": "Introducing POPs, aka Point Operators! POPs are a new family of operators that run on the GPU and create or modify 3D data."
+    },
+    {
+      "fact": "Latest 2025 official build is 2025.32820 dated May 06 2026",
+      "url": "https://docs.derivative.ca/Release_Notes/2025.30000",
+      "quote": "Current Official Build 2025.32820 Download - May 06 2026"
+    },
+    {
+      "fact": "Vulkan became the graphics API in 2022 (previously OpenGL)",
+      "url": "https://docs.derivative.ca/Release_Notes/2025.30000",
+      "quote": "The low/medium/high differences did not do anything since the change to Vulkan graphics API in 2022 (previously supported on OpenGL)."
+    },
+    {
+      "fact": "POPs were announced May 19 2024 as a new operator family running on the GPU for manipulating 3D data",
+      "url": "https://derivative.ca/community-post/pops-new-operator-family-touchdesigner/69468",
+      "quote": "Point Operators - POPs - a new set of operators that run on the GPU for manipulating 3D data"
+    },
+    {
+      "fact": "With the 2022 release OpenGL was removed and Vulkan became TouchDesigner's graphics API",
+      "url": "https://derivative.ca/community-post/2022-official-update/66222",
+      "quote": "The openGL engine used for the last 20 years is gone and TouchDesigner's graphics API is now Vulkan."
+    },
+    {
+      "fact": "2022 official release upgraded core Python to 3.9.5",
+      "url": "https://derivative.ca/community-post/2022-official-update/66222",
+      "quote": "Beginning with an upgrade of TouchDesigner's core python to version 3.9.5."
+    },
+    {
+      "fact": "In the 2021.38110 experimental build Python was updated to 3.9.5 from the previous 3.7.2",
+      "url": "https://derivative.ca/release/experimental-202138110/65595",
+      "quote": "The version of Python in TouchDesigner has been updated to 3.9.5. The previous version was Python 3.7.2."
+    },
+    {
+      "fact": "In the 2021.38110 experimental build Vulkan became the graphics API and OpenGL was retired",
+      "url": "https://derivative.ca/release/experimental-202138110/65595",
+      "quote": "TouchDesigner's graphics API is now Vulkan, openGL has been retired."
+    },
+    {
+      "fact": "The 2023 series introduced the NVIDIA Upscaler/Background/Denoise TOP operators",
+      "url": "https://docs.derivative.ca/Release_Notes/2023.10000",
+      "quote": "Nvidia Upscaler TOP / Nvidia Background TOP / Nvidia Denoise TOP"
+    },
+    {
+      "fact": "The 2023 series runs Python 3.11",
+      "url": "https://docs.derivative.ca/Release_Notes/2023.10000",
+      "quote": "Python 3.11"
+    },
+    {
+      "fact": "USD COMP exists in the 2022.20000 series release notes",
+      "url": "https://docs.derivative.ca/Release_Notes/2022.20000",
+      "quote": "USD COMP - Fixed a crash that could occur when importing geometry."
+    },
+    {
+      "fact": "Engine COMP exists in the 2022.20000 series release notes",
+      "url": "https://docs.derivative.ca/Release_Notes/2022.20000",
+      "quote": "Engine COMP - Fixed an error when an expired paid license was present while running in Non-Commercial mode."
+    },
+    {
+      "fact": "Official build series jump from 2023 directly to 2025; no 2024 official series exists; latest 2025 build is 2025.32820 (06 May 2026)",
+      "url": "https://derivative.ca/download/archive",
+      "quote": "2025.32820"
+    }
+  ],
+  "releases": {
+    "099": {
+      "label": "TouchDesigner 099",
+      "releaseYear": 2017,
+      "theme": "Modern Python 3 integration and GPU shader pipeline",
+      "highlights": [
+        "Python 3 integration — first modern Python in TouchDesigner",
+        "GLSL shader operators: GLSL TOP, GLSL MAT",
+        "Script CHOP/DAT/SOP/TOP for building custom operators in Python",
+        "Replicator COMP for dynamic operator creation",
+        "Web Server DAT for HTTP communication"
+      ],
+      "newOperators": ["GLSL TOP", "GLSL MAT", "Web Server DAT"],
+      "pythonHighlights": [
+        "op(), me, parent() globals available in all scripts",
+        "Execute DAT for event-driven scripting",
+        "Script CHOP/DAT/SOP/TOP for custom operators"
+      ],
+      "breakingChanges": []
+    },
+    "2019": {
+      "label": "TouchDesigner 2019",
+      "releaseYear": 2019,
+      "theme": "Python 3.7, NDI networking, and the extension system",
+      "highlights": [
+        "Python upgraded to 3.7 — asyncio, dataclasses, f-strings",
+        "NDI In TOP and NDI Out TOP for network video",
+        "Extension system for custom Python classes per component"
+      ],
+      "newOperators": ["NDI In TOP", "NDI Out TOP"],
+      "pythonHighlights": [
+        "Python 3.7: asyncio for async/await coroutines",
+        "Python 3.7: dataclasses decorator",
+        "Python 3.7: f-string literals",
+        "ext object for extension access",
+        "mod object to import DATs as Python modules"
+      ],
+      "breakingChanges": []
+    },
+    "2020": {
+      "label": "TouchDesigner 2020",
+      "releaseYear": 2020,
+      "theme": "NumPy GPU/data access, Web Render, and color management",
+      "highlights": [
+        "Web Render TOP — embedded Chromium browser as a texture",
+        "OpenColorIO TOP for professional color management",
+        "NumPy array access for CHOP, TOP, and SOP data"
+      ],
+      "newOperators": ["Web Render TOP", "OpenColorIO TOP"],
+      "pythonHighlights": [
+        "CHOP.numpyArray() and CHOP.numpySamples() for fast array access",
+        "TOP.numpyArray() for pixel data access",
+        "passive() to read operators without forcing a cook"
+      ],
+      "breakingChanges": []
+    },
+    "2021": {
+      "label": "TouchDesigner 2021",
+      "releaseYear": 2021,
+      "theme": "Last OpenGL-era stable; Python 3.9 and Vulkan arrive in the experimental branch",
+      "highlights": [
+        "Stable 2021 official release shipped with Python 3.7.2",
+        "Python 3.9.5 arrived later in the 2021 EXPERIMENTAL build 2021.38110 (became official in the 2022 release)",
+        "Vulkan replaced OpenGL as the graphics API in the same 2021.38110 experimental build, paving the way for the 2022 release"
+      ],
+      "newOperators": [],
+      "pythonHighlights": [
+        "Official 2021 release runs Python 3.7.2",
+        "Experimental build 2021.38110 introduced Python 3.9.5 (dict union operators, built-in generic type hints, removeprefix/removesuffix)"
+      ],
+      "breakingChanges": []
+    },
+    "2022": {
+      "label": "TouchDesigner 2022",
+      "releaseYear": 2022,
+      "theme": "Vulkan-only graphics, Python 3.9, USD COMP and Engine COMP",
+      "highlights": [
+        "Vulkan became the sole graphics API — the OpenGL engine used for the prior 20 years was removed",
+        "Core Python upgraded to 3.9.5",
+        "USD COMP for Universal Scene Description workflows",
+        "Engine COMP for isolated execution contexts (TouchEngine)"
+      ],
+      "newOperators": ["USD COMP", "Engine COMP"],
+      "pythonHighlights": [
+        "Python 3.9.5 as the bundled core Python",
+        "Python 3.9: dict union operators (| and |=)",
+        "Python 3.9: built-in generics for type hints (list[int], dict[str, int])",
+        "Python 3.9: removeprefix() / removesuffix() string methods"
+      ],
+      "breakingChanges": [
+        "OpenGL was removed; Vulkan is now the only graphics API, which may affect projects relying on OpenGL-specific behavior"
+      ]
+    },
+    "2023": {
+      "label": "TouchDesigner 2023",
+      "releaseYear": 2023,
+      "theme": "Python 3.11 performance and NVIDIA AI TOPs",
+      "highlights": [
+        "Python upgraded to 3.11",
+        "NVIDIA Background TOP for AI-powered background removal",
+        "NVIDIA Denoise TOP for real-time AI denoising",
+        "NVIDIA Upscaler TOP for performance upscaling"
+      ],
+      "newOperators": ["NVIDIA Background TOP", "NVIDIA Denoise TOP", "NVIDIA Upscaler TOP"],
+      "pythonHighlights": [
+        "Python 3.11: faster execution across most workloads",
+        "Python 3.11: exception groups and except* syntax",
+        "Python 3.11: improved error messages with precise locations"
+      ],
+      "breakingChanges": [
+        "NVIDIA AI operators require an RTX-class GPU"
+      ]
+    },
+    "2025": {
+      "label": "TouchDesigner 2025",
+      "releaseYear": 2025,
+      "theme": "Point Operators (POPs) flagship and Python 3.11.10",
+      "highlights": [
+        "Point Operators (POPs) introduced — a completely new family of operators and the first new operator family in over a decade",
+        "POPs run on the GPU and create or modify 3D data",
+        "Core Python updated to 3.11.10",
+        "Vulkan remains the graphics API (OpenGL was removed back in the 2022 release)"
+      ],
+      "newOperators": ["POPs (Point Operators)"],
+      "pythonHighlights": [
+        "Core Python version updated to 3.11.10"
+      ],
+      "breakingChanges": []
+    }
+  }
+}

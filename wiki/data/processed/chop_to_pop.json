@@ -1,0 +1,247 @@
+{
+  "name": "CHOP to POP",
+  "id": "chop_to_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The CHOP to POP takes CHOP channels and lets you convert them to attributes of a POP. Each CHOP sample becomes one POP point. You can manually list the CHOP channels you want to convert, and then list the names of the POP attributes you want create, matching channels to attributes one by one. Built-in attributes like <code>P</code>, <code>N</code>, <code>Color</code> and <code>Tex</code> are assumed to be their multi-component forms. Other channel names will be assumed to be converted to scalar float attributes. Channel to attribute mapping can be done through sequential blocks which give you more control over the type of attribute you create, for example, an array of 5 integers. Alternately, channels can be automatically converted to attributes based on a naming standard. Set the Channels Selection menu to Autoconvert Precise Names. This is the same channel naming standard that [[POP to CHOP]] produces when POP to CHOP's Name Format menu is set to Precise, which handles attributes that have <code>()</code> and <code>[]</code>: * the attribute name is the same including maintaining capital letters * components of a vector attribute have <code>_0 _1 _2</code> suffixed i.e. <code>Tex_0 Tex_1 Tex_2</code> * [[Array Attribute]]s are create with channel names with a leading-following underscore - <code>MyArray_0_</code>. For example, channel names A<code>bc_0_</code> and <code>Abc_1_</code> create an array attribute named <code>Abc</code> with 2 float elements. * for vector arrays <code>MyVectorArray_0_1</code>. * The channel name optionally has a single character at the end to signify data type: <code>f</code> (float), <code>F</code> (double), <code>i</code> int, <code>I</code> double int, <code>u</code> unsigned, <code>U</code> double unsigned. You can get the <code>P</code> position attribute from the CHOP, or you can create your own line for <code>P</code> with a start-end position that you specify. The POP points can be connected as an open or closed linestrip, or be created as single-point primitives, or have no primitives. You can override the number of points that it produces and CHOP to POP will optionally interpolate from samples of the input. See also [[POP to CHOP]]",
+  "parameters": [
+    {
+      "name": "CHOP",
+      "parName": "chop",
+      "label": "CHOP",
+      "type": "CHOP",
+      "description": "The CHOP to convert to POP attributes.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Connectivity",
+      "parName": "surftype",
+      "label": "Connectivity",
+      "type": "Menu",
+      "description": "Determines the primitive used to connect the points.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "points",
+        "linestrip",
+        "lines"
+      ],
+      "menuLabels": [
+        "None",
+        "Point Primitives",
+        "Line Strip",
+        "Lines"
+      ]
+    },
+    {
+      "name": "Override Number of Points",
+      "parName": "overridenumpoints",
+      "label": "Override Number of Points",
+      "type": "Toggle",
+      "description": "When on, overrides the number of points to create.",
+      "isReadOnly": false,
+      "menuItems": [
+        "overridenumpoints",
+        "numpoints"
+      ],
+      "menuLabels": [
+        "Override Number of Points",
+        "Number of Points"
+      ]
+    },
+    {
+      "name": "Interpolate",
+      "parName": "interpolate",
+      "label": "Interpolate",
+      "type": "Toggle",
+      "description": "When on, the CHOP can be interpolated between samples. When off, the nearest sample is used. Only when the POP is set to a different number of points than samples.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Specify Position",
+      "parName": "specifypos",
+      "label": "Specify Position",
+      "type": "Toggle",
+      "description": "Enable mapping the samples to a points positions range.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Start Position",
+      "parName": "startpos",
+      "label": "Start Position",
+      "type": "XYZW",
+      "description": "Start position for samples mapped to a points positions range.",
+      "isReadOnly": false,
+      "menuItems": [
+        "startposx",
+        "startposy",
+        "startposz"
+      ],
+      "menuLabels": [
+        "Start Position",
+        "Start Position",
+        "Start Position"
+      ]
+    },
+    {
+      "name": "End Position",
+      "parName": "endpos",
+      "label": "End Position",
+      "type": "XYZW",
+      "description": "End position for samples mapped to a points positions range.",
+      "isReadOnly": false,
+      "menuItems": [
+        "endposx",
+        "endposy",
+        "endposz"
+      ],
+      "menuLabels": [
+        "End Position",
+        "End Position",
+        "End Position"
+      ]
+    },
+    {
+      "name": "Closed",
+      "parName": "closed",
+      "label": "Closed",
+      "type": "Toggle",
+      "description": "The last vertex is connected to the first vertex.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Channels Selection",
+      "parName": "chanssel",
+      "label": "Channels Selection",
+      "type": "Menu",
+      "description": "Channels can be automatically converted to attributes based on a naming standard.",
+      "isReadOnly": false,
+      "menuItems": [
+        "spec",
+        "precisenamessuffix",
+        "precisenames"
+      ],
+      "menuLabels": [
+        "Specify Channels",
+        "Autoconvert Precise Names with Type Suffix",
+        "Autoconvert Precise Names"
+      ]
+    },
+    {
+      "name": "Channel Scope",
+      "parName": "chanscope",
+      "label": "Channel Scope",
+      "type": "StrMenu",
+      "description": "Pattern of channel names to convert to attribute point values.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Attribute Scope",
+      "parName": "attrscope",
+      "label": "Attribute Scope",
+      "type": "StrMenu",
+      "description": "A list of attributes to be created according to the channel scope.",
+      "isReadOnly": false,
+      "menuItems": [
+        "P",
+        "P(0)",
+        "P(1)",
+        "P(2)",
+        "Color",
+        "Color(0)",
+        "Color(1)",
+        "Color(2)",
+        "Color(3)",
+        "N",
+        "N(0)",
+        "N(1)",
+        "N(2)",
+        "Tex",
+        "Tex(0)",
+        "Tex(1)",
+        "Tex(2)"
+      ],
+      "menuLabels": [
+        "P",
+        "P(0)",
+        "P(1)",
+        "P(2)",
+        "Color",
+        "Color(0)",
+        "Color(1)",
+        "Color(2)",
+        "Color(3)",
+        "N",
+        "N(0)",
+        "N(1)",
+        "N(2)",
+        "Tex",
+        "Tex(0)",
+        "Tex(1)",
+        "Tex(2)"
+      ]
+    },
+    {
+      "name": "Attributes",
+      "parName": "attrs",
+      "label": "Attributes",
+      "type": "StrMenu",
+      "description": "Attributes to create when matching channels are found in the CHOP.",
+      "isReadOnly": false
+    },
+    {
+      "name": "New Attribute",
+      "parName": "attr",
+      "label": "New Attribute",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to create new attributes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "attr0name",
+        "attr0customname",
+        "attr0type",
+        "attr0numcomps",
+        "attr0defaultval0",
+        "attr0defaultval1",
+        "attr0defaultval2",
+        "attr0defaultval3"
+      ],
+      "menuLabels": [
+        "New Attribute Name",
+        "Custom Name",
+        "Attribute Type",
+        "Components",
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-CHOP_to_POP.htm",
+  "parsedAt": "2025-08-08T03:03:54.653Z",
+  "url": "https://docs.derivative.ca/CHOP_to_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=CHOP_to_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live CHOP_to_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=CHOP_to_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

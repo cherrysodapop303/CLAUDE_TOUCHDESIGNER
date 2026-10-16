@@ -1,0 +1,109 @@
+{
+  "name": "Cache Blend POP",
+  "id": "cache_blend_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Cache Blend POP takes a reference to a [[Cache POP]] and outputs a blend of its cached data sets based on a Cache Index parameter and the Cache Weight parameter of the each of the sequential blocks. The blend is done on each point separately, so the results of one point is not affected by any other point. This is useful for doing time-blurs of geometry data, and calculating slope or speed of a point (assuming the number of points in the input is not changing). A Cache Index value of 0 blends the Cache POP's current frame's data, -1 blends in its previous cached data (the second newest set), and so on. The weights are normalized. See also: [[Cache POP]], [[Cache Select POP]], [[Blend POP]]",
+  "parameters": [
+    {
+      "name": "Cache POP",
+      "parName": "cachepop",
+      "label": "Cache POP",
+      "type": "POP",
+      "description": "The Cache POP to retrieve from.",
+      "isReadOnly": false
+    },
+    {
+      "name": "CHOP",
+      "parName": "chop",
+      "label": "CHOP",
+      "type": "CHOP",
+      "description": "Weight and index can be channels of a CHOP versus being parameters.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Index Channel",
+      "parName": "indexchan",
+      "label": "Index Channel",
+      "type": "StrMenu",
+      "description": "Name of the channel to use for cache index when using a CHOP.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Index Channel Unit",
+      "parName": "indexchanunit",
+      "label": "Index Channel Unit",
+      "type": "Menu",
+      "description": "Unit of the index channel when using a CHOP.",
+      "isReadOnly": false,
+      "menuItems": [
+        "indices",
+        "frames",
+        "seconds"
+      ],
+      "menuLabels": [
+        "I",
+        "F",
+        "S"
+      ]
+    },
+    {
+      "name": "Weight Channel",
+      "parName": "weightchan",
+      "label": "Weight Channel",
+      "type": "StrMenu",
+      "description": "Specifies the channel that contains weight values.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Interpolate Frames",
+      "parName": "interp",
+      "label": "Interpolate Frames",
+      "type": "Toggle",
+      "description": "When on the selected index can interpolate between the cached frames if each snapshot has the same number of points. Otherwise, the nearest cached frame is used.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Cache",
+      "parName": "cache",
+      "label": "Cache",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for managing weights and index of POPs in the cache.",
+      "isReadOnly": false,
+      "menuItems": [
+        "cache0index",
+        "cache0indexunit"
+      ],
+      "menuLabels": [
+        "Cache Index",
+        "Cache Index Unit"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Cache_Blend_POP.htm",
+  "parsedAt": "2025-08-08T03:03:54.445Z",
+  "url": "https://docs.derivative.ca/Cache_Blend_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Cache_Blend_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Cache_Blend_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Cache_Blend_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "name": "Revolve POP",
+  "id": "revolve_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Revolve POP generates a surface of revolution from any set of line strips. The points of the line strip are swept around a chosen axis, generating a mesh of points that are connected together according to the Connectivity menu. The default Connectivity is quads, suitable for surface rendering, but the mesh can be connected as line strips in either direction, or simply unconnected points. The axis can be the X Y or Z axis, but the default axis is formed by the first and last point of the line strip. (Auto-Pivot on) Each line strip generates its own surface of revolution.",
+  "parameters": [
+    {
+      "name": "Axis",
+      "parName": "axis",
+      "label": "Axis",
+      "type": "Menu",
+      "description": "The axis around which to revolve the input curve to create the output geometry.",
+      "isReadOnly": false,
+      "menuItems": [
+        "auto",
+        "x",
+        "y",
+        "z"
+      ],
+      "menuLabels": [
+        "Auto",
+        "X",
+        "Y",
+        "Z"
+      ]
+    },
+    {
+      "name": "Auto Pivot",
+      "parName": "autopivot",
+      "label": "Auto Pivot",
+      "type": "Toggle",
+      "description": "Make the pivot axis be the line between the first point and the last point for each line strip.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Pivot",
+      "parName": "p",
+      "label": "Pivot",
+      "type": "XYZW",
+      "description": "The pivot point for the transform rotates and scales.",
+      "isReadOnly": false,
+      "menuItems": [
+        "px",
+        "py",
+        "pz"
+      ],
+      "menuLabels": [
+        "Pivot",
+        "Pivot",
+        "Pivot"
+      ]
+    },
+    {
+      "name": "Connectivity",
+      "parName": "surftype",
+      "label": "Connectivity",
+      "type": "Menu",
+      "description": "Determines the primitive used to connect the points.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "points",
+        "rows",
+        "cols",
+        "rowcol",
+        "triangles",
+        "alttriangles",
+        "quads"
+      ],
+      "menuLabels": [
+        "None",
+        "Point Prims",
+        "Rows",
+        "Columns",
+        "Rows and Columns",
+        "Triangles",
+        "Alternating Triangles",
+        "Quadrilaterals"
+      ]
+    },
+    {
+      "name": "Divisions",
+      "parName": "divs",
+      "label": "Divisions",
+      "type": "Int",
+      "description": "The number of divisions.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Texture Coordinates",
+      "parName": "texture",
+      "label": "Texture Coordinates",
+      "type": "Menu",
+      "description": "Sets the attribute class where the texture coordinates should be created.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "pointNormals",
+        "vertNormals"
+      ],
+      "menuLabels": [
+        "None",
+        "Point",
+        "Vertex"
+      ]
+    },
+    {
+      "name": "Normal",
+      "parName": "normal",
+      "label": "Normal",
+      "type": "Menu",
+      "description": "Choose whether to create a normal attribute and the attribute class of the normal attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "pointNormals",
+        "vertNormals"
+      ],
+      "menuLabels": [
+        "None",
+        "Point",
+        "Vertex"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Revolve_POP.htm",
+  "parsedAt": "2025-08-08T03:03:59.474Z",
+  "url": "https://docs.derivative.ca/Revolve_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Revolve_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Revolve_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Revolve_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "name": "@bottobot/td-mcp",
+  "version": "3.0.0",
+  "description": "TouchDesigner MCP Server v3.0.0 - 21 MCP tools, 661 operators with verified parameter data, 214 Python API classes, 14 tutorials, 32 workflow patterns. Up to date with TouchDesigner 2025 (Python 3.11.10) and the 2025.30000 experimental series, including the POP (Point Operator) family. Version system, experimental techniques KB, core tool enhancements, and experimental build support. Zero-configuration setup for VS Code/Codium.",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "td-mcp": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "touchdesigner",
+    "documentation",
+    "derivative",
+    "vscode",
+    "codium",
+    "operators",
+    "workflow",
+    "chop",
+    "top",
+    "sop",
+    "dat",
+    "mat",
+    "comp",
+    "pop"
+  ],
+  "author": "Robert Spring",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bottobot/touchdesigner-mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bottobot/touchdesigner-mcp-server/issues"
+  },
+  "homepage": "https://github.com/bottobot/touchdesigner-mcp-server#readme",
+  "files": [
+    "index.js",
+    "tools/",
+    "td-bridge/",
+    "data/",
+    "wiki/operator-data-manager.js",
+    "wiki/operator-data-python-api.js",
+    "wiki/models/",
+    "wiki/utils/",
+    "wiki/processor/",
+    "wiki/data/",
+    "README.md",
+    "CHANGELOG.md",
+    "SETUP-INSTRUCTIONS.md"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "cheerio": "^1.1.2",
+    "zod": "^3.25.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

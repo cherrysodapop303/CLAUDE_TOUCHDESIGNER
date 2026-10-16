@@ -1,0 +1,149 @@
+{
+  "name": "Histogram POP",
+  "id": "histogram_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Histogram POP takes an attribute from its input, creates an output with one attribute (Count attribute) and a specified number of points (Number of Bins parameter), and for each input point, adds 1 to one of the bins. This gives a \"frequency distribution\". It divides the entire range of values (Input Range parameter) into a series of intervals, and then counts how many values fall into each interval (bin). Values of the input that are outside the lower and upper range of the bins can be ignored, clamped to the min or max, or added to two extra bins that count values out of range. It can also output the interval start values into a separate attribute <code>BinValue</code>. By it nature, it works on a single component of a vector attribute, such as <code>P(1)</code>. You may want to first convert a vector to a float using length() in an Math POP. You can histogram point attributes or primitive attributes. The result is often viewed with a [[POP to CHOP]], or with the popViewer component which can show an attribute as a graph. The Histogram POP takes all the values of a single component attribute, for example <code>P(1)</code> and for each input point, adds 1 to a bin of the output. The output has N bins which is actually N points with one attribute <code>Count</code>. The user specifies the value that the first bin represents, and the value that the last bin represents, and using N, the Histogram POP determines the low and high values represented by each bin. Count starts at 0 for all bins, and the appropriate bin gets incremented by 1 for each input points. See also: [[Accumulate POP]], [[Analyze POP]], [[ReRange POP]]",
+  "parameters": [
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Input Attribute Scope",
+      "parName": "inputattrscope",
+      "label": "Input Attribute Scope",
+      "type": "StrMenu",
+      "description": "Scalar input attribute or vector attribute component.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Use Input Range",
+      "parName": "useinputrange",
+      "label": "Use Input Range",
+      "type": "Toggle",
+      "description": "Specify teh range of the input attribute values. Default range is 0 to the number of bins.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Input Range",
+      "parName": "inputrange",
+      "label": "Input Range",
+      "type": "Float",
+      "description": "When used, the input range gets divided in to Number of Bins.",
+      "isReadOnly": false,
+      "menuItems": [
+        "inputrange1",
+        "inputrange2",
+        "inputrangemin",
+        "inputrangemax"
+      ],
+      "menuLabels": [
+        "Input Range",
+        "Input Range",
+        "Input Range",
+        "Input Range"
+      ]
+    },
+    {
+      "name": "Output Bin Value",
+      "parName": "outputbinval",
+      "label": "Output Bin Value",
+      "type": "Toggle",
+      "description": "Whether to output a separate attribute with the bin values, when using an input range.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Quantize",
+      "parName": "quantize",
+      "label": "Quantize",
+      "type": "Menu",
+      "description": "Convert values into a finite set of discrete levels.",
+      "isReadOnly": false,
+      "menuItems": [
+        "floor",
+        "round",
+        "ceiling"
+      ],
+      "menuLabels": [
+        "Floor",
+        "Round",
+        "Ceiling"
+      ]
+    },
+    {
+      "name": "Outside Range",
+      "parName": "outsiderange",
+      "label": "Outside Range",
+      "type": "Menu",
+      "description": "Determines the behavior outside the input range.",
+      "isReadOnly": false,
+      "menuItems": [
+        "clamp",
+        "discard",
+        "extrabins"
+      ],
+      "menuLabels": [
+        "Clamp",
+        "Discard",
+        "Extra Out-of-Range Bins"
+      ]
+    },
+    {
+      "name": "Number of Bins",
+      "parName": "numbins",
+      "label": "Number of Bins",
+      "type": "Int",
+      "description": "The number of bins to sort the attribute values in.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Count Attribute",
+      "parName": "countattr",
+      "label": "Count Attribute",
+      "type": "Str",
+      "description": "Sets the attribute scope when outputting the count attribute",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Histogram_POP.htm",
+  "parsedAt": "2025-08-08T03:03:56.415Z",
+  "url": "https://docs.derivative.ca/Histogram_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Histogram_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Histogram_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Histogram_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

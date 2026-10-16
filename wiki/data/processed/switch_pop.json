@@ -1,0 +1,135 @@
+{
+  "name": "Switch POP",
+  "id": "switch_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Switch POP lets you choose one of the inputs, and outputs the input unchanged. The number of points, vertices and primitives of all of the inputs can be different. It uses a numeric parameter, Index, to choose the input, with 0 referring to the first input. If Index is fractional - a non-integer, it can blend two inputs: If the inputs have the same number of points, vertices and primitives, they can be blended, two adjacent inputs at a time. Tip: Since it blends only adjacent inputs (input N with input N+1 or N-1), to blend from the last input to the first input, attach the first input again as the last input, and use CHOPs to loop from 0 to number-of-inputs snap back to 0 when Index reaches number-of-inputs. If Index is out of range, it clamps. See the Blend POP to blend arbitrary combinations of inputs. The Switch POP's architecture for handling multiple inputs is similar to the [[Attribute Combine POP]].",
+  "parameters": [
+    {
+      "name": "Index",
+      "parName": "index",
+      "label": "Index",
+      "type": "Float",
+      "description": "Input index to output.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Extend",
+      "parName": "extend",
+      "label": "Extend",
+      "type": "Menu",
+      "description": "Determines what to do when the index exceeds the number of inputs. Allows for negative indices.",
+      "isReadOnly": false,
+      "menuItems": [
+        "clamp",
+        "loop",
+        "zigzag"
+      ],
+      "menuLabels": [
+        "Clamp",
+        "Loop",
+        "ZigZag"
+      ]
+    },
+    {
+      "name": "Blend between Inputs",
+      "parName": "blend",
+      "label": "Blend between Inputs",
+      "type": "Toggle",
+      "description": "Blends the input POPs attributes when using floating point numbers in the index parameter.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Length Mismatch",
+      "parName": "lengthmismatchnotif",
+      "label": "Length Mismatch",
+      "type": "Menu",
+      "description": "Length mis-match motification action.",
+      "isReadOnly": false,
+      "menuItems": [
+        "lengthmismatchnotif",
+        "lengthmismatchaction"
+      ],
+      "menuLabels": [
+        "Length Mismatch",
+        "Length Mismatch Action"
+      ]
+    },
+    {
+      "name": "Point Attribute Scope",
+      "parName": "pointattrscope",
+      "label": "Point Attribute Scope",
+      "type": "StrMenu",
+      "description": "The Point attribute scope to blend.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Primitive Attribute Scope",
+      "parName": "primattrscope",
+      "label": "Primitive Attribute Scope",
+      "type": "StrMenu",
+      "description": "The Primitive attribute scope to blend.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Vertex Attribute Scope",
+      "parName": "vertattrscope",
+      "label": "Vertex Attribute Scope",
+      "type": "StrMenu",
+      "description": "The Vertex attribute scope to blend.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Input",
+      "parName": "input",
+      "label": "Input",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks managing the inputs of the POP.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Switch_POP.htm",
+  "parsedAt": "2025-08-08T03:04:00.157Z",
+  "url": "https://docs.derivative.ca/Switch_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Switch_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Switch_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Switch_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

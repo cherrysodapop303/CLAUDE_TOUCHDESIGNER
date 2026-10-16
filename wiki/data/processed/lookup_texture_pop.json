@@ -1,0 +1,389 @@
+{
+  "name": "Lookup Texture POP",
+  "id": "lookup_texture_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Lookup Texture POP in its simplest form takes two attributes (the Lookup Attribute U and the Lookup Attribute V) with values in the 0-1 range and for each point, uses the attribute value as an index into the pixels of a TOP, pulling the four RGBA values, and placing those values into POP attributes. If the U index is 0, it pulls values from the first column of the TOP, and if the index is 1 it pulls from the last column of the TOP. If the Lookup Index Units menu is set to Pixel Index, The lookup index can be expressed as pixel number, going from 0 to imagewidth-1. If the index is out of range, the Extend Left and Right menus determine what to do to the index before doing the lookup, such as holding it at 0 or 1, or cycling the value between 0 and 1. The Output Attribute Scope parameter determine what to do with each of the RGBA pixel values when they are retrieved - you can re-range the value before putting it in the specified output attribute. You can lookup into a 3D texture TOP by including an attribute component name in the Lookup Attribute W parameter. See also [[Lookup Attribute POP]], [[Lookup Channel POP]], [[Curve POP]] (Lookup page)",
+  "parameters": [
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Group",
+      "parName": "group",
+      "label": "Group",
+      "type": "StrMenu",
+      "description": "If there are input groups, specifying a group name in this field will cause this POP to act only upon the group specified.",
+      "isReadOnly": false
+    },
+    {
+      "name": "TOP",
+      "parName": "top",
+      "label": "TOP",
+      "type": "TOP",
+      "description": "TOP to use for lookup.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Lookup Index Units",
+      "parName": "indexunit",
+      "label": "Lookup Index Units",
+      "type": "Menu",
+      "description": "Units for lookup index attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "indexunit0",
+        "indexunit1",
+        "indexunit2"
+      ],
+      "menuLabels": [
+        "Lookup Index Units",
+        "Lookup Index Units",
+        "Lookup Index Units"
+      ]
+    },
+    {
+      "name": "Pixel Centered Sampling Location",
+      "parName": "pixelcentered",
+      "label": "Pixel Centered Sampling Location",
+      "type": "Toggle",
+      "description": "Enable input remapping to sample pixels centers.",
+      "isReadOnly": false,
+      "menuItems": [
+        "pixelcentered0",
+        "pixelcentered1",
+        "pixelcentered2"
+      ],
+      "menuLabels": [
+        "Pixel Centered Sampling Location",
+        "Pixel Centered Sampling Location",
+        "Pixel Centered Sampling Location"
+      ]
+    },
+    {
+      "name": "Cyclic Index",
+      "parName": "cyclic",
+      "label": "Cyclic Index",
+      "type": "Toggle",
+      "description": "When enabled, the index wraps so the end connects back to the start, letting the full range map evenly across the cycle.",
+      "isReadOnly": false,
+      "menuItems": [
+        "cyclic0",
+        "cyclic1",
+        "cyclic2"
+      ],
+      "menuLabels": [
+        "Cyclic Index",
+        "Cyclic Index",
+        "Cyclic Index"
+      ]
+    },
+    {
+      "name": "Input Extend Mode",
+      "parName": "inputextend",
+      "label": "Input Extend Mode",
+      "type": "Menu",
+      "description": "What happens when the lookup index attribute is outside of the valid range (0 to 1 for normalized, 0 to numPixels-1 for Pixel Index)",
+      "isReadOnly": false,
+      "menuItems": [
+        "inputextend0",
+        "inputextend1",
+        "inputextend2"
+      ],
+      "menuLabels": [
+        "Input Extend Mode",
+        "Input Extend Mode",
+        "Input Extend Mode"
+      ]
+    },
+    {
+      "name": "Interpolate",
+      "parName": "interpolate",
+      "label": "Interpolate",
+      "type": "Toggle",
+      "description": "When on, the TOP can be interpolated between pixels. When off, the nearest pixel used.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Use Depth Offset",
+      "parName": "usedepthoffset",
+      "label": "Use Depth Offset",
+      "type": "Toggle",
+      "description": "Enable using the texture's depth offset for Texture 3D TOPs.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Channel Mask",
+      "parName": "channelmask",
+      "label": "Channel Mask",
+      "type": "Menu",
+      "description": "Allows to choose which color channels to sample in the TOP.",
+      "isReadOnly": false
+    },
+    {
+      "name": "From Low",
+      "parName": "fromlow",
+      "label": "From Low",
+      "type": "Float",
+      "description": "Reranges the index attribute value.",
+      "isReadOnly": false,
+      "menuItems": [
+        "fromlow0",
+        "fromlow1",
+        "fromlow2",
+        "fromlow3"
+      ],
+      "menuLabels": [
+        "From Low",
+        "From Low",
+        "From Low",
+        "From Low"
+      ]
+    },
+    {
+      "name": "From High",
+      "parName": "fromhigh",
+      "label": "From High",
+      "type": "Float",
+      "description": "Reranges the value resulting from the lookup.",
+      "isReadOnly": false,
+      "menuItems": [
+        "fromhigh0",
+        "fromhigh1",
+        "fromhigh2",
+        "fromhigh3"
+      ],
+      "menuLabels": [
+        "From High",
+        "From High",
+        "From High",
+        "From High"
+      ]
+    },
+    {
+      "name": "To Low",
+      "parName": "tolow",
+      "label": "To Low",
+      "type": "Float",
+      "description": "Sets low value on the output range.",
+      "isReadOnly": false,
+      "menuItems": [
+        "tolow0",
+        "tolow1",
+        "tolow2",
+        "tolow3"
+      ],
+      "menuLabels": [
+        "To Low",
+        "To Low",
+        "To Low",
+        "To Low"
+      ]
+    },
+    {
+      "name": "To High",
+      "parName": "tohigh",
+      "label": "To High",
+      "type": "Float",
+      "description": "Sets high value on the output range.",
+      "isReadOnly": false,
+      "menuItems": [
+        "tohigh0",
+        "tohigh1",
+        "tohigh2",
+        "tohigh3"
+      ],
+      "menuLabels": [
+        "To High",
+        "To High",
+        "To High",
+        "To High"
+      ]
+    },
+    {
+      "name": "Output Attribute Scope",
+      "parName": "outputattrscope",
+      "label": "Output Attribute Scope",
+      "type": "StrMenu",
+      "description": "Name of attribute to output (can choose components of attribute), can choose from menu.",
+      "isReadOnly": false,
+      "menuItems": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth"
+      ],
+      "menuLabels": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth"
+      ]
+    },
+    {
+      "name": "Override Automatic Attribute",
+      "parName": "overrideautoattr",
+      "label": "Override Automatic Attribute",
+      "type": "Toggle",
+      "description": "Whether to override the kind of attribute automatically created based on the POP input and parameters. Allows to specify manually the type and number of components of the new attribute.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Attribute Type",
+      "parName": "attrtype",
+      "label": "Attribute Type",
+      "type": "Menu",
+      "description": "The output attribute's data type, default float.",
+      "isReadOnly": false,
+      "menuItems": [
+        "float",
+        "double",
+        "int",
+        "uint",
+        "color",
+        "dcolor",
+        "dir",
+        "ddir"
+      ],
+      "menuLabels": [
+        "float",
+        "double",
+        "int",
+        "uint",
+        "Color",
+        "Color (double)",
+        "Direction",
+        "Direction (double)"
+      ]
+    },
+    {
+      "name": "Components",
+      "parName": "attrnumcomps",
+      "label": "Components",
+      "type": "Menu",
+      "description": "The number of components in the new custom attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "menuLabels": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "name": "Default Value",
+      "parName": "attrdefaultval",
+      "label": "Default Value",
+      "type": "Float",
+      "description": "Default values of the output attribute components if they cannot be computed.",
+      "isReadOnly": false,
+      "menuItems": [
+        "attrdefaultval0",
+        "attrdefaultval1",
+        "attrdefaultval2",
+        "attrdefaultval3"
+      ],
+      "menuLabels": [
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    },
+    {
+      "name": "Lookup Index Attribute U",
+      "parName": "lookupindexattr0",
+      "label": "Lookup Index Attribute U",
+      "type": "StrMenu",
+      "description": "Attribute to use as the index for the U coordinate of the lookup.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Lookup Index Attribute V",
+      "parName": "lookupindexattr1",
+      "label": "Lookup Index Attribute V",
+      "type": "StrMenu",
+      "description": "Attribute to use as the index for the V coordinate of the lookup.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Lookup Index Attribute W",
+      "parName": "lookupindexattr2",
+      "label": "Lookup Index Attribute W",
+      "type": "StrMenu",
+      "description": "Attribute to use as the index for the W coordinate of the lookup.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Lookup Index Offset",
+      "parName": "lookupindexoffset",
+      "label": "Lookup Index Offset",
+      "type": "Float",
+      "description": "Offset for the lookup index.",
+      "isReadOnly": false,
+      "menuItems": [
+        "lookupindexoffset0",
+        "lookupindexoffset1",
+        "lookupindexoffset2"
+      ],
+      "menuLabels": [
+        "Lookup Index Offset",
+        "Lookup Index Offset",
+        "Lookup Index Offset"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Lookup_Texture_POP.htm",
+  "parsedAt": "2025-08-08T03:03:57.175Z",
+  "url": "https://docs.derivative.ca/Lookup_Texture_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Lookup_Texture_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Lookup_Texture_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Lookup_Texture_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

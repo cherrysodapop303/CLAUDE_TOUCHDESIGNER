@@ -1,0 +1,85 @@
+{
+  "name": "Select POP",
+  "id": "select_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Select POP takes individual attributes from its single input and outputs the attributes unchanged. It is used frequently so you can work on attributes separately, and then after processing the attributes, you can combine them back together downstream with an [[Attribute Combine POP]]. The number of points does not change. The data in the selected attributes does not change. The topology does not change either - it outputs the same primitives and vertices as the input. Because attributes of operators in the POPs family that are not changed in a POP don't actually copy their data or allocate any more memory (they are simply a reference to the POP that does have the data), selecting attributes and combining them back does not make anything faster or memory-efficient. It's mostly a workflow preference that is more similar to the CHOPs workflow. Middle-mouse click on the Select POP node to see the info pop-up, and note that the GPU memory consumed is 0. Instead of a wired input you can use the POP parameter to reference another POP in the current or any other network. Note: Unlike the [[Attribute Combine POP]] that increases the number of point attributes and does not change the number of points, the [[Merge POP]] increases number of points by merging primitives and their vertices together with the point lists of each input. For example, it merges the <code>P</code> attribute of all the points together to make a longer point list. See also [[Attribute Combine POP]], [[Math Mix POP]] and [[math Combine POP]] (can also extract individual attributes), [[Merge POP]], [[Topology POP]]",
+  "parameters": [
+    {
+      "name": "POP",
+      "parName": "pop",
+      "label": "POP",
+      "type": "POP",
+      "description": "POP to select attributes from.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Point Attribute Scope",
+      "parName": "pointattrscope",
+      "label": "Point Attribute Scope",
+      "type": "StrMenu",
+      "description": "The Point attribute scope to blend.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Primitive Attribute Scope",
+      "parName": "primattrscope",
+      "label": "Primitive Attribute Scope",
+      "type": "StrMenu",
+      "description": "The Primitive attribute scope to blend.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Vertex Attribute Scope",
+      "parName": "vertattrscope",
+      "label": "Vertex Attribute Scope",
+      "type": "StrMenu",
+      "description": "The Vertex attribute scope to blend.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Select_POP.htm",
+  "parsedAt": "2025-08-08T03:03:59.525Z",
+  "url": "https://docs.derivative.ca/Select_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Select_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Select_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Select_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

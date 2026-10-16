@@ -1,0 +1,247 @@
+{
+  "name": "Projection POP",
+  "id": "projection_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Projection POP takes a float3 3D spatial attribute, like <code>P</code>, and outputs to a float3 attribute, transforming the attribute between cartesian (orthographic), polar, cylindrical, and perspective coordinate systems. For example, all the the points in cartesian X, Y and Z format can be converted into a polar longitude/latitude/radius format. The menu From Coordinate System lets you choose how to interpret the 3 numbers of the input attribute: * Cartesian treats the 3 numbers of the float3 attribute as X, Y and Z in the usual 3D \"orthogonal\" coordinate space. (In TouchDesigner X is horizontal left-to-right, Y is vertical bottom to top. Z is along line of sight distant to near.) * Spherical treats the three numbers of the attribute as longitude, latitude and radius, assuming the axis is the vertical Y axis. * Cylindrical treats the 3 numbers of the attribute as latitude (angle around Y), Y value and a radius. * Screen Space is a perspective form along the Z axis - you need to specify additional camera/perspective info. 0,0 is the bottom left corner, 1, 1 is top right. * Normalized Device Coordinates (NDC) - For points within the field of view, the first and second components are between -1 and 1 where 0,0 is at the center. The third component is between 0 and 1 (as re-ranged to the Near and Far distances). The menu To Coordinate System lets you choose what form you want the 3 numbers of the output attribute to be in. The angles can be expressed in * Degrees in the usual graphics standard (360 is a full rotation), or * Radians (Pi 3.14157 is one full rotation) * Cycles (value of 1 means one full 360 degrees rotation) * Normalized - a 0-1 normalized form which, like Spherical longitude is like a wraparound: looking along the -Z axis, the value is 0 at the back, .25 the left, .5 is face-on, .75 at the right, and 1 at the back. For latitude the value goes from 0 at the south pole and 1 at the north pole. This is used for mapping a texture on a sphere sometimes. See also tbe [[Sphere POP]], [[Tube POP]], [[Normalize POP]] and the [[Texture Map POP]].",
+  "parameters": [
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Group",
+      "parName": "group",
+      "label": "Group",
+      "type": "StrMenu",
+      "description": "If there are input groups, specifying a group name in this field will cause this POP to act only upon the group specified.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Input Attribute Scope",
+      "parName": "inputattrscope",
+      "label": "Input Attribute Scope",
+      "type": "StrMenu",
+      "description": "Input's attributes you want to affect within the chosen attribute class, or attribute components.",
+      "isReadOnly": false
+    },
+    {
+      "name": "From Coordinate System",
+      "parName": "fromcoordsys",
+      "label": "From Coordinate System",
+      "type": "Menu",
+      "description": "The coordinate system to convert from.",
+      "isReadOnly": false,
+      "menuItems": [
+        "cartesian",
+        "spherical",
+        "cylindrical",
+        "screenspace",
+        "ndc"
+      ],
+      "menuLabels": [
+        "Cartesian",
+        "Spherical",
+        "Cylindrical",
+        "Screen Space",
+        "Normalized Device Coordinates"
+      ]
+    },
+    {
+      "name": "To Coordinate System",
+      "parName": "tocoordsys",
+      "label": "To Coordinate System",
+      "type": "Menu",
+      "description": "Specifies the target coordinate system for the operation.",
+      "isReadOnly": false,
+      "menuItems": [
+        "cartesian",
+        "spherical",
+        "cylindrical",
+        "screenspace",
+        "ndc"
+      ],
+      "menuLabels": [
+        "Cartesian",
+        "Spherical",
+        "Cylindrical",
+        "Screen Space",
+        "Normalized Device Coordinates"
+      ]
+    },
+    {
+      "name": "Angle Units",
+      "parName": "angunit",
+      "label": "Angle Units",
+      "type": "Menu",
+      "description": "The unit for the angles, when some of the coordinates are angles in the source or destination coordinate system.",
+      "isReadOnly": false,
+      "menuItems": [
+        "deg",
+        "rad",
+        "cycle",
+        "norm"
+      ],
+      "menuLabels": [
+        "Degrees",
+        "Radians",
+        "Cycles",
+        "Normalized"
+      ]
+    },
+    {
+      "name": "Camera",
+      "parName": "camera",
+      "label": "Camera",
+      "type": "Object",
+      "description": "Specify the camera component.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Aspect Correct UVs",
+      "parName": "aspectcorrectuv",
+      "label": "Aspect Correct UVs",
+      "type": "Toggle",
+      "description": "Whether respect the aspec ratio for the projection.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Aspect Ratio",
+      "parName": "aspect",
+      "label": "Aspect Ratio",
+      "type": "XYZW",
+      "description": "The aspect ratio of the camera projection.",
+      "isReadOnly": false,
+      "menuItems": [
+        "aspectx",
+        "aspecty"
+      ],
+      "menuLabels": [
+        "Aspect Ratio",
+        "Aspect Ratio"
+      ]
+    },
+    {
+      "name": "Horizontal FOV",
+      "parName": "fov",
+      "label": "Horizontal FOV",
+      "type": "Float",
+      "description": "Horizontal field of view when source or destination coordinate system is screen space or normalized device coordinates.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Near Depth",
+      "parName": "depthnear",
+      "label": "Near Depth",
+      "type": "Float",
+      "description": "Depth of the near clipping plane.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Far Depth",
+      "parName": "depthfar",
+      "label": "Far Depth",
+      "type": "Float",
+      "description": "Depth of the far clipping plane.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Output Attribute Scope",
+      "parName": "outputattrscope",
+      "label": "Output Attribute Scope",
+      "type": "StrMenu",
+      "description": "Name of attribute to output (can choose components of attribute), can choose from menu.",
+      "isReadOnly": false,
+      "menuItems": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "color",
+        "dcolor",
+        "dir",
+        "ddir",
+        "1",
+        "2",
+        "3",
+        "4",
+        "attrdefaultval0",
+        "attrdefaultval1",
+        "attrdefaultval2",
+        "attrdefaultval3"
+      ],
+      "menuLabels": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "Color",
+        "Color (double)",
+        "Direction",
+        "Direction (double)",
+        "1",
+        "2",
+        "3",
+        "4",
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Projection_POP.htm",
+  "parsedAt": "2025-08-08T03:03:59.071Z",
+  "url": "https://docs.derivative.ca/Projection_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Projection_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Projection_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Projection_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

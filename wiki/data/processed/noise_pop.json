@@ -1,0 +1,591 @@
+{
+  "name": "Noise POP",
+  "id": "noise_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Noise POP affects every point with a noise field, which can be thought of as smooth, randomly-rising and falling values in 3D space. By default the Noise POP moves every point's <code>P</code> attribute a distance in X, Y and Z based on the point's position in the noise space. You can visualize the field by sending a [[Grid POP]] into a Noise POP. Turn on the toggle parameter Compute Point Normals to see proper shading. The Type menu lets you choose between Simplex, Perlin in 2-4 dimensions. Simplex has the least grid-like field appearance. The Period determines the approximate distance between two peaks in each dimension (if you set Harmonics to 0). Harmonics adds more detail by adding to the field another half-period noise field, and recursively for the number of \"harmonics\". Harmonic Spread is the ratio of period of one applied harmonic to the next. Furthermore the entire noise field can be translated, rotated or scaled via the Transform page. The noise field value averages 0 in X, Y and Z. The Amplitude and Exponent parameters affect the magnitude of the resulting value, and the Offset is added to the resulting noise values. '''Output attributes''' - On the Output page, you can output and name the raw noise values to an attribute named <code>Noise</code> by default. Because the Noise Size menu parameter on the Noise page defaults to Scalar, the <code>Noise</code> attribute is a single scalar float. If the Noise Size menu parameter is set to Vector, the <code>Noise</code> attribute is a 3-component float, or 4 if the Parameter Size is set to 4. On the Output page you can also output several math functions that are derived from the noise field, like Gradient and Curl. The Gradient is the rate-of-change of a scalar noise around each point in X Y and Z (aka the \"first order derivative\") and is a float3 named <code>NoiseGradient</code> Curl is an expression of how much the slope twists around each point. A 3D Curl is a float3 named <code>NoiseCurl</code>. A 2D Curl is float2 named <code>NoiseCurl2</code> If Combine Operation is Add (default) or Multiply, a float3 noise is always applied to <code>P</code>, even though the noise may be set to scalar. With Combine Attribute Scope, the noise can be applied to any scalar or vector attribute (one component to 4 components), and output to any new or existing attribute. With Combine Entity you can instead combine the <code>NoiseCurl</code> with any attribute. With Noise Size set to Vector, changing the Parameters Size to 2, 3 or 4 gives you individual parameter controls of Amplitude, Exponent and Offset per X Y Z W dimension. To animate the noise, put something like <code>absTime.seconds</code> in any of the Translate or Translate 4D parameters on the Transform page. '''Per-point mapping of parameters''' - The Noise POP has a Map page, which allows every point to get a different value for Amplitude, Offset, Exponent, Period, Harmonic Spread and Harmonic Gain parameters. In this mechanism, a separate attribute in the input contains values that override (or add to / multiply by) the parameter value. See [[Mapping POP Attributes to Parameters]]. See also [[Random POP]].",
+  "parameters": [
+    {
+      "name": "Noise Lookup Attribute",
+      "parName": "noiselookupattrib",
+      "label": "Noise Lookup Attribute",
+      "type": "StrMenu",
+      "description": "Point input attribute to use when computing the noise.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Type",
+      "parName": "type",
+      "label": "Type",
+      "type": "Menu",
+      "description": "Determines the noise type.",
+      "isReadOnly": false,
+      "menuItems": [
+        "perlin2d",
+        "perlin3d",
+        "perlin4d",
+        "simplex2d",
+        "simplex3d",
+        "simplex4d"
+      ],
+      "menuLabels": [
+        "Perlin 2D (GPU)",
+        "Perlin 3D (GPU)",
+        "Perlin 4D (GPU)",
+        "Simplex 2D (GPU)",
+        "Simplex 3D (GPU)",
+        "Simplex 4D (GPU)"
+      ]
+    },
+    {
+      "name": "Noise Size",
+      "parName": "noisesize",
+      "label": "Noise Size",
+      "type": "Menu",
+      "description": "Number of noise components to compute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "menuLabels": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "name": "Seed",
+      "parName": "seed",
+      "label": "Seed",
+      "type": "Float",
+      "description": "Numerical value that initializes the randomization.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Period",
+      "parName": "period",
+      "label": "Period",
+      "type": "Float",
+      "description": "Period (scale) of the noise field.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Harmonics",
+      "parName": "harmon",
+      "label": "Harmonics",
+      "type": "Int",
+      "description": "The number of higher frequency components to layer on top of the base frequency. 0 harmonics give the base shape.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Harmonic Spread",
+      "parName": "spread",
+      "label": "Harmonic Spread",
+      "type": "Float",
+      "description": "The factor by which the frequency of a harmonic increases relative to the previous harmonic.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Harmonic Gain",
+      "parName": "gain",
+      "label": "Harmonic Gain",
+      "type": "Float",
+      "description": "Amplitude of the Harmonics layered on top of the base frequency.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Parameter Size",
+      "parName": "parsize",
+      "label": "Parameter Size",
+      "type": "Menu",
+      "description": "Number of independent configurable parameter values.",
+      "isReadOnly": false,
+      "menuItems": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "menuLabels": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "name": "Amplitude",
+      "parName": "amp",
+      "label": "Amplitude",
+      "type": "Float",
+      "description": "The noise values amplitude (a scale on the values output).",
+      "isReadOnly": false
+    },
+    {
+      "name": "Exponent",
+      "parName": "exp",
+      "label": "Exponent",
+      "type": "Float",
+      "description": "Sets the exponent. The internal value is raised by the power of the exponent",
+      "isReadOnly": false
+    },
+    {
+      "name": "Offset",
+      "parName": "offset",
+      "label": "Offset",
+      "type": "Float",
+      "description": "Adds an offset to the resulting value.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Group",
+      "parName": "group",
+      "label": "Group",
+      "type": "StrMenu",
+      "description": "If there are input groups, specifying a group name in this field will cause this POP to act only upon the group specified.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Transform Order",
+      "parName": "xord",
+      "label": "Transform Order",
+      "type": "Menu",
+      "description": "Sets the overall transform order for the transformations.",
+      "isReadOnly": false,
+      "menuItems": [
+        "srt",
+        "str",
+        "rst",
+        "rts",
+        "tsr",
+        "trs"
+      ],
+      "menuLabels": [
+        "Scale Rotate Translate",
+        "Scale Translate Rotate",
+        "Rotate Scale Translate",
+        "Rotate Translate Scale",
+        "Translate Scale Rotate",
+        "Translate Rotate Scale"
+      ]
+    },
+    {
+      "name": "Rotate Order",
+      "parName": "rord",
+      "label": "Rotate Order",
+      "type": "Menu",
+      "description": "Sets the order of the rotations within the overall transform order.",
+      "isReadOnly": false,
+      "menuItems": [
+        "xyz",
+        "xzy",
+        "yxz",
+        "yzx",
+        "zxy",
+        "zyx"
+      ],
+      "menuLabels": [
+        "Rx Ry Rz",
+        "Rx Rz Ry",
+        "Ry Rx Rz",
+        "Ry Rz Rx",
+        "Rz Rx Ry",
+        "Rz Ry Rx"
+      ]
+    },
+    {
+      "name": "Translate",
+      "parName": "t",
+      "label": "Translate",
+      "type": "XYZW",
+      "description": "Translate the points through the noise space.",
+      "isReadOnly": false,
+      "menuItems": [
+        "tx",
+        "ty",
+        "tz"
+      ],
+      "menuLabels": [
+        "Translate",
+        "Translate",
+        "Translate"
+      ]
+    },
+    {
+      "name": "Rotate",
+      "parName": "r",
+      "label": "Rotate",
+      "type": "XYZW",
+      "description": "Rotate the points around the corresponding X, Y and Z axes. Angles are given in degrees.",
+      "isReadOnly": false,
+      "menuItems": [
+        "rx",
+        "ry",
+        "rz"
+      ],
+      "menuLabels": [
+        "Rotate",
+        "Rotate",
+        "Rotate"
+      ]
+    },
+    {
+      "name": "Scale",
+      "parName": "s",
+      "label": "Scale",
+      "type": "XYZW",
+      "description": "These three fields scale the Source geometry in the three axes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "sx",
+        "sy",
+        "sz"
+      ],
+      "menuLabels": [
+        "Scale",
+        "Scale",
+        "Scale"
+      ]
+    },
+    {
+      "name": "Pivot",
+      "parName": "p",
+      "label": "Pivot",
+      "type": "XYZW",
+      "description": "The pivot point for the transform rotates and scales.",
+      "isReadOnly": false,
+      "menuItems": [
+        "px",
+        "py",
+        "pz"
+      ],
+      "menuLabels": [
+        "Pivot",
+        "Pivot",
+        "Pivot"
+      ]
+    },
+    {
+      "name": "Translate 4D",
+      "parName": "t4d",
+      "label": "Translate 4D",
+      "type": "Float",
+      "description": "Translates the points through the 4th noise dimension.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Noise",
+      "parName": "noise",
+      "label": "Noise",
+      "type": "Toggle",
+      "description": "Enable the addition of the noise attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "noise",
+        "noiseoutputattscope"
+      ],
+      "menuLabels": [
+        "Noise",
+        "Noise Output Attribute Scope"
+      ]
+    },
+    {
+      "name": "Gradient",
+      "parName": "gradient",
+      "label": "Gradient",
+      "type": "Toggle",
+      "description": "Whether to output the noise gradient.",
+      "isReadOnly": false,
+      "menuItems": [
+        "gradient",
+        "gradientoutputattrscope"
+      ],
+      "menuLabels": [
+        "Gradient",
+        "Gradient Output Attribute Scope"
+      ]
+    },
+    {
+      "name": "Curl 3D",
+      "parName": "curl3d",
+      "label": "Curl 3D",
+      "type": "Toggle",
+      "description": "Whether to output the 3D curl of the noise.",
+      "isReadOnly": false,
+      "menuItems": [
+        "curl3d",
+        "curl3doutputattscope"
+      ],
+      "menuLabels": [
+        "Curl 3D",
+        "Curl 3D Output Attribute Scope"
+      ]
+    },
+    {
+      "name": "Curl 2D",
+      "parName": "curl2d",
+      "label": "Curl 2D",
+      "type": "Toggle",
+      "description": "Whether to output the 2D curl of the noise.",
+      "isReadOnly": false,
+      "menuItems": [
+        "curl2d",
+        "curl2doutputattscope"
+      ],
+      "menuLabels": [
+        "Curl 2D",
+        "Curl 2D Output Attribute Scope"
+      ]
+    },
+    {
+      "name": "Combine Operation",
+      "parName": "combineop",
+      "label": "Combine Operation",
+      "type": "Menu",
+      "description": "Specify how to combine the output value with the combine attribute value.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "add",
+        "mult",
+        "translatealongnormal"
+      ],
+      "menuLabels": [
+        "None",
+        "Add",
+        "Multiply",
+        "Translate along Normal"
+      ]
+    },
+    {
+      "name": "Combine Entity",
+      "parName": "combineentity",
+      "label": "Combine Entity",
+      "type": "Menu",
+      "description": "Specify which computed value to use for the combine operation.",
+      "isReadOnly": false,
+      "menuItems": [
+        "noise",
+        "curl3d",
+        "curl2d"
+      ],
+      "menuLabels": [
+        "Noise",
+        "Curl 3D",
+        "Curl 2D"
+      ]
+    },
+    {
+      "name": "Combine Attribute Scope",
+      "parName": "combineattrscope",
+      "label": "Combine Attribute Scope",
+      "type": "StrMenu",
+      "description": "Input attribute scope for the combine operation.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Output Attribute Scope",
+      "parName": "outputattrscope",
+      "label": "Output Attribute Scope",
+      "type": "StrMenu",
+      "description": "Name of attribute to output (can choose components of attribute), can choose from menu.",
+      "isReadOnly": false,
+      "menuItems": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth"
+      ],
+      "menuLabels": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth"
+      ]
+    },
+    {
+      "name": "Override Automatic Attribute",
+      "parName": "overrideautoattr",
+      "label": "Override Automatic Attribute",
+      "type": "Toggle",
+      "description": "Whether to override the kind of attribute automatically created based on the POP input and parameters. Allows to specify manually the type and number of components of the new attribute.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Attribute Type",
+      "parName": "attrtype",
+      "label": "Attribute Type",
+      "type": "Menu",
+      "description": "The output attribute's data type, default float.",
+      "isReadOnly": false,
+      "menuItems": [
+        "float",
+        "double",
+        "int",
+        "uint",
+        "color",
+        "dcolor",
+        "dir",
+        "ddir"
+      ],
+      "menuLabels": [
+        "float",
+        "double",
+        "int",
+        "uint",
+        "Color",
+        "Color (double)",
+        "Direction",
+        "Direction (double)"
+      ]
+    },
+    {
+      "name": "Components",
+      "parName": "attrnumcomps",
+      "label": "Components",
+      "type": "Menu",
+      "description": "The number of components in the new custom attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "menuLabels": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "name": "Default Value",
+      "parName": "attrdefaultval",
+      "label": "Default Value",
+      "type": "Float",
+      "description": "Default values of the output attribute components if they cannot be computed.",
+      "isReadOnly": false,
+      "menuItems": [
+        "attrdefaultval0",
+        "attrdefaultval1",
+        "attrdefaultval2",
+        "attrdefaultval3"
+      ],
+      "menuLabels": [
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    },
+    {
+      "name": "Compute Point Normals",
+      "parName": "computenormals",
+      "label": "Compute Point Normals",
+      "type": "Toggle",
+      "description": "Whether to compute point normals as a post operation.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Mode",
+      "parName": "mode",
+      "label": "Mode",
+      "type": "Menu",
+      "description": "Selects the shape of the field.",
+      "isReadOnly": false,
+      "menuItems": [
+        "performance",
+        "quality"
+      ],
+      "menuLabels": [
+        "Performance",
+        "Quality"
+      ]
+    },
+    {
+      "name": "Mapping",
+      "parName": "map",
+      "label": "Mapping",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for attribute-to-parameter mapping.",
+      "isReadOnly": false,
+      "menuItems": [
+        "period",
+        "offset",
+        "amp",
+        "exp",
+        "spread",
+        "gain",
+        "set",
+        "mult",
+        "add"
+      ],
+      "menuLabels": [
+        "period (Period)",
+        "offset (Offset)",
+        "amp (Amplitude)",
+        "exp (Exponent)",
+        "spread (Harmonic Spread)",
+        "gain (Harmonic Gain)",
+        "Set",
+        "Multiply",
+        "Add"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Noise_POP.htm",
+  "parsedAt": "2025-08-08T03:03:57.781Z",
+  "url": "https://docs.derivative.ca/Noise_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Noise_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Noise_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Noise_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

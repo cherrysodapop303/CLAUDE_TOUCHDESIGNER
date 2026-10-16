@@ -1,0 +1,85 @@
+{
+  "name": "Merge POP",
+  "id": "merge_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Merge POP merges together the points, vertices amd primitives of all its inputs into one output. The number of points of the output is the sum of the number of points of each input. The number of primitives of the output is the sum of the number of primitives of each input. etc. The Merge POP tries to preserve groups and all the combined attributes. The Merge POP can merge a subset of each input geo using groups. The Merge POP's architecture for handling multiple inputs is similar to the [[Attribute Combine POP]].",
+  "parameters": [
+    {
+      "name": "Unique Group Name",
+      "parName": "uniquegroupname",
+      "label": "Unique Group Name",
+      "type": "Toggle",
+      "description": "Enable specifying a unique group per input.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Entity",
+      "parName": "groupentity",
+      "label": "Entity",
+      "type": "Menu",
+      "description": "The type of group: points or primitives.",
+      "isReadOnly": false,
+      "menuItems": [
+        "primitive",
+        "point"
+      ],
+      "menuLabels": [
+        "Primitives",
+        "Points"
+      ]
+    },
+    {
+      "name": "Group",
+      "parName": "group",
+      "label": "Group",
+      "type": "StrMenu",
+      "description": "Shared group name of elements to merge accross all inputs",
+      "isReadOnly": false
+    },
+    {
+      "name": "Input",
+      "parName": "input",
+      "label": "Input",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks managing the inputs of the POP.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Merge_POP.htm",
+  "parsedAt": "2025-08-08T03:03:57.638Z",
+  "url": "https://docs.derivative.ca/Merge_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Merge_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Merge_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Merge_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

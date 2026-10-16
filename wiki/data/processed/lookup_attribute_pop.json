@@ -1,0 +1,193 @@
+{
+  "name": "Lookup Attribute POP",
+  "id": "lookup_attribute_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Lookup Attribute POP in its simplest form takes an attribute of the first input (the Lookup Index Attribute(s)) with values in the 0-1 range, and for each point of the first input, uses the value as an index into attributes of the second input (the Value Attributes of the lookup curve). It outputs those looked-up values into new or existing attributes (Output Attribute Scope). The lookup curve (second input) can be the output of a [[Curve POP]], for example. If the index is 0, it pulls values from the first point of the lookup curve, and if the index is 1 it pulls from the last sample of the lookup curve. Alternately, if the Lookup Index Units menu is set to Point Index, the lookup index is expressed as a point number of the lookup curve, going from 0 to number_of_points-1. If the index is out of range, the Extend Left and Right menus determine what to do to the index before doing the lookup, such as holding it at 0 or 1, or cycling the value between 0 and 1. Sequential blocks let you lookup and output more than one attribute. In each block you can re-range the value before putting it in the specified output attribute. See also [[Lookup Texture POP]], [[Lookup Channel POP]], [[Curve POP]] (Lookup page).",
+  "parameters": [
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Group",
+      "parName": "group",
+      "label": "Group",
+      "type": "StrMenu",
+      "description": "If there are input groups, specifying a group name in this field will cause this POP to act only upon the group specified.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Lookup Index Attribute(s)",
+      "parName": "lookupindexattr",
+      "label": "Lookup Index Attribute(s)",
+      "type": "StrMenu",
+      "description": "Attribute(s) to use as the index(es) for the lookup(s).",
+      "isReadOnly": false
+    },
+    {
+      "name": "Lookup Index Units",
+      "parName": "indexunit",
+      "label": "Lookup Index Units",
+      "type": "Menu",
+      "description": "Units for lookup index attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "normalized",
+        "pointindex"
+      ],
+      "menuLabels": [
+        "Normalized (0-1)",
+        "Point Index"
+      ]
+    },
+    {
+      "name": "Cyclic Index",
+      "parName": "cyclic",
+      "label": "Cyclic Index",
+      "type": "Toggle",
+      "description": "When enabled, the index wraps so the end connects back to the start, letting the full range map evenly across the cycle.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Interpolate",
+      "parName": "interpolate",
+      "label": "Interpolate",
+      "type": "Toggle",
+      "description": "When on, the input can be interpolated between the input elements' attribute values. When off, the nearest element value is used.",
+      "isReadOnly": false
+    },
+    {
+      "name": "From Low High",
+      "parName": "indexfromlow",
+      "label": "From Low High",
+      "type": "Float",
+      "description": "Reranges the index attribute value.",
+      "isReadOnly": false,
+      "menuItems": [
+        "indexfromlow",
+        "indexfromhigh"
+      ],
+      "menuLabels": [
+        "From Low High",
+        "From High"
+      ]
+    },
+    {
+      "name": "To Low High",
+      "parName": "indextolow",
+      "label": "To Low High",
+      "type": "Float",
+      "description": "Reranges the index attribute value.",
+      "isReadOnly": false,
+      "menuItems": [
+        "indextolow",
+        "indextohigh"
+      ],
+      "menuLabels": [
+        "To Low High",
+        "To High"
+      ]
+    },
+    {
+      "name": "Extend Left and Right",
+      "parName": "extendleft",
+      "label": "Extend Left and Right",
+      "type": "Menu",
+      "description": "What happens when the lookup samples outside of the range.",
+      "isReadOnly": false,
+      "menuItems": [
+        "hold",
+        "slope",
+        "cycle",
+        "mirror",
+        "extendleft",
+        "extendright"
+      ],
+      "menuLabels": [
+        "Hold",
+        "Slope",
+        "Cycle",
+        "Mirror",
+        "Extend Left and Right",
+        "Extend Right"
+      ]
+    },
+    {
+      "name": "Lookup",
+      "parName": "lookup",
+      "label": "Lookup",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks of lookups.",
+      "isReadOnly": false,
+      "menuItems": [
+        "lookup0fromlow",
+        "lookup0fromhigh",
+        "lookup0tolow",
+        "lookup0tohigh",
+        "P",
+        "N",
+        "Color",
+        "Color.i012",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "Color.rgb"
+      ],
+      "menuLabels": [
+        "From Low High",
+        "From High",
+        "To Low High",
+        "To High",
+        "P",
+        "N",
+        "Color",
+        "Color.i012",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "Color.rgb"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Lookup_Attribute_POP.htm",
+  "parsedAt": "2025-08-08T03:03:57.040Z",
+  "url": "https://docs.derivative.ca/Lookup_Attribute_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Lookup_Attribute_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Lookup_Attribute_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Lookup_Attribute_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,381 @@
+{
+  "name": "Particle POP",
+  "id": "particle_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Particle POP is used for creating and controlling motion of \"particles\" for particle system simulations. A particle is simply a POP point with special attributes that are created by the Particle POP or added/modified manually by the user in a feedback-type loop, making it easy for customization. POPs are able to handle millions+ of points as they fully run on the GPUThe initial position comes from the input P attribute, parameters allow you to define initial states for mass, drag, and the Map page lets you get these states from the input attributes. Particles are created with an initial position (<code>P</code>) and a velocity (<code>PartVel</code>) as well as mass (<code>PartMass</code>). (1) Position comes from the input POP's <code>P</code> attribute, (2) Velocity, mass, etc come from the Particle POP's parameters, (3) the Map page lets you get these initial states from some of the input attributes. Particles can be emitted based on a constant emission rate or can be emitted based on an input attribute. When emitting based on an input attribute, the Particle POP checks the emitting attribute for each input point and emits that many particles at that position every frame (the emission value is converted to an integer). The Map page lets you override some particle parameters by reading per-point values coming from attributes. This includes mass (Initial Mass parameter creating <code>PartMass</code> attribute), Life Expect and Life Variance (<code>PartLifeSpan</code>), Initial Drag and Velocity Damping (<code>PartDrag</code>), and Initial Velocity (<code>PartVel</code>). Any new attributes feed back from the target POP. The particle system is open and highly customizable. It is based on a feedback loop where the output of the Particle POP is sent to standard POP nodes and the [[Force Radial POP]] node that adds force, constrain points, change states to dying/etc, leading to a Null POP at the end of the feedback chain. That Null POP is used by the Particle POP to retrieve the system's state for the next frame (specified by the Target Feedback Loop POP parameter). The Particle POP looks for the attributes <code>PartForce</code> and <code>PartVel</code> to compute the positions for the current frame. The Particle POP is based on the features and behavior of the [[Feedback POP]]. To Initialize, Start, end, pause, speed, pre-roll the particle system, it uses the TouchDesigner \"Initialize / Start\" standard based on the [[Timer CHOP]]. It shares several of the same parameters, and if you attach an [[Info CHOP]] to the Particle POP, you will see the same state channels and timer channels as the Timer CHOP. You can Pre-Roll the simulation some number of seconds when you Initialize, so that when you press Start, the simulation will be already underway and not be adding its first particles. When a particle is born from a point of the input POP, you can transfer attributes to that particle from the input point and rename them, using the Attributes page. You can create new attributes as well with an initial value. topic: These attributes modified every loop cycle thereafter. See examples in POP <code>Examples/</code> and <code>Overview.toe</code> See [https://www.notion.so/touchdesigner/Learning-About-POPs-3f7645a368a043f99cd143e2382b8ab0?source=copy_link#b5c2dbaa61024dd888bc4661f98fef42 Learning about POPs] Pro tip: If you turn off \"Enable Time Integration\" so you can compute velocity and position yourself, the simulation speed parameter still affects birth rate and how long particles stay alive, but it needs to be taken into account by your custom integration to have an effect on the actual speed of the simulation. Built-in damping and drag are also disabled since they're part of the integration and dependent on the time step (<code>PartDrag</code> attribute still gets created though) See also [[Feedback POP]], [[POP]]",
+  "parameters": [
+    {
+      "name": "Target Feedback Loop POP",
+      "parName": "targetpop",
+      "label": "Target Feedback Loop POP",
+      "type": "POP",
+      "description": "A reference to a POP node downstream in the network. This reference will cause a feedback loop and re-injects the particles next frame",
+      "isReadOnly": false
+    },
+    {
+      "name": "Create Point Primitives",
+      "parName": "createpointprim",
+      "label": "Create Point Primitives",
+      "type": "Toggle",
+      "description": "Enable creating point primitives",
+      "isReadOnly": false
+    },
+    {
+      "name": "Point Id Reuse",
+      "parName": "pointidreuse",
+      "label": "Point Id Reuse",
+      "type": "Menu",
+      "description": "Point Id recycling mode.",
+      "isReadOnly": false,
+      "menuItems": [
+        "loop",
+        "unused",
+        "none"
+      ],
+      "menuLabels": [
+        "Reuse Point Ids in Loop",
+        "Reuse First Available Point Id",
+        "Don't Reuse Point Ids"
+      ]
+    },
+    {
+      "name": "Maximum Particles",
+      "parName": "maxparticles",
+      "label": "Maximum Particles",
+      "type": "Int",
+      "description": "Sets the maximum number of particles.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Emission from",
+      "parName": "emissionmode",
+      "label": "Emission from",
+      "type": "Menu",
+      "description": "Determines how particles are emitted",
+      "isReadOnly": false,
+      "menuItems": [
+        "rate",
+        "attr"
+      ],
+      "menuLabels": [
+        "Birth Rate",
+        "Birth Attribute"
+      ]
+    },
+    {
+      "name": "Birth Rate",
+      "parName": "birthrate",
+      "label": "Birth Rate",
+      "type": "Float",
+      "description": "Number of particles born each unit of time",
+      "isReadOnly": false,
+      "menuItems": [
+        "birthrate",
+        "birthrateunit"
+      ],
+      "menuLabels": [
+        "Birth Rate",
+        "Birth Rate Unit"
+      ]
+    },
+    {
+      "name": "Input Birth Attribute",
+      "parName": "birthattr",
+      "label": "Input Birth Attribute",
+      "type": "StrMenu",
+      "description": "Input attribute to specify birth rate.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Randomize Input Points",
+      "parName": "rndinputpts",
+      "label": "Randomize Input Points",
+      "type": "Toggle",
+      "description": "Enable source points shuffling.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Life Expect",
+      "parName": "life",
+      "label": "Life Expect",
+      "type": "Float",
+      "description": "Life Expectancy average time.",
+      "isReadOnly": false,
+      "menuItems": [
+        "life",
+        "lifeunit"
+      ],
+      "menuLabels": [
+        "Life Expect",
+        "Life Expect Unit"
+      ]
+    },
+    {
+      "name": "Life Variance (Fraction)",
+      "parName": "lifevariance",
+      "label": "Life Variance (Fraction)",
+      "type": "Float",
+      "description": "Life Expectancy variation as fraction of life expectancy. Particle lifetime distribution is repeating over time. Animate the Random Seed parameter to avoid this.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Random Seed",
+      "parName": "randomseed",
+      "label": "Random Seed",
+      "type": "Float",
+      "description": "Life variance and source position random seed.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Enable Time Integration",
+      "parName": "timeintegration",
+      "label": "Enable Time Integration",
+      "type": "Toggle",
+      "description": "Determines whether particles update their positions and velocities over time.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Jitter Births During Frame",
+      "parName": "jitterbirthtime",
+      "label": "Jitter Births During Frame",
+      "type": "Toggle",
+      "description": "Randomizes the exact spawn time of particles within each frame.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Jitter Birth Position",
+      "parName": "jitterbirthpos",
+      "label": "Jitter Birth Position",
+      "type": "Float",
+      "description": "Randomly displaces particle birth positions within a defined radius around the source.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Initial Velocity",
+      "parName": "initvelocity",
+      "label": "Initial Velocity",
+      "type": "XYZW",
+      "description": "Determines the particle's initial velocity in Units per second.",
+      "isReadOnly": false,
+      "menuItems": [
+        "initvelocityx",
+        "initvelocityy",
+        "initvelocityz"
+      ],
+      "menuLabels": [
+        "Initial Velocity",
+        "Initial Velocity",
+        "Initial Velocity"
+      ]
+    },
+    {
+      "name": "Initial Mass",
+      "parName": "initmass",
+      "label": "Initial Mass",
+      "type": "Float",
+      "description": "Determines the particle's mass.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Initial Drag",
+      "parName": "initdrag",
+      "label": "Initial Drag",
+      "type": "Float",
+      "description": "Determines the drag factor applied to the particle causing it to decelerate.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Velocity Damping",
+      "parName": "damping",
+      "label": "Velocity Damping",
+      "type": "Float",
+      "description": "Sets a multiplicative coefficient applied each frame to the particle's velocity to reduce its speed over time. It scales velocity down each frame exponentially.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Initialize",
+      "parName": "initializepulse",
+      "label": "Initialize",
+      "type": "Pulse",
+      "description": "Initializes the POP from its input and parameters, it indicates it’s ready by turning on the ready channel in an attached Info CHOP, awaiting a Start pulse.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Start",
+      "parName": "startpulse",
+      "label": "Start",
+      "type": "Pulse",
+      "description": "Start the particle simulation.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Play",
+      "parName": "play",
+      "label": "Play",
+      "type": "Toggle",
+      "description": "Pause or play the feedback loop.",
+      "isReadOnly": false,
+      "menuItems": [
+        "play",
+        "steppulse"
+      ],
+      "menuLabels": [
+        "Play",
+        "Step Pulse"
+      ]
+    },
+    {
+      "name": "Speed",
+      "parName": "speed",
+      "label": "Speed",
+      "type": "Float",
+      "description": "Simulation speed.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Pre-Roll",
+      "parName": "preroll",
+      "label": "Pre-Roll",
+      "type": "Float",
+      "description": "Run the loop for this time before it is ready during initialization..",
+      "isReadOnly": false,
+      "menuItems": [
+        "preroll",
+        "prerollunit"
+      ],
+      "menuLabels": [
+        "Pre-Roll",
+        "Pre-Roll Unit"
+      ]
+    },
+    {
+      "name": "Go to Done",
+      "parName": "donepulse",
+      "label": "Go to Done",
+      "type": "Pulse",
+      "description": "Will immediately go to the done state.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Input Attributes",
+      "parName": "attrs",
+      "label": "Input Attributes",
+      "type": "StrMenu",
+      "description": "Input attributes to copy to new particles.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Rename to",
+      "parName": "renameto",
+      "label": "Rename to",
+      "type": "Str",
+      "description": "Change the input attributes to a new name.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Use Death Attribute",
+      "parName": "usedeathattr",
+      "label": "Use Death Attribute",
+      "type": "Toggle",
+      "description": "Enable using the Death Attribute to force-kill particles.",
+      "isReadOnly": false
+    },
+    {
+      "name": "New Attribute",
+      "parName": "attr",
+      "label": "New Attribute",
+      "type": "Sequence",
+      "description": "Name of sequential block to create new attributes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "attr0name",
+        "attr0customname",
+        "attr0type",
+        "attr0numcomps",
+        "attr0value0",
+        "attr0value1",
+        "attr0value2",
+        "attr0value3"
+      ],
+      "menuLabels": [
+        "New Attribute Name",
+        "Custom Name",
+        "Attribute Type",
+        "Components",
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    },
+    {
+      "name": "Mapping",
+      "parName": "map",
+      "label": "Mapping",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for attribute-to-parameter mapping.",
+      "isReadOnly": false,
+      "menuItems": [
+        "life",
+        "lifevariance",
+        "damping",
+        "initvelocity",
+        "initvelocityx",
+        "initvelocityy",
+        "initvelocityz",
+        "initmass",
+        "initdrag",
+        "set",
+        "mult",
+        "add"
+      ],
+      "menuLabels": [
+        "life (Life Expect)",
+        "lifevariance (Life Variance (Fraction))",
+        "damping (Velocity Damping)",
+        "initvelocity (Initial Velocity)",
+        "initvelocityx",
+        "initvelocityy",
+        "initvelocityz",
+        "initmass (Initial Mass)",
+        "initdrag (Initial Drag)",
+        "Set",
+        "Multiply",
+        "Add"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Particle_POP.htm",
+  "parsedAt": "2025-08-08T03:03:58.212Z",
+  "url": "https://docs.derivative.ca/Particle_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Particle_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Particle_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Particle_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

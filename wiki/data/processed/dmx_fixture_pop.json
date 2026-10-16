@@ -1,0 +1,161 @@
+{
+  "name": "DMX Fixture POP",
+  "id": "dmx_fixture_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The DMX Fixture POP constructs DMX universes from a POP input, and is used in conjunction with a [[DMX Out POP]] to send DMX to a device. In the POP input, each primitive is analogous to a fixture. Each fixture is iterated over and the DMX profile defined on the Channels page is used to construct the DMX universes for each fixture. The fixture/primitives are iterated over in the order they're defined in the POP. The following primitive attributes, as unsigned integers, can be used to specify net, subnet, universe, channel, and netaddress, allowing for per-fixture customization without needing to use the Routing Table: * <code>DMXFixtureNet</code> * <code>DMXFixtureSubnet</code> * <code>DMXFixtureUniverse</code> * <code>DMXFixtureChannel</code> * <code>DMXFixtureNetAddress</code> additional to this, an unsigned integer attribute <code>DMXFixtureGap</code> can be used to overwrite the Channel Gap parameter per primitive in a DMX Fixture POP. The [[DMX Map DAT]] can be used to inspect the DMX universes created. === Creating the DMX Profile === The DMX Profile is defined by the Channel sequence on the DMX Profile page. DMX Channels are sequenced in the universe output in the same order they're defined on the DMX Profile page. For any given Channel sequence, all attribute components will be interleaved together. Eg. '<code>P</code>' will be interleaved as 'Px Py Pz'. If the DMX profile requires them to not be interleaved then they will instead need to be separated into their own Channel sequence blocks. Multiple attributes can be specified together: Eg. '<code>P Color</code>' will interleave P and Color together like so: 'Px Py Pz Colorr Colorg Colorb Colora'. If the interleaved components are of different resolutions, then they will need to be separated into their own Channel sequence blocks, but by enabling Merge with Above Block they can be interleaved together. For Point Value Types, all points will be iterated over before the next Channel Sequence. Individual attribute components can also be specified. Eg. '<code>P(0) P(1)</code>' to use just position x and y. Attribute components are interleaved by value unless Interleave Bytes is enabled for the attribute grouping. Example: Position attribute P with 16-bit resolution will be interleaved as <code>Px[0] Px[1] Py[0] Py[1] Pz[0] Pz[1] ...</code> when the Interleave Bytes toggle is disabled, but interleave as <code>Px[0] Py[0] Pz[0] Px[1] Py[1] Pz[1] ...</code> when the Interleave Bytes toggle is enabled. === Auto Layout Mode === The DMX Fixture POP is in Auto Layout mode when the Auto Layout toggle is enabled, or as a default when the toggle is disabled and no routing table is referenced, or the routing table has no rows. Auto Layout mode auto-increments channel and universe values from a defined starting point (using the net, subnet, universe, and channel parameters). Primitives are iterated over in primitive order (eg. prim 0 is first) and each primitive's points are iterated over in point order (eg. point 0 is first). The DMX Profile page defines the channel layout for each primitive. It is executed once per primitive, and then a channel gap is added (specified by parameter) between each primitive channel layout. If Quantize Universe is set to off, then the next primitive will begin immediately after the channel gap. But if Quantize Universe is set to By Fixture, it will first check to see if the next primitive (ie. fixture) can fit in the remaining channels of the universe, and if not, it will jump to the next universe at channel=1. Similarly, if Quantize Universe is set to By Components, and a multi-component DMX Channel entry on the DMX Profile page cannot fit all components in the remaining channels of the universe (eg. <code>P</code> has 3 components x y z so with 8-bit resolution would require 3 remaining channels), then it will jump to the next universe at channel=1. When the <code>DMXFixtureNetAddress</code> attribute is set, each specific net address value will have their own independently incrementing channel values. Eg. if there are 8 primitives each of exactly 512 channels, and there are 4 with <code>DMXFixtureNetAddress=192.168.0.1</code> and 4 with <code>DMXFixtureNetAddress=192.168.0.2</code>, then the resulting channel layout will be 4 universes [0-3] with <code>netaddress=192.168.0.1</code> and 4 universes [0-3] with <code>netaddress=192.168.0.2</code>. When the <code>DMXFixtureUniverse</code> attribute is set, the channel value is set to 1 for that universe, unless <code>DMXFixtureChannel</code> is also set. If the <code>DMXFixtureUniverse</code> is greater than 15 then the <code>DMXFixtureNet</code> and <code>DMXFixtureSubnet</code> attribute values will not be used if set. See also: [[DMX Out POP]], [[DMX Map DAT]], [[DMX]]",
+  "parameters": [
+    {
+      "name": "Active",
+      "parName": "active",
+      "label": "Active",
+      "type": "Toggle",
+      "description": "When enabled, will actively update the fixture and universe data, and if used in a DMX Out POP will be sent out to the device. If disabled, the DMX Out POP will not merge the DMX universes constructed by this POP for sending.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Auto Layout",
+      "parName": "autolayout",
+      "label": "Auto Layout",
+      "type": "Toggle",
+      "description": "When enabled, the universes will be constructed sequentially starting from net, subnet, universe, and channel specified in the parameters. For example, if starting a net=0, subnet=0, universe=1, channel=0, then the DMX Fixture POP will iterate through all 512 channels using the profile at which point it will move to universe 2. When disabled, a Routing Table must be used instead, and the universes manually assigned to a primindex.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Routing Table",
+      "parName": "routingtable",
+      "label": "Routing Table",
+      "type": "DAT",
+      "description": "Use a Routing Table to assign specific net, subnet, universe values to a fixture/primitive. Additionally, netaddress may optionally be specified to override those on the DMX Out POP. The routing table will override use of parameters, as well as any of the reserved attributes: DMXFixtureNet, DMXFixtureSubnet, DMXFixtureUniverse, DMXFixtureChannel, and DMXFixtureNetAddress.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Net (0-127)",
+      "parName": "net",
+      "label": "Net (0-127)",
+      "type": "Int",
+      "description": "When using Auto Layout, specify the starting net value.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Subnet (0-15)",
+      "parName": "subnet",
+      "label": "Subnet (0-15)",
+      "type": "Int",
+      "description": "When using Auto Layout, specify the starting subnet value.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Universe",
+      "parName": "universe",
+      "label": "Universe",
+      "type": "Int",
+      "description": "When using Auto Layout, specify the starting universe value.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Channel",
+      "parName": "channel",
+      "label": "Channel",
+      "type": "Int",
+      "description": "When using Auto Layout, specify the starting channel value.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Channel Gap",
+      "parName": "changap",
+      "label": "Channel Gap",
+      "type": "Int",
+      "description": "When using Auto Layout, specify the amount of channels between fixtures. Eg. if fixture 1 ends on channel 200 and there is a channel of 10, then fixture 2 will start on channel 211.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Quantize Universe",
+      "parName": "quantizeuni",
+      "label": "Quantize Universe",
+      "type": "Menu",
+      "description": "Specify the level of quantizing to perform within a universe. It can either be set to be done By Fixture, or By Component.",
+      "isReadOnly": false,
+      "menuItems": [
+        "off",
+        "fixture",
+        "component"
+      ],
+      "menuLabels": [
+        "Off",
+        "By Fixture",
+        "By Component"
+      ]
+    },
+    {
+      "name": "DMX Channel",
+      "parName": "dmxchan",
+      "label": "DMX Channel",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks used to define the DMX profile",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "primitive",
+        "constant",
+        "attribute",
+        "1",
+        "2",
+        "3",
+        "4",
+        "dmxchan0valuer",
+        "dmxchan0valueg",
+        "dmxchan0valueb",
+        "dmxchan0valuea",
+        "b8",
+        "b16",
+        "b24",
+        "b32"
+      ],
+      "menuLabels": [
+        "Point",
+        "Primitive",
+        "Constant",
+        "Attribute",
+        "1",
+        "2",
+        "3",
+        "4",
+        "Value",
+        "Value",
+        "Value",
+        "Value",
+        "8-bit",
+        "16-bit",
+        "24-bit",
+        "32-bit"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-DMX_Fixture_POP.htm",
+  "parsedAt": "2025-08-08T03:03:55.299Z",
+  "url": "https://docs.derivative.ca/DMX_Fixture_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=DMX_Fixture_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live DMX_Fixture_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=DMX_Fixture_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

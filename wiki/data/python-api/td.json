@@ -1,0 +1,297 @@
+{
+  "className": "td",
+  "displayName": "td",
+  "description": "Core TouchDesigner module providing global functions and system access",
+  "category": "Core",
+  "url": "https://docs.derivative.ca/Td_Module",
+  "members": [
+    {
+      "name": "op",
+      "type": "function",
+      "description": "Access operators by path",
+      "readonly": false
+    },
+    {
+      "name": "me",
+      "type": "property",
+      "description": "Reference to current operator",
+      "readonly": false
+    },
+    {
+      "name": "parent",
+      "type": "property",
+      "description": "Reference to parent operator",
+      "readonly": false
+    },
+    {
+      "name": "absTime",
+      "type": "property",
+      "description": "Absolute time in seconds",
+      "readonly": false
+    },
+    {
+      "name": "project",
+      "type": "property",
+      "description": "Project settings and info",
+      "readonly": false
+    }
+  ],
+  "methods": [
+    {
+      "name": "debug",
+      "parameters": [
+        {
+          "name": "*args",
+          "type": "Any"
+        }
+      ],
+      "returns": "None :",
+      "signature": "debug(*args)"
+    },
+    {
+      "name": "op",
+      "parameters": [
+        {
+          "name": "pattern1",
+          "type": "Any"
+        },
+        {
+          "name": "pattern2...",
+          "type": "Any"
+        },
+        {
+          "name": "includeUtility=False",
+          "type": "Any"
+        }
+      ],
+      "returns": "OP  or None ",
+      "signature": "op(pattern1, pattern2..., includeUtility=False)"
+    },
+    {
+      "name": "ops",
+      "parameters": [
+        {
+          "name": "pattern1",
+          "type": "Any"
+        },
+        {
+          "name": "pattern2..",
+          "type": "Any"
+        },
+        {
+          "name": "includeUtility=False",
+          "type": "Any"
+        }
+      ],
+      "returns": "List[ OP ] :",
+      "signature": "ops(pattern1, pattern2.., includeUtility=False)"
+    },
+    {
+      "name": "passive",
+      "parameters": [
+        {
+          "name": "OP",
+          "type": "Any"
+        }
+      ],
+      "returns": "OP  :",
+      "signature": "passive( OP )"
+    },
+    {
+      "name": "run",
+      "parameters": [
+        {
+          "name": "script",
+          "type": "Any"
+        },
+        {
+          "name": "arg1",
+          "type": "Any"
+        },
+        {
+          "name": "arg2...",
+          "type": "Any"
+        },
+        {
+          "name": "endFrame=False",
+          "type": "Any"
+        },
+        {
+          "name": "fromOP=None",
+          "type": "Any"
+        },
+        {
+          "name": "asParameter=False",
+          "type": "Any"
+        },
+        {
+          "name": "group=None",
+          "type": "Any"
+        },
+        {
+          "name": "delayFrames=0",
+          "type": "Any"
+        },
+        {
+          "name": "delayMilliSeconds=0",
+          "type": "Any"
+        },
+        {
+          "name": "delayRef=me",
+          "type": "Any"
+        }
+      ],
+      "returns": "Run :",
+      "signature": "run(script, arg1, arg2..., endFrame=False, fromOP=None, asParameter=False, group=None, delayFrames=0, delayMilliSeconds=0, delayRef=me)"
+    },
+    {
+      "name": "fetchStamp",
+      "parameters": [
+        {
+          "name": "key",
+          "type": "Any"
+        },
+        {
+          "name": "default",
+          "type": "Any"
+        }
+      ],
+      "returns": "value :",
+      "signature": "fetchStamp(key, default)"
+    },
+    {
+      "name": "var",
+      "parameters": [
+        {
+          "name": "varName",
+          "type": "Any"
+        }
+      ],
+      "returns": "str :",
+      "signature": "var(varName)"
+    },
+    {
+      "name": "varExists",
+      "parameters": [
+        {
+          "name": "varName",
+          "type": "Any"
+        }
+      ],
+      "returns": "bool :",
+      "signature": "varExists(varName)"
+    },
+    {
+      "name": "varOwner",
+      "parameters": [
+        {
+          "name": "varName",
+          "type": "Any"
+        }
+      ],
+      "returns": "OP | None :",
+      "signature": "varOwner(varName)"
+    },
+    {
+      "name": "isMainThread",
+      "parameters": [],
+      "returns": "bool :",
+      "signature": "isMainThread()"
+    },
+    {
+      "name": "clear",
+      "parameters": [],
+      "returns": "None :",
+      "signature": "clear()"
+    },
+    {
+      "name": "includeUtility",
+      "parameters": [
+        {
+          "name": "Optional",
+          "type": "Any"
+        }
+      ],
+      "returns": "if True, allow  Utility nodes  to be returned. If False, Utility operators will be ignored.       b   =   op  (  'project1'  ) ",
+      "signature": "includeUtility(Optional)"
+    },
+    {
+      "name": "Class",
+      "parameters": [
+        {
+          "name": "OP .par",
+          "type": "Any"
+        }
+      ],
+      "returns": "holds all the parameters for an  OP .",
+      "signature": "Class(  OP .par )"
+    },
+    {
+      "name": "Module",
+      "parameters": [
+        {
+          "name": "tdu",
+          "type": "Any"
+        }
+      ],
+      "returns": "generic utilities for TouchDesigner not relating directly to TD objects.",
+      "signature": "Module( tdu )"
+    },
+    {
+      "name": "TDResources",
+      "parameters": [
+        {
+          "name": "op.TDResources...",
+          "type": "Any"
+        }
+      ],
+      "returns": "not a module, but does contain system resources that can be accessed via Python. It includes system  pop-up menu ,  button pop-up menu ,  pop-up dialog , and  mouse  resources.     ",
+      "signature": "TDResources( op.TDResources... )"
+    },
+    {
+      "name": "0",
+      "parameters": [
+        {
+          "name": "attr",
+          "type": "Any"
+        }
+      ],
+      "returns": "Classes without boilerplate (legacy). ",
+      "signature": "0( attr )"
+    },
+    {
+      "name": "07",
+      "parameters": [
+        {
+          "name": "certifi",
+          "type": "Any"
+        }
+      ],
+      "returns": "Root  Certificates for validating the trustworthiness of SSL certificates while verifying the identity of TLS hosts. ",
+      "signature": "07( certifi )"
+    },
+    {
+      "name": "1",
+      "parameters": [
+        {
+          "name": "charset_normalizer",
+          "type": "Any"
+        }
+      ],
+      "returns": "A library that helps you read text from an unknown charset encoding. ",
+      "signature": "1( charset_normalizer )"
+    }
+  ],
+  "examples": [
+    {
+      "title": "Accessing operators",
+      "code": "# Get operator by path\nnoise = td.op('/project1/noise1')\n\n# Get multiple operators\nbuttons = td.ops('button*')\n\n# Access parent and me\ncurrent = td.me\nparent = td.parent()"
+    },
+    {
+      "title": "Using time functions",
+      "code": "# Get absolute time\ntime = td.absTime.seconds\n\n# Frame information\nframe = td.absTime.frame"
+    }
+  ],
+  "source": "stub",
+  "enhanced": true
+}

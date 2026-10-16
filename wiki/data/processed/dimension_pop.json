@@ -1,0 +1,67 @@
+{
+  "name": "Dimension POP",
+  "id": "dimension_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Dimension POP can alter the dimensions of a POP. See [[Dimension]]. The product of the new dimensions has to be equal to the number of points, otherwise it will give a warning and not change anything. In all cases the points and point order does not change in any way, nor do vertices nor primitives – no data change. It only changes how the organization of points is viewed. You can add a Dimension <syntaxhighlight>20 33 -> 20 33 1 or 1 20 33</syntaxhighlight> Or remove a dimension <syntaxhighlight>12 5 30 -> 60 39</syntaxhighlight> Or swap, which often would not make sense <syntaxhighlight>12 25 -> 25 12</syntaxhighlight> Or split a dimension into two equal dimensions <syntaxhighlight>160 5 15 -> 80 2 5 15</syntaxhighlight>",
+  "parameters": [
+    {
+      "name": "Mode",
+      "parName": "mode",
+      "label": "Mode",
+      "type": "Menu",
+      "description": "Choose to reorder dimensions or set dimensions.",
+      "isReadOnly": false,
+      "menuItems": [
+        "reorderdims",
+        "setdims"
+      ],
+      "menuLabels": [
+        "Reorder Dimensions (Reorder Points)",
+        "Set Dimensions"
+      ]
+    },
+    {
+      "name": "Dimension Order",
+      "parName": "dimorder",
+      "label": "Dimension Order",
+      "type": "Str",
+      "description": "Determines the dimension indices to reorder.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Dimension",
+      "parName": "dim",
+      "label": "Dimension",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for dimensions.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Dimension_POP.htm",
+  "parsedAt": "2025-08-08T03:03:55.246Z",
+  "url": "https://docs.derivative.ca/Dimension_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Dimension_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Dimension_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Dimension_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

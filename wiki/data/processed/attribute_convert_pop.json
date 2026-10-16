@@ -1,0 +1,117 @@
+{
+  "name": "Attribute Convert POP",
+  "id": "attribute_convert_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Attribute Convert POP lets you copy a POP [[attribute]] from one \"attribute class\" to another. That is, attributes can be on a point, a vertex, or a primitive. You can, for example convert a primitive attribute to the points of that primitive. In some cases it is ambiguous, like when a point is shared between multiple primitives or multiple vertices, so the POP picks one value and doesn't complain. When it converts, it can delete the original attribute, and it can error or warning if the attribute it creates already exists. See the [[POP to DAT]] to find all the attributes of a POP. See [[Attribute POP]] to copy or rename an attribute within one attribute class. Note: There currently are no attributes on the POP as a whole.",
+  "parameters": [
+    {
+      "name": "Convert Operation",
+      "parName": "convertop",
+      "label": "Convert Operation",
+      "type": "Menu",
+      "description": "Chooses which attribute class (Point, Vertex, Primitive) for convert from and to.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "pointtovert",
+        "verttopoint",
+        "pointtoprim",
+        "primtopoint",
+        "verttoprim",
+        "primtovert"
+      ],
+      "menuLabels": [
+        "None",
+        "Point to Vertex",
+        "Vertex to Point",
+        "Point to Primitive",
+        "Primitive to Point",
+        "Vertex to Primitive",
+        "Primitive to Vertex"
+      ]
+    },
+    {
+      "name": "Input Attributes",
+      "parName": "inputattrs",
+      "label": "Input Attributes",
+      "type": "StrMenu",
+      "description": "Input attributes to convert to the new attribute class.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "New Attribute Name",
+      "parName": "newattrs",
+      "label": "New Attribute Name",
+      "type": "Str",
+      "description": "Name of new attribute being created.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Delete Original",
+      "parName": "deleteorig",
+      "label": "Delete Original",
+      "type": "Toggle",
+      "description": "Delete the selected incoming attribute.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Notification if Attribute Exists",
+      "parName": "notificationifexists",
+      "label": "Notification if Attribute Exists",
+      "type": "Menu",
+      "description": "Whether to display a notification if the attribute already exists on the input.",
+      "isReadOnly": false,
+      "menuItems": [
+        "ignore",
+        "warning",
+        "error"
+      ],
+      "menuLabels": [
+        "Ignore",
+        "Warning",
+        "Error"
+      ]
+    },
+    {
+      "name": "Override if Attribute Exists",
+      "parName": "overrideifexists",
+      "label": "Override if Attribute Exists",
+      "type": "Toggle",
+      "description": "When on, overrides an input attribute if a new attribute created by this POP has the same name.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Attribute_Convert_POP.htm",
+  "parsedAt": "2025-08-08T03:03:54.222Z",
+  "url": "https://docs.derivative.ca/Attribute_Convert_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Attribute_Convert_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Attribute_Convert_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Attribute_Convert_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

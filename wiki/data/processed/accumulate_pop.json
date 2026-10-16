@@ -1,0 +1,135 @@
+{
+  "name": "Accumulate POP",
+  "id": "accumulate_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Accumulate POP takes an attribute from the input, and creates a new attribute whose values in each point are the sum of the values in the input attribute of the previous points. For example, if an input has 100 points, and an attribute called <code>Steps</code> contains the same number, say 3 for each point, then the output attribute <code>Scan</code> will contain 3, 6, and 9 for the first three points, and 300 for the last point. It is the running sum or \"integral\". If you change Type to Exclusive Scan, it will not count the current point's value, so the <code>Scan</code> attribute will contain 0, 3, 6 up to 297 in the last point. The Accumulate POP can work on a point, vertex or primitive attribute. If the input is a float3, the new attribute will be float3, etc. You can check it all with a [[POP to DAT]]. See also: [[Analyze POP]], [[Histogram POP]]",
+  "parameters": [
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Input Attribute Scope",
+      "parName": "inputattrscope",
+      "label": "Input Attribute Scope",
+      "type": "StrMenu",
+      "description": "Input's attributes you want to affect within the chosen attribute class, or attribute components.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Type",
+      "parName": "scantype",
+      "label": "Type",
+      "type": "Menu",
+      "description": "The accumulated value for each point includes the current point's value, or does not include the current point's value.",
+      "isReadOnly": false,
+      "menuItems": [
+        "inclusive",
+        "exclusive"
+      ],
+      "menuLabels": [
+        "Inclusive Scan",
+        "Exclusive Scan"
+      ]
+    },
+    {
+      "name": "Output Attribute Scope",
+      "parName": "outputattrscope",
+      "label": "Output Attribute Scope",
+      "type": "StrMenu",
+      "description": "Name of attribute to output (can choose components of attribute), can choose from menu.",
+      "isReadOnly": false,
+      "menuItems": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "color",
+        "dcolor",
+        "dir",
+        "ddir",
+        "1",
+        "2",
+        "3",
+        "4",
+        "attrdefaultval0",
+        "attrdefaultval1",
+        "attrdefaultval2",
+        "attrdefaultval3"
+      ],
+      "menuLabels": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "Color",
+        "Color (double)",
+        "Direction",
+        "Direction (double)",
+        "1",
+        "2",
+        "3",
+        "4",
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Accumulate_POP.htm",
+  "parsedAt": "2025-08-08T03:03:53.998Z",
+  "url": "https://docs.derivative.ca/Accumulate_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Accumulate_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Accumulate_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Accumulate_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

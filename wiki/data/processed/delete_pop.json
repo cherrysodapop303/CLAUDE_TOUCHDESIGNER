@@ -1,0 +1,303 @@
+{
+  "name": "Delete POP",
+  "id": "delete_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Delete POP removes (or keeps) points or primitives using 5 methods found on the Attribute, Thin, Pattern, Group and Bounding pages. You can choose to delete points or primitives. On the Attribute page you can delete based on the values of point or primitive attributes. On the Thin page you can delete based on parameter-defined ranges, steps or randomly. You can delete based on patterns using [[Pattern Matching]] on the Pattern page. You can delete based on point or primitive groups on the Group page. You can delete based on bounding ranges on any attribute on the Bounding page. Four of the methods let you build the logic using sequential blocks of parameters. For example on the Attribute page, one block selects <code>P(0) > 0</code> and another that selects <code>P(1) < 0</code> and ANDed together they will delete points in a quarter of the space. Otherwise is common to build an attribute in a [[Math Mix POP]] and use it in the Delete POP. When deleting primitives, if points or vertices are no longer used, they are deleted. When deleting points, the vertices and primitives that use them can be deleted in part or entirely. Deleted points can cause like strips to be split, trimmed or deleted entirely. For pattern matching on the Pattern page, see [[Pattern Matching]]. Note: Deleting attributes can be done with the [[Attribute POP]], the [[Select POP]] and all the Math POPs. See also [[Group POP]]. The [[Field POP]] also can delete points.",
+  "parameters": [
+    {
+      "name": "Operation",
+      "parName": "invert",
+      "label": "Operation",
+      "type": "Menu",
+      "description": "Inverts the selection of elements being deleted.",
+      "isReadOnly": false,
+      "menuItems": [
+        "dele",
+        "keep",
+        "delete"
+      ],
+      "menuLabels": [
+        "Delete Selected",
+        "Delete Non-Selected",
+        "Delete Selected"
+      ]
+    },
+    {
+      "name": "Entity",
+      "parName": "entity",
+      "label": "Entity",
+      "type": "Menu",
+      "description": "Sets the attribute class to use.",
+      "isReadOnly": false,
+      "menuItems": [
+        "primitive",
+        "point"
+      ],
+      "menuLabels": [
+        "Primitives",
+        "Points"
+      ]
+    },
+    {
+      "name": "Line Strip Behavior",
+      "parName": "linestripbehavior",
+      "label": "Line Strip Behavior",
+      "type": "Menu",
+      "description": "What to do when points of a line strip are deleted.",
+      "isReadOnly": false,
+      "menuItems": [
+        "delpointoflinestrip",
+        "splitlinestrip",
+        "dellinestrip"
+      ],
+      "menuLabels": [
+        "Delete Point of Line Strip",
+        "Split Line Strip",
+        "Delete Line Strip"
+      ]
+    },
+    {
+      "name": "Copy Topology Info Back to CPU",
+      "parName": "cpureadback",
+      "label": "Copy Topology Info Back to CPU",
+      "type": "Toggle",
+      "description": "Enable copying the point count and topology information held on the GPU to the CPU.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Attribute",
+      "parName": "attr",
+      "label": "Attribute",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to create new attributes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "and",
+        "or",
+        "xor",
+        "nand",
+        "nor",
+        "lt",
+        "lte",
+        "gt",
+        "gte",
+        "eq",
+        "ne"
+      ],
+      "menuLabels": [
+        "And",
+        "Or",
+        "Exclusive Or",
+        "Not And",
+        "Not Or",
+        "<",
+        "<=",
+        ">",
+        ">=",
+        "==",
+        "!="
+      ]
+    },
+    {
+      "name": "Enabled",
+      "parName": "thinenabled",
+      "label": "Enabled",
+      "type": "Toggle",
+      "description": "Enable thinning by index range, index step or random index.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Thin Out Range",
+      "parName": "thinoutrange",
+      "label": "Thin Out Range",
+      "type": "Toggle",
+      "description": "Enable index-based point filtering.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Thin Range Start",
+      "parName": "thinrangestart",
+      "label": "Thin Range Start",
+      "type": "Int",
+      "description": "Determines the starting index for range-based point filtering.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Thin Range Length",
+      "parName": "thinrangelength",
+      "label": "Thin Range Length",
+      "type": "Int",
+      "description": "Determines the number of points being filtered by index range.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Thin Step",
+      "parName": "thinstep",
+      "label": "Thin Step",
+      "type": "Int",
+      "description": "Filters every Nth point.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Thin Random",
+      "parName": "thinrandom",
+      "label": "Thin Random",
+      "type": "Float",
+      "description": "Determines the proportion of points randomly filtered.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Thin Random Seed",
+      "parName": "thinrandomseed",
+      "label": "Thin Random Seed",
+      "type": "Float",
+      "description": "Sets the random seed for points being randomly filtered.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Invert",
+      "parName": "thininvert",
+      "label": "Invert",
+      "type": "Toggle",
+      "description": "Invert the selection resulting from the current conditions in the block.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Pattern",
+      "parName": "pattern",
+      "label": "Pattern",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for index-matching pattern.",
+      "isReadOnly": false,
+      "menuItems": [
+        "and",
+        "or",
+        "xor",
+        "nand",
+        "nor",
+        "*",
+        "0-50",
+        "0-50:2",
+        "[*]",
+        "[*:4]",
+        "[0-49]",
+        "[0-49:2]",
+        "^[*:4]",
+        "[*:5:7]",
+        "[1,4,9]",
+        "1 4 [7-9]"
+      ],
+      "menuLabels": [
+        "And",
+        "Or",
+        "Exclusive Or",
+        "Not And",
+        "Not Or",
+        "*",
+        "0-50",
+        "0-50:2",
+        "[*]",
+        "[*:4]",
+        "[0-49]",
+        "[0-49:2]",
+        "^[*:4]",
+        "[*:5:7]",
+        "[1,4,9]",
+        "1 4 [7-9]"
+      ]
+    },
+    {
+      "name": "Group",
+      "parName": "group",
+      "label": "Group",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for input groups, specifying a group name in this field will cause this POP to act only upon the group specified.",
+      "isReadOnly": false,
+      "menuItems": [
+        "and",
+        "or",
+        "xor",
+        "nand",
+        "nor"
+      ],
+      "menuLabels": [
+        "And",
+        "Or",
+        "Exclusive Or",
+        "Not And",
+        "Not Or"
+      ]
+    },
+    {
+      "name": "Bound",
+      "parName": "bound",
+      "label": "Bound",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for bounding volumes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "and",
+        "or",
+        "xor",
+        "nand",
+        "nor",
+        "boundingbox",
+        "boundingsphere",
+        "bound0translatex",
+        "bound0translatey",
+        "bound0translatez",
+        "bound0rotatex",
+        "bound0rotatey",
+        "bound0rotatez",
+        "bound0scalex",
+        "bound0scaley",
+        "bound0scalez"
+      ],
+      "menuLabels": [
+        "And",
+        "Or",
+        "Exclusive Or",
+        "Not And",
+        "Not Or",
+        "Bounding Box",
+        "Bounding Sphere",
+        "Translate",
+        "Translate",
+        "Translate",
+        "Rotate",
+        "Rotate",
+        "Rotate",
+        "Scale",
+        "Scale",
+        "Scale"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Delete_POP.htm",
+  "parsedAt": "2025-08-08T03:03:55.195Z",
+  "url": "https://docs.derivative.ca/Delete_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Delete_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Delete_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Delete_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

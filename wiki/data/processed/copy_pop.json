@@ -1,0 +1,541 @@
+{
+  "name": "Copy POP",
+  "id": "copy_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Copy POP makes copies of its input using (1) the Number of Copies parameter that specifies the number of copies to make with the transform applied to each copy, and (2) a second-input Template POP where a copy is placed at each point of the template. For each copy in (1), the transforms are cumulative, that is, the transform is applied to the transform of the previous copy, with no transform applied to the first copy. Once (1) is done, then (2) is applied to the result. The Template page chooses which attributes of the template are used to define the transform for each copy-per-template point. The Template Attributes page determines what attributes are added to the output, and how the attributes are combinations of the first input and the template input, multiplying or adding them together. If the number of copies is greater than 1, The Dimension of the first input is increased by one, and the number of dimensions is increased by the second (template) input's dimension. See [[Dimension]]. See also: [[GLSL Copy POP]].",
+  "parameters": [
+    {
+      "name": "Number of Copies",
+      "parName": "ncy",
+      "label": "Number of Copies",
+      "type": "Int",
+      "description": "Sets the number of copies. If the template input is used, that's the number of copies per template point.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Transform Order",
+      "parName": "xord",
+      "label": "Transform Order",
+      "type": "Menu",
+      "description": "Sets the overall transform order for the transformations.",
+      "isReadOnly": false,
+      "menuItems": [
+        "srt",
+        "str",
+        "rst",
+        "rts",
+        "tsr",
+        "trs"
+      ],
+      "menuLabels": [
+        "Scale Rotate Translate",
+        "Scale Translate Rotate",
+        "Rotate Scale Translate",
+        "Rotate Translate Scale",
+        "Translate Scale Rotate",
+        "Translate Rotate Scale"
+      ]
+    },
+    {
+      "name": "Rotate Order",
+      "parName": "rord",
+      "label": "Rotate Order",
+      "type": "Menu",
+      "description": "Sets the order of the rotations within the overall transform order.",
+      "isReadOnly": false,
+      "menuItems": [
+        "xyz",
+        "xzy",
+        "yxz",
+        "yzx",
+        "zxy",
+        "zyx"
+      ],
+      "menuLabels": [
+        "Rx Ry Rz",
+        "Rx Rz Ry",
+        "Ry Rx Rz",
+        "Ry Rz Rx",
+        "Rz Rx Ry",
+        "Rz Ry Rx"
+      ]
+    },
+    {
+      "name": "Translate",
+      "parName": "t",
+      "label": "Translate",
+      "type": "XYZW",
+      "description": "Translate the points in the three axes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "tx",
+        "ty",
+        "tz"
+      ],
+      "menuLabels": [
+        "Translate",
+        "Translate",
+        "Translate"
+      ]
+    },
+    {
+      "name": "Rotate",
+      "parName": "r",
+      "label": "Rotate",
+      "type": "XYZW",
+      "description": "Rotate the points around the corresponding X, Y and Z axes. Angles are given in degrees.",
+      "isReadOnly": false,
+      "menuItems": [
+        "rx",
+        "ry",
+        "rz"
+      ],
+      "menuLabels": [
+        "Rotate",
+        "Rotate",
+        "Rotate"
+      ]
+    },
+    {
+      "name": "Scale",
+      "parName": "s",
+      "label": "Scale",
+      "type": "XYZW",
+      "description": "These three fields scale the Source geometry in the three axes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "sx",
+        "sy",
+        "sz"
+      ],
+      "menuLabels": [
+        "Scale",
+        "Scale",
+        "Scale"
+      ]
+    },
+    {
+      "name": "Pivot",
+      "parName": "p",
+      "label": "Pivot",
+      "type": "XYZW",
+      "description": "The pivot point for the transform rotates and scales.",
+      "isReadOnly": false,
+      "menuItems": [
+        "px",
+        "py",
+        "pz"
+      ],
+      "menuLabels": [
+        "Pivot",
+        "Pivot",
+        "Pivot"
+      ]
+    },
+    {
+      "name": "Uniform Scale",
+      "parName": "scale",
+      "label": "Uniform Scale",
+      "type": "Float",
+      "description": "Specifies a uniform scale factor in all axes.",
+      "isReadOnly": false
+    },
+    {
+      "name": "CopyId Attribute",
+      "parName": "copyid",
+      "label": "CopyId Attribute",
+      "type": "Menu",
+      "description": "Whether to output an attribute containing the copy index and where.",
+      "isReadOnly": false,
+      "menuItems": [
+        "copyid",
+        "copyidname"
+      ],
+      "menuLabels": [
+        "CopyId Attribute",
+        "CopyId Attrib Name"
+      ]
+    },
+    {
+      "name": "Look At",
+      "parName": "lookat",
+      "label": "Look At",
+      "type": "Object",
+      "description": "Orients the copied geometry (Z axis) to look at, or point to, the object component specified in the parameter.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Up Vector",
+      "parName": "upvector",
+      "label": "Up Vector",
+      "type": "XYZW",
+      "description": "Sets the up vector when setting up the look at transform.",
+      "isReadOnly": false,
+      "menuItems": [
+        "upvectorx",
+        "upvectory",
+        "upvectorz"
+      ],
+      "menuLabels": [
+        "Up Vector",
+        "Up Vector",
+        "Up Vector"
+      ]
+    },
+    {
+      "name": "Forward Direction",
+      "parName": "forwarddir",
+      "label": "Forward Direction",
+      "type": "Menu",
+      "description": "Determines the forward direction for look at transformation.",
+      "isReadOnly": false,
+      "menuItems": [
+        "posx",
+        "negx",
+        "posy",
+        "negy",
+        "posz",
+        "negz"
+      ],
+      "menuLabels": [
+        "+X",
+        "-X",
+        "+Y",
+        "-Y",
+        "+Z",
+        "-Z"
+      ]
+    },
+    {
+      "name": "Vectors Maintain Length",
+      "parName": "vlength",
+      "label": "Vectors Maintain Length",
+      "type": "Toggle",
+      "description": "Enable preserving the original vector length after applying transformations.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Append Dimension",
+      "parName": "dimension",
+      "label": "Append Dimension",
+      "type": "Menu",
+      "description": "Always add a dimension, or only add a dimesion when its size is 2 or more.",
+      "isReadOnly": false,
+      "menuItems": [
+        "morethanone",
+        "always"
+      ],
+      "menuLabels": [
+        "When Template Points / Copies > 1",
+        "Always"
+      ]
+    },
+    {
+      "name": "Template Matrix Transform",
+      "parName": "dotemplatematrix",
+      "label": "Template Matrix Transform",
+      "type": "Toggle",
+      "description": "Whether to use a transform matrix attribute on the template points.",
+      "isReadOnly": false,
+      "menuItems": [
+        "dotemplatematrix",
+        "transformattr"
+      ],
+      "menuLabels": [
+        "Template Matrix Transform",
+        "Transform Attribute"
+      ]
+    },
+    {
+      "name": "Template Transform Order",
+      "parName": "templatexord",
+      "label": "Template Transform Order",
+      "type": "Menu",
+      "description": "Sets the overall transform order for the template transformations.",
+      "isReadOnly": false,
+      "menuItems": [
+        "srt",
+        "str",
+        "rst",
+        "rts",
+        "tsr",
+        "trs"
+      ],
+      "menuLabels": [
+        "Scale Rotate Translate",
+        "Scale Translate Rotate",
+        "Rotate Scale Translate",
+        "Rotate Translate Scale",
+        "Translate Scale Rotate",
+        "Translate Rotate Scale"
+      ]
+    },
+    {
+      "name": "Template Rotate Order",
+      "parName": "templaterord",
+      "label": "Template Rotate Order",
+      "type": "Menu",
+      "description": "Sets the order of the X, Y and Z rotations within the overall template transform.",
+      "isReadOnly": false,
+      "menuItems": [
+        "xyz",
+        "xzy",
+        "yxz",
+        "yzx",
+        "zxy",
+        "zyx"
+      ],
+      "menuLabels": [
+        "Rx Ry Rz",
+        "Rx Rz Ry",
+        "Ry Rx Rz",
+        "Ry Rz Rx",
+        "Rz Rx Ry",
+        "Rz Ry Rx"
+      ]
+    },
+    {
+      "name": "Template Translate",
+      "parName": "dotemplatetranslate",
+      "label": "Template Translate",
+      "type": "Toggle",
+      "description": "Whether to use a translate attribute on the template points.",
+      "isReadOnly": false,
+      "menuItems": [
+        "dotemplatetranslate",
+        "translateattr"
+      ],
+      "menuLabels": [
+        "Template Translate",
+        "Template Translate Attribute"
+      ]
+    },
+    {
+      "name": "Template Rotate",
+      "parName": "dotemplaterotate",
+      "label": "Template Rotate",
+      "type": "Toggle",
+      "description": "Whether to use a rotate attribute on the template points.",
+      "isReadOnly": false,
+      "menuItems": [
+        "dotemplaterotate",
+        "rotateattr"
+      ],
+      "menuLabels": [
+        "Template Rotate",
+        "Template Rotate Attribute"
+      ]
+    },
+    {
+      "name": "Template Scale",
+      "parName": "dotemplatescale",
+      "label": "Template Scale",
+      "type": "Toggle",
+      "description": "Whether to use a scale attribute on the template points.",
+      "isReadOnly": false,
+      "menuItems": [
+        "dotemplatescale",
+        "scaleattrib"
+      ],
+      "menuLabels": [
+        "Template Scale",
+        "Scale Attribute"
+      ]
+    },
+    {
+      "name": "Template Pivot",
+      "parName": "dotemplatepivot",
+      "label": "Template Pivot",
+      "type": "Toggle",
+      "description": "Whether to use a pivot attribute on the template points.",
+      "isReadOnly": false,
+      "menuItems": [
+        "dotemplatepivot",
+        "pivotattr"
+      ],
+      "menuLabels": [
+        "Template Pivot",
+        "Template Pivot Attribute"
+      ]
+    },
+    {
+      "name": "Template Rotate to Vector",
+      "parName": "dotemplaterotateto",
+      "label": "Template Rotate to Vector",
+      "type": "Toggle",
+      "description": "Enable align to vector rotation, using the template input as a reference.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Template Rotate to Order",
+      "parName": "templaterottoord",
+      "label": "Template Rotate to Order",
+      "type": "Menu",
+      "description": "Sets the order of axis and align to vector rotations within the overall template transform.",
+      "isReadOnly": false,
+      "menuItems": [
+        "rottoxform",
+        "rotaterotto",
+        "rottorotate"
+      ],
+      "menuLabels": [
+        "Rotate to Vector, then Transform",
+        "Rotate, then Rotate to Vector",
+        "Rotate to Vector, then Rotate"
+      ]
+    },
+    {
+      "name": "Rotate to Vector : Forward Direction",
+      "parName": "instanceforward",
+      "label": "Rotate to Vector : Forward Direction",
+      "type": "Menu",
+      "description": "Base forward direction used to compute the rotation to vector.",
+      "isReadOnly": false,
+      "menuItems": [
+        "posx",
+        "negx",
+        "posy",
+        "negy",
+        "posz",
+        "negz"
+      ],
+      "menuLabels": [
+        "+X",
+        "-X",
+        "+Y",
+        "-Y",
+        "+Z",
+        "-Z"
+      ]
+    },
+    {
+      "name": "Rotate to Vector Attribute",
+      "parName": "vecattr",
+      "label": "Rotate to Vector Attribute",
+      "type": "StrMenu",
+      "description": "Input attribute used to compute the rotation to vector.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Up Vector Type",
+      "parName": "upvectoratype",
+      "label": "Up Vector Type",
+      "type": "Menu",
+      "description": "Specifies the up vector source.",
+      "isReadOnly": false,
+      "menuItems": [
+        "attribute",
+        "constant"
+      ],
+      "menuLabels": [
+        "Attribute",
+        "Constant"
+      ]
+    },
+    {
+      "name": "Up Attribute",
+      "parName": "upattr",
+      "label": "Up Attribute",
+      "type": "StrMenu",
+      "description": "Defines the scope of the up attribute used for alignment with template vectors.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Up Constant",
+      "parName": "upconstant",
+      "label": "Up Constant",
+      "type": "XYZW",
+      "description": "Sets the up vector to align with the template vectors.",
+      "isReadOnly": false,
+      "menuItems": [
+        "upconstantx",
+        "upconstanty",
+        "upconstantz"
+      ],
+      "menuLabels": [
+        "Up Constant",
+        "Up Constant",
+        "Up Constant"
+      ]
+    },
+    {
+      "name": "TemplateId Attribute",
+      "parName": "templateid",
+      "label": "TemplateId Attribute",
+      "type": "Menu",
+      "description": "Output a template ID attribute to points, vertices or primitives.",
+      "isReadOnly": false,
+      "menuItems": [
+        "templateid",
+        "templateidname"
+      ],
+      "menuLabels": [
+        "TemplateId Attribute",
+        "TemplateId Attrib Name"
+      ]
+    },
+    {
+      "name": "Use Template Point Attribs",
+      "parName": "doattr",
+      "label": "Use Template Point Attribs",
+      "type": "Toggle",
+      "description": "Enable additional operations on template input attributes.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Template Attribute",
+      "parName": "templateattr",
+      "label": "Template Attribute",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for attributes as combinations of the first input and the template input.",
+      "isReadOnly": false,
+      "menuItems": [
+        "copy",
+        "mul",
+        "add",
+        "subtract",
+        "point",
+        "vertex",
+        "primitive",
+        "*"
+      ],
+      "menuLabels": [
+        "Copy",
+        "Multiply",
+        "Add",
+        "Subtract",
+        "Point",
+        "Vertex",
+        "Primitive",
+        "*"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Copy_POP.htm",
+  "parsedAt": "2025-08-08T03:03:54.900Z",
+  "url": "https://docs.derivative.ca/Copy_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Copy_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Copy_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Copy_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,405 @@
+{
+  "name": "GLSL Copy POP",
+  "id": "glsl_copy_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The GLSL Copy POP lets you make copies of the geometry of the first input POP, and apply custom GLSL code to each copy. If the template input (second input) is not connected, the \"number of copies\" parameter determines the number of copies. If the template input is connected, the number of copies is determined by the number of points in the template. A copy is created at each point. One compute compute shader is run for each element type (points, vertices, primitives) of a copy. Attributes to output are specified in the Output Attributes parameter. A valid points compute shader is required. For vertices, a custom compute shader is optional, the default compute shader updates the index buffer and copies the input vertex attributes to the output. For primitives, a custom compute shader is optional, the default compute shader updates extra buffers required for line strips, primitive groups, and copies the input primitive attributes to the output. See default commented shader DATs for available helper functions and example usage. '''Refer to the [[Write GLSL POPs]] article for more info on using this POP.'''",
+  "parameters": [
+    {
+      "name": "Number of Copies",
+      "parName": "ncy",
+      "label": "Number of Copies",
+      "type": "Int",
+      "description": "Sets the number of copies.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Points Compute Shader",
+      "parName": "ptcomputedat",
+      "label": "Points Compute Shader",
+      "type": "DAT",
+      "description": "DAT containing the point compute shader code.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Point Output Attributes",
+      "parName": "ptoutputattrs",
+      "label": "Point Output Attributes",
+      "type": "StrMenu",
+      "description": "Input point attributes modified by the shader.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Verts Compute Method",
+      "parName": "vertcomputemethod",
+      "label": "Verts Compute Method",
+      "type": "Menu",
+      "description": "Vertex compute shader method.",
+      "isReadOnly": false,
+      "menuItems": [
+        "default",
+        "custom"
+      ],
+      "menuLabels": [
+        "Default",
+        "Custom Shader"
+      ]
+    },
+    {
+      "name": "Verts Compute Shader",
+      "parName": "vertcomputedat",
+      "label": "Verts Compute Shader",
+      "type": "DAT",
+      "description": "DAT containing the vertex compute shader.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Vert Output Attributes",
+      "parName": "vertoutputattrs",
+      "label": "Vert Output Attributes",
+      "type": "StrMenu",
+      "description": "Input vertex attributes modified by the shader.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Prim Compute Method",
+      "parName": "primcomputemethod",
+      "label": "Prim Compute Method",
+      "type": "Menu",
+      "description": "Primitive compute shader method.",
+      "isReadOnly": false,
+      "menuItems": [
+        "default",
+        "custom"
+      ],
+      "menuLabels": [
+        "Default",
+        "Custom Shader"
+      ]
+    },
+    {
+      "name": "Prim Compute Shader",
+      "parName": "primcomputedat",
+      "label": "Prim Compute Shader",
+      "type": "DAT",
+      "description": "DAT containing the primitive compute shader.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Prim Output Attributes",
+      "parName": "primoutputattrs",
+      "label": "Prim Output Attributes",
+      "type": "StrMenu",
+      "description": "Input primitive attributes modified by the shader.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Append Dimension",
+      "parName": "dimension",
+      "label": "Append Dimension",
+      "type": "Menu",
+      "description": "Always add a dimension, or only add a dimesion when its size is 2 or more.",
+      "isReadOnly": false,
+      "menuItems": [
+        "morethanone",
+        "always"
+      ],
+      "menuLabels": [
+        "When Template Points / Copies > 1",
+        "Always"
+      ]
+    },
+    {
+      "name": "TDSimplexNoise()",
+      "parName": "simplexnoise",
+      "label": "TDSimplexNoise()",
+      "type": "Menu",
+      "description": "Sets the implementation to use for a simplex noise method that can be called in the shader.",
+      "isReadOnly": false,
+      "menuItems": [
+        "performance",
+        "quality"
+      ],
+      "menuLabels": [
+        "Performance",
+        "Quality"
+      ]
+    },
+    {
+      "name": "New Attribute",
+      "parName": "attr",
+      "label": "New Attribute",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to create new attributes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive",
+        "attr0name",
+        "attr0customname",
+        "attr0type",
+        "attr0numcomps"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive",
+        "New Attribute Name",
+        "Custom Name",
+        "New Attribute Type",
+        "New Attribute Number of Components"
+      ]
+    },
+    {
+      "name": "Matrix Attribute",
+      "parName": "matattr",
+      "label": "Matrix Attribute",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to create new matrix attributes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive",
+        "none",
+        "transformMatrix"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive",
+        "None",
+        "Transform Matrix"
+      ]
+    },
+    {
+      "name": "Pre-Multiply RGB by Alpha",
+      "parName": "premultcolor",
+      "label": "Pre-Multiply RGB by Alpha",
+      "type": "Toggle",
+      "description": "Enable RGB values pre-multiplication with the Alpha.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Color",
+      "parName": "color",
+      "label": "Color",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for color uniforms.",
+      "isReadOnly": false,
+      "menuItems": [
+        "color0rgbr",
+        "color0rgbg",
+        "color0rgbb"
+      ],
+      "menuLabels": [
+        "RGB",
+        "RGB",
+        "RGB"
+      ]
+    },
+    {
+      "name": "Vector",
+      "parName": "vec",
+      "label": "Vector",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to define uniform variables.",
+      "isReadOnly": false,
+      "menuItems": [
+        "float",
+        "vec2",
+        "vec3",
+        "vec4",
+        "double",
+        "dvec2",
+        "dvec3",
+        "dvec4",
+        "int",
+        "ivec2",
+        "ivec3",
+        "ivec4",
+        "uint",
+        "uvec2",
+        "uvec3",
+        "uvec4",
+        "vec0valuex",
+        "vec0valuey",
+        "vec0valuez",
+        "vec0valuew"
+      ],
+      "menuLabels": [
+        "float",
+        "vec2",
+        "vec3",
+        "vec4",
+        "double",
+        "dvec2",
+        "dvec3",
+        "dvec4",
+        "int",
+        "ivec2",
+        "ivec3",
+        "ivec4",
+        "uint",
+        "uvec2",
+        "uvec3",
+        "uvec4",
+        "Value",
+        "Value",
+        "Value",
+        "Value"
+      ]
+    },
+    {
+      "name": "Sampler",
+      "parName": "sampler",
+      "label": "Sampler",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for Samplers to read from the shader.",
+      "isReadOnly": false,
+      "menuItems": [
+        "hold",
+        "zero",
+        "repeat",
+        "mirror",
+        "hold",
+        "zero",
+        "repeat",
+        "mirror",
+        "hold",
+        "zero",
+        "repeat",
+        "mirror",
+        "nearest",
+        "linear"
+      ],
+      "menuLabels": [
+        "Hold",
+        "Zero",
+        "Repeat",
+        "Mirror",
+        "Hold",
+        "Zero",
+        "Repeat",
+        "Mirror",
+        "Hold",
+        "Zero",
+        "Repeat",
+        "Mirror",
+        "Nearest Pixel",
+        "Interpolate Pixels"
+      ]
+    },
+    {
+      "name": "Array",
+      "parName": "array",
+      "label": "Array",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for array uniforms.",
+      "isReadOnly": false,
+      "menuItems": [
+        "float",
+        "vec2",
+        "vec3",
+        "vec4",
+        "uniformarray",
+        "texturebuffer"
+      ],
+      "menuLabels": [
+        "float",
+        "vec2",
+        "vec3",
+        "vec4",
+        "Uniform Array",
+        "Texture Buffer"
+      ]
+    },
+    {
+      "name": "Matrix",
+      "parName": "matrix",
+      "label": "Matrix",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks of matrix uniforms.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Temp Buffer",
+      "parName": "tempbuffer",
+      "label": "Temp Buffer",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks forTemporary buffers used to pass information to the shader as uniforms.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Constant",
+      "parName": "const",
+      "label": "Constant",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for Specialization Constants.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Buffer",
+      "parName": "buffer",
+      "label": "Buffer",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for POP attribute buffers.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-GLSL_Copy_POP.htm",
+  "parsedAt": "2025-08-08T03:03:56.064Z",
+  "url": "https://docs.derivative.ca/GLSL_Copy_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=GLSL_Copy_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live GLSL_Copy_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=GLSL_Copy_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,221 @@
+{
+  "name": "Twist POP",
+  "id": "twist_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Twist POP performs non-linear deformations on points such as Twist, Bend, Shear, Taper, Linear Taper, and Squash & Stretch. You set up one or two axes (X, Y or Z) and a pivot point to determine the direction and center of deformation. The amount of deformation is set by the Strength parameter, and the rolloff away from the pivot point and/or axes is affected by the Rolloff parameter. The amount of deformation can also be increased or decreased using a Weight attribute, which multiplies the Strength per-point. You can deform any point, vertex or primitive attribute.",
+  "parameters": [
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Input Attribute Scope",
+      "parName": "inputattrscope",
+      "label": "Input Attribute Scope",
+      "type": "StrMenu",
+      "description": "Input's attributes you want to affect within the chosen attribute class, or attribute components.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Weight Attribute",
+      "parName": "weightattr",
+      "label": "Weight Attribute",
+      "type": "StrMenu",
+      "description": "Specifies the scope of the attribute that stores weight values",
+      "isReadOnly": false
+    },
+    {
+      "name": "Operation",
+      "parName": "op",
+      "label": "Operation",
+      "type": "Menu",
+      "description": "Selects the operation to perform.",
+      "isReadOnly": false,
+      "menuItems": [
+        "twist",
+        "bend",
+        "shear",
+        "taper",
+        "ltaper",
+        "squash"
+      ],
+      "menuLabels": [
+        "Twist",
+        "Bend",
+        "Shear",
+        "Taper",
+        "Linear Taper",
+        "Squash & Stretch"
+      ]
+    },
+    {
+      "name": "Primary Axis",
+      "parName": "paxis",
+      "label": "Primary Axis",
+      "type": "Menu",
+      "description": "Primary transform axis of the twist.",
+      "isReadOnly": false,
+      "menuItems": [
+        "x",
+        "y",
+        "z"
+      ],
+      "menuLabels": [
+        "X Axis",
+        "Y Axis",
+        "Z Axis"
+      ]
+    },
+    {
+      "name": "Secondary Axis",
+      "parName": "saxis",
+      "label": "Secondary Axis",
+      "type": "Menu",
+      "description": "Secondary transform axis.",
+      "isReadOnly": false,
+      "menuItems": [
+        "x",
+        "y",
+        "z"
+      ],
+      "menuLabels": [
+        "X Axis",
+        "Y Axis",
+        "Z Axis"
+      ]
+    },
+    {
+      "name": "Pivot",
+      "parName": "p",
+      "label": "Pivot",
+      "type": "XYZW",
+      "description": "The pivot point for the transform rotates and scales.",
+      "isReadOnly": false,
+      "menuItems": [
+        "px",
+        "py",
+        "pz"
+      ],
+      "menuLabels": [
+        "Pivot",
+        "Pivot",
+        "Pivot"
+      ]
+    },
+    {
+      "name": "Strength",
+      "parName": "strength",
+      "label": "Strength",
+      "type": "Float",
+      "description": "Sets the transform operation strength.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Rolloff",
+      "parName": "rolloff",
+      "label": "Rolloff",
+      "type": "Float",
+      "description": "Rolloff factor on the twist operation.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Output Attribute Scope",
+      "parName": "outputattrscope",
+      "label": "Output Attribute Scope",
+      "type": "StrMenu",
+      "description": "Name of attribute to output (can choose components of attribute), can choose from menu.",
+      "isReadOnly": false,
+      "menuItems": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "color",
+        "dcolor",
+        "dir",
+        "ddir",
+        "1",
+        "2",
+        "3",
+        "4",
+        "attrdefaultval0",
+        "attrdefaultval1",
+        "attrdefaultval2",
+        "attrdefaultval3"
+      ],
+      "menuLabels": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "Color",
+        "Color (double)",
+        "Direction",
+        "Direction (double)",
+        "1",
+        "2",
+        "3",
+        "4",
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Twist_POP.htm",
+  "parsedAt": "2025-08-08T03:04:00.961Z",
+  "url": "https://docs.derivative.ca/Twist_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Twist_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Twist_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Twist_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

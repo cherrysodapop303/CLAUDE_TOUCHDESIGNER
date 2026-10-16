@@ -1,0 +1,143 @@
+{
+  "name": "Extrude POP",
+  "id": "extrude_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Extrude POP is a gives apparent \"thickness\" to line strips, triangles or quads. It copies the line strip, triangle or quad at a specifiable separation (Distance), optionally shrinks it to give a taper (Inset), and adds quads for the sides. You must pass it to a [[Normal POP]] to render it with faceted shading. Each point of the line strips can have a unique corresponding Distance of the extrusion via the Map page. See also [[Triangulate POP]].",
+  "parameters": [
+    {
+      "name": "Group",
+      "parName": "group",
+      "label": "Group",
+      "type": "StrMenu",
+      "description": "If there are input groups, specifying a group name in this field will cause this POP to act only upon the group specified.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Axis",
+      "parName": "axis",
+      "label": "Axis",
+      "type": "Menu",
+      "description": "",
+      "isReadOnly": false,
+      "menuItems": [
+        "normal",
+        "x",
+        "y",
+        "z"
+      ],
+      "menuLabels": [
+        "Normal",
+        "X",
+        "Y",
+        "Z"
+      ]
+    },
+    {
+      "name": "Distance",
+      "parName": "distance",
+      "label": "Distance",
+      "type": "Float",
+      "description": "Sets the distance to extrude",
+      "isReadOnly": false
+    },
+    {
+      "name": "Taper",
+      "parName": "taper",
+      "label": "Taper",
+      "type": "Float",
+      "description": "Applies a scaling factor to extruded geometry.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Per Edge",
+      "parName": "peredge",
+      "label": "Per Edge",
+      "type": "Toggle",
+      "description": "When on, faces are extruded as a group instead of individually. Useful in particular when extruding an input group.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Max Primitives per Point",
+      "parName": "maxprimsperpoint",
+      "label": "Max Primitives per Point",
+      "type": "Int",
+      "description": "Used to allocate temporary storage when Keep Faces Connected is on, it should be set to the maximum number a primitives a point can be a part of in the input geometry.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Normal",
+      "parName": "normal",
+      "label": "Normal",
+      "type": "Menu",
+      "description": "",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "pointNormals",
+        "vertNormals"
+      ],
+      "menuLabels": [
+        "None",
+        "Point",
+        "Vertex"
+      ]
+    },
+    {
+      "name": "Copy Topology Info Back to CPU",
+      "parName": "cpureadback",
+      "label": "Copy Topology Info Back to CPU",
+      "type": "Toggle",
+      "description": "Enable copying the point count and topology information held on the GPU to the CPU.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Mapping",
+      "parName": "map",
+      "label": "Mapping",
+      "type": "Sequence",
+      "description": "",
+      "isReadOnly": false,
+      "menuItems": [
+        "distance",
+        "taper",
+        "set",
+        "mult",
+        "add"
+      ],
+      "menuLabels": [
+        "distance (Distance)",
+        "taper (Taper)",
+        "Set",
+        "Multiply",
+        "Add"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Extrude_POP.htm",
+  "parsedAt": "2025-08-08T03:03:55.429Z",
+  "url": "https://docs.derivative.ca/Extrude_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Extrude_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Extrude_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Extrude_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

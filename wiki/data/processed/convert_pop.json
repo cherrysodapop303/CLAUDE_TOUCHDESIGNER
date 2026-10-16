@@ -1,0 +1,69 @@
+{
+  "name": "Convert POP",
+  "id": "convert_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Convert POP is a general utility that keeps the points of the input, but reconnects them in various ways as primitives. This includes converting to and from line strips, opening/closing line strips, converting quads to triangles, stripping off all primitives, and creating Point Primitives from points. It can also “flatten” a POP into an orderly form by first making the points of all primitives unique, and then re-ordering all the points by going through each primitive and ordering the points according to the vertices of each primitive (menu item Unique Points and Reorder to Prim/Vertex Order). The first point in the point list is the first vertex of the first primitive, and the last point of the point list is the last vertex of the last primitive. See also [[Primitive POP]].",
+  "parameters": [
+    {
+      "name": "Convert",
+      "parName": "convert",
+      "label": "Convert",
+      "type": "Menu",
+      "description": "Determines the converting operation to apply to the primitives or the points.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "deleteprims",
+        "topointprims",
+        "linestripstolines",
+        "tolinestrips",
+        "quadstotriangles",
+        "closelinestrips",
+        "openlinestrips",
+        "reversevertorder",
+        "uniquereorderpoints",
+        "cpureadback"
+      ],
+      "menuLabels": [
+        "None",
+        "Keep Points, Delete Primitives",
+        "Points to Point Primitives",
+        "Line Strips to Lines",
+        "Triangle, Quads and Lines to Line Strips",
+        "Quads to Triangles",
+        "Close Line Strips",
+        "Open Line Strips",
+        "Reverse Vertex Order of Each Primitive",
+        "Unique and Reorder Points by Prim/Vertex Order",
+        "Copy Topology Back to CPU (Slow)"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Convert_POP.htm",
+  "parsedAt": "2025-08-08T03:03:54.795Z",
+  "url": "https://docs.derivative.ca/Convert_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Convert_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Convert_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Convert_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

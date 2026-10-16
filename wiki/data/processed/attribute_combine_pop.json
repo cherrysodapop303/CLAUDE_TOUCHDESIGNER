@@ -1,0 +1,109 @@
+{
+  "name": "Attribute Combine POP",
+  "id": "attribute_combine_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Attribute Combine POP takes multiple POP inputs and lets you choose attributes from each input by name or by pattern matching, and send the attributes to the output. On the Inputs page is a set of sequential blocks to specify the inputs. For each block, you can either wire one input to the node, or using its In POP(s) parameter you can specify one or more POPs using pattern matching. For each block you can use the In Attributes and pattern matching to specify which attribute(s) you want from that input. You can also specify a new name to rename the attributes. For each block, if there is a '''name conflict''' with a prior input, the Duplicate Attributes menu will give you the choice to make up a new incremented attribute name, to use the first or last occurance of an attribute, or use only the first input's attribute. '''Point, Vertex or Primitive Attributes''': All attributes of the first in put are sent to then output. The from the Attribute Class menu you choose which attribute type you want to pass to the output (one only) from the rest of the outputs. For example you an merge the primitive attribute from all the inputs. The '''Length Mismatch''' parameter lets you choose what to do when, say the input POPs don't have the same number of points. You can choose to not infor the user (None), or put a Warning on the node, or put an Error on the node. In any case, when there is a mismatch, for shorter inputs, you can choose to hold the values of the last points of the attributes, make them 0, make them 1, or do nothing. This '''architecture for handling multiple inputs''' to POPs in the Attribute Combine POP is also part of numerous other POPs, such as the [[Math Combine POP]], [[Math Mix POP]], [[Blend POP]], [[Merge POP]] and [[Switch POP]].",
+  "parameters": [
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Length Mismatch",
+      "parName": "lengthmismatchnotif",
+      "label": "Length Mismatch",
+      "type": "Menu",
+      "description": "Length mis-match motification action.",
+      "isReadOnly": false,
+      "menuItems": [
+        "ignore",
+        "warning",
+        "error",
+        "lengthmismatchnotif",
+        "lengthmismatchaction"
+      ],
+      "menuLabels": [
+        "Ignore",
+        "Warning",
+        "Error",
+        "Length Mismatch",
+        "Length Mismatch Action"
+      ]
+    },
+    {
+      "name": "Duplicate Attributes",
+      "parName": "duplicateattrs",
+      "label": "Duplicate Attributes",
+      "type": "Menu",
+      "description": "Determines what to do with duplicated attributes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "autorename",
+        "keepfirst",
+        "keeplast",
+        "replaceattribs"
+      ],
+      "menuLabels": [
+        "Auto-Rename",
+        "Keep First",
+        "Keep Last",
+        "Only Replace Attribs of First Input"
+      ]
+    },
+    {
+      "name": "In",
+      "parName": "input",
+      "label": "In",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks managing the inputs of the POP.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Attribute_Combine_POP.htm",
+  "parsedAt": "2025-08-08T03:03:54.166Z",
+  "url": "https://docs.derivative.ca/Attribute_Combine_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Attribute_Combine_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Attribute_Combine_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Attribute_Combine_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

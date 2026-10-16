@@ -1,0 +1,183 @@
+{
+  "name": "Sprinkle POP",
+  "id": "sprinkle_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Sprinkle POP creates points either on the surface of the input POP or within the volume of the input POP. You create points based on the Method menu. The Per Primitive method creates points on the surface of primitives (triangles or quads). It keeps the distribution of points approximately constant per primitive no matter their size. (There is currently no method to create points on a surface that is constant per-area). The Volume method creates points randomly within a closed volume. (You will get some approximations if the volume is not closed.) The Number of Points parameter is an approximate upper-limit number, the Volume (Deterministic) method produces a more accurate number of points (TBD). By default, for every point it creates, it also creates a Point Primitive. The latter is useful if you are rendering the points directly, but may not be needed for other purposes (like you are copying to each point). Turn off Create Point Primitives if you don't need primitives, you just want a points list, and you wish to save memory. It can leverage [[Hardware Ray Tracing]] in volume mode (point generation only, not for input attributes interpolation). See also [[Point Generator POP]], [[Random POP]]",
+  "parameters": [
+    {
+      "name": "Create Point Primitives",
+      "parName": "createpointprim",
+      "label": "Create Point Primitives",
+      "type": "Toggle",
+      "description": "Enable creating point primitives",
+      "isReadOnly": false
+    },
+    {
+      "name": "Seed",
+      "parName": "seed",
+      "label": "Seed",
+      "type": "Float",
+      "description": "Numerical value that initializes the randomization.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Method",
+      "parName": "method",
+      "label": "Method",
+      "type": "Menu",
+      "description": "How to sprinkle points - on peimitives like triangles/quads, or inside closed volumes formed by primitives like triangles/quads.",
+      "isReadOnly": false,
+      "menuItems": [
+        "perprim",
+        "volume",
+        "volumedeterministic",
+        "volnondeterministic",
+        "vol"
+      ],
+      "menuLabels": [
+        "Per Primitive",
+        "Volume",
+        "Volume (Deterministic)",
+        "Volume (Non-Deterministic)",
+        "Volume"
+      ]
+    },
+    {
+      "name": "Number of Points",
+      "parName": "numpoints",
+      "label": "Number of Points",
+      "type": "Int",
+      "description": "Sets the number of points. In the case of volume sprinkle, this is the max number of points, it might require a higher number of attempts per point to reach it.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Attempts per Point",
+      "parName": "attemptsperpoint",
+      "label": "Attempts per Point",
+      "type": "Int",
+      "description": "For volume sprinkle, the number of attempts to try to get a point inside the mesh.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Ray Direction Mode",
+      "parName": "raydirmode",
+      "label": "Ray Direction Mode",
+      "type": "Menu",
+      "description": "To determine if point is inside or outside, cast rays from in random direction or in constant direction.",
+      "isReadOnly": false,
+      "menuItems": [
+        "constant",
+        "random"
+      ],
+      "menuLabels": [
+        "Constant",
+        "Random"
+      ]
+    },
+    {
+      "name": "Ray Direction",
+      "parName": "raydir",
+      "label": "Ray Direction",
+      "type": "XYZW",
+      "description": "Constant direction to cast rays to determine if candidate point is inside or outside.",
+      "isReadOnly": false,
+      "menuItems": [
+        "raydirx",
+        "raydiry",
+        "raydirz"
+      ],
+      "menuLabels": [
+        "Ray Direction",
+        "Ray Direction",
+        "Ray Direction"
+      ]
+    },
+    {
+      "name": "Hardware Ray Tracing",
+      "parName": "hwraytracing",
+      "label": "Hardware Ray Tracing",
+      "type": "Menu",
+      "description": "Selects mode for Hardware Ray Tracing if supported",
+      "isReadOnly": false,
+      "menuItems": [
+        "off",
+        "fastbuild",
+        "fasttrace"
+      ],
+      "menuLabels": [
+        "Off",
+        "Fast Build (Dynamic Geometry)",
+        "Fast Trace (Static Geometry)"
+      ]
+    },
+    {
+      "name": "Point Attribute Scope",
+      "parName": "pointattrscope",
+      "label": "Point Attribute Scope",
+      "type": "StrMenu",
+      "description": "The Point attribute scope to blend.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Primitive Attribute Scope",
+      "parName": "primattrscope",
+      "label": "Primitive Attribute Scope",
+      "type": "StrMenu",
+      "description": "The Primitive attribute scope to blend.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Vertex Attribute Scope",
+      "parName": "vertattribscope",
+      "label": "Vertex Attribute Scope",
+      "type": "StrMenu",
+      "description": "Vertex attributes to sample when sprinkling.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Sprinkle_POP.htm",
+  "parsedAt": "2025-08-08T03:03:59.883Z",
+  "url": "https://docs.derivative.ca/Sprinkle_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Sprinkle_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Sprinkle_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Sprinkle_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "name": "Polygonize POP",
+  "id": "polygonize_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Polygonize POP takes as input a TOP that is a 3D texture (see [[Texture 3D TOP]]), or a POP that is arranged as a 3-dimensoinal grid of points (See [[Dimension]]) and creates a 3D polygonal surface that encloses pixels or points exceeding a specified threshold. When the input is a 3D texture, it uses one of the 3D texture's RGBA channels or a combination of them (the Channel menu) to compare against the Threshold parameter. When the input is a POP, it uses a single value float attribute (or component of a vector attribute) to compare against the Threshold parameter. It makes a closed polygonal surface that encloses all the points/pixels whose values are above the threshold. i.e. All the pixels/points inside the surface are above the threshold, and all pixels/points whose values are below the threshold are outside the surface. (A polygon passes through each pixel where the value is above the Threshold and a neighbor point's/pixels' value is less than the threshold.) ( An example of an input POP that is arranged as a 3-dimensoinal grid of points is a Grid POP with Slices > 1, passed to a Noise POP that creates a single-float Noise attribute whose vaues are between -1 and 1. The Polygonize POP's Threshold parameter would be around 0. ) The density of points in the output can be redued using the Resolution Multiplier parameter. The surface at the borders of the volume are controlled with the Extend menu - the boundary can be closed or open. When using a 3D texture, the pixels are assumed to be cubes and the output <code>P(0)</code> range is -.5 to .5. The output can be re-ranged using ReRange P parameters. See also [[Trace POP]].",
+  "parameters": [
+    {
+      "name": "Input Attribute Scope",
+      "parName": "inputattrscope",
+      "label": "Input Attribute Scope",
+      "type": "StrMenu",
+      "description": "When using a POP with dimension 3 as an input, the attribute scope to sample.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Use Position Attribute",
+      "parName": "posattrib",
+      "label": "Use Position Attribute",
+      "type": "Toggle",
+      "description": "When using a POP with dimension 3 as an input, whether to use the P attribute to position the surface.",
+      "isReadOnly": false
+    },
+    {
+      "name": "TOP",
+      "parName": "top",
+      "label": "TOP",
+      "type": "TOP",
+      "description": "TOP to use as image to polygonize.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Channel",
+      "parName": "channel",
+      "label": "Channel",
+      "type": "Menu",
+      "description": "When using a TOP input, the color channel to sample.",
+      "isReadOnly": false,
+      "menuItems": [
+        "luminance",
+        "red",
+        "green",
+        "blue",
+        "alpha",
+        "rgbaverage",
+        "average",
+        "rgbmax",
+        "max"
+      ],
+      "menuLabels": [
+        "Luminance",
+        "Red",
+        "Green",
+        "Blue",
+        "Alpha",
+        "RGB Average",
+        "RGBA Average",
+        "RGB Maximum",
+        "RGBA Maximum"
+      ]
+    },
+    {
+      "name": "Resolution Multiplier",
+      "parName": "resmult",
+      "label": "Resolution Multiplier",
+      "type": "Float",
+      "description": "Resolution multiplier to apply to the input.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Inside",
+      "parName": "inside",
+      "label": "Inside",
+      "type": "Menu",
+      "description": "Whether values above the threshold or below or equal the threshold are considered inside. Determines the winding of triangles and subsequently the orientation of their normals.",
+      "isReadOnly": false,
+      "menuItems": [
+        "lteq",
+        "gt"
+      ],
+      "menuLabels": [
+        "<= (Signed Distance)",
+        "> (Density)"
+      ]
+    },
+    {
+      "name": "Threshold",
+      "parName": "threshold",
+      "label": "Threshold",
+      "type": "Float",
+      "description": "The threshold value is where the surface will be created.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Extend",
+      "parName": "extend",
+      "label": "Extend",
+      "type": "Menu",
+      "description": "Sets the Extend mode when sampling the TOP.",
+      "isReadOnly": false,
+      "menuItems": [
+        "hold",
+        "zero",
+        "repeat",
+        "mirror"
+      ],
+      "menuLabels": [
+        "Hold",
+        "Zero",
+        "Repeat",
+        "Mirror"
+      ]
+    },
+    {
+      "name": "Unique Points",
+      "parName": "uniquepoints",
+      "label": "Unique Points",
+      "type": "Toggle",
+      "description": "Whether the points are shared between the triangles or unique to each triangle.",
+      "isReadOnly": false
+    },
+    {
+      "name": "ReRange P",
+      "parName": "rerangep",
+      "label": "ReRange P",
+      "type": "Toggle",
+      "description": "Whether to re-range P.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Map to Low",
+      "parName": "tolow",
+      "label": "Map to Low",
+      "type": "Float",
+      "description": "The low value of the new range in XYZ.",
+      "isReadOnly": false,
+      "menuItems": [
+        "tolow0",
+        "tolow1",
+        "tolow2"
+      ],
+      "menuLabels": [
+        "Map to Low",
+        "Map to Low",
+        "Map to Low"
+      ]
+    },
+    {
+      "name": "Map to High",
+      "parName": "tohigh",
+      "label": "Map to High",
+      "type": "Float",
+      "description": "The high value of the new range in XYZ.",
+      "isReadOnly": false,
+      "menuItems": [
+        "tohigh0",
+        "tohigh1",
+        "tohigh2"
+      ],
+      "menuLabels": [
+        "Map to High",
+        "Map to High",
+        "Map to High"
+      ]
+    },
+    {
+      "name": "Normals Method",
+      "parName": "nmlmethod",
+      "label": "Normals Method",
+      "type": "Menu",
+      "description": "How to compute normals for the triangles.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "gradient",
+        "surface"
+      ],
+      "menuLabels": [
+        "No Normal",
+        "Field Gradient",
+        "From Surface"
+      ]
+    },
+    {
+      "name": "Step Multiplier",
+      "parName": "nmlstepmul",
+      "label": "Step Multiplier",
+      "type": "Float",
+      "description": "When the method is Field Gradient, a multiplier on the size of the step used to calculate the gradient using neighboring field values.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Texture Coordinates",
+      "parName": "texture",
+      "label": "Texture Coordinates",
+      "type": "Toggle",
+      "description": "Whether to output a point Texture Coordinates attribute (Tex).",
+      "isReadOnly": false
+    },
+    {
+      "name": "Fraction of Max Allocation",
+      "parName": "allocfract",
+      "label": "Fraction of Max Allocation",
+      "type": "Float",
+      "description": "This POP doesn't know in advance how much GPU memory it will need, but except in rare cases (very high amount of detail, a lot of variation in neighboring voxels in the source) it doesn't need the maximum allocation. This allows to save GPU memory. If points and primitives are missing or the info popup shows the max numbers are reached, it means the fraction is too low.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Copy Topology Info Back to CPU",
+      "parName": "cpureadback",
+      "label": "Copy Topology Info Back to CPU",
+      "type": "Toggle",
+      "description": "Enable copying the point count and topology information held on the GPU to the CPU.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Polygonize_POP.htm",
+  "parsedAt": "2025-08-08T03:03:58.674Z",
+  "url": "https://docs.derivative.ca/Polygonize_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Polygonize_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Polygonize_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Polygonize_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

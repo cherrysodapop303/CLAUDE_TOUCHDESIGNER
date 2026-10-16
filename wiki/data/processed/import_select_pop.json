@@ -1,0 +1,289 @@
+{
+  "name": "Import Select POP",
+  "id": "import_select_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Import Select POP is used to import and load the geometry types primitives defined in [[USD COMP]] and [[FBX COMP]]. It essentially loads any geometry type that [[USD COMP]] or [[FBX COMP]] can support such as a Mesh, Points, NURBS Curves or Patches, Basis Curves. Each geometry represents one primitive from the loading file or it can be a set of primitives merged together for better performance. Where the geometry primitive types are not supportable by POPs, that are converted to triangles, quads, line strips and point primitives. In [[USD COMP]] and [[FBX COMP]] if the Import Select POP renders merged geometries, an [[Info DAT]] operator is created next to this POP which represents the original paths of primitives within/from importing file, which can be useful for user to checkout what geometry the current POP is made of. Import Select POP can have its own animation controls within the Playback page or use the settings from its parent COMP. The imported geometry is loaded directly to the GPU.",
+  "parameters": [
+    {
+      "name": "Import Parent",
+      "parName": "parent",
+      "label": "Import Parent",
+      "type": "Object",
+      "description": "Specify the import parent (eg. USD/FBX COMP) to search for the asset. When no COMP is specified it will by default search in the first import parent in its path.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Geo Path",
+      "parName": "geometry",
+      "label": "Geo Path",
+      "type": "StrMenu",
+      "description": "The geometry path from the imported file.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Reload",
+      "parName": "reload",
+      "label": "Reload",
+      "type": "Pulse",
+      "description": "Re-import and load the geometry.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Blend Shape",
+      "parName": "blendshape",
+      "label": "Blend Shape",
+      "type": "StrMenu",
+      "description": "Specifies the blend shape name (if any is specified) from the importing file that this POP will load.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Compute Tangents",
+      "parName": "comptang",
+      "label": "Compute Tangents",
+      "type": "Toggle",
+      "description": "Whether to compute tangents.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Use Parent Animation",
+      "parName": "useparentanim",
+      "label": "Use Parent Animation",
+      "type": "Toggle",
+      "description": "Enable using the parent COMP animation controls",
+      "isReadOnly": false
+    },
+    {
+      "name": "Shift Animation Start",
+      "parName": "shiftanimationstart",
+      "label": "Shift Animation Start",
+      "type": "Toggle",
+      "description": "A toggle to specify whether to shift the animation to the start of animation indicated in the importing file.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Sample Rate Mode",
+      "parName": "sampleratemode",
+      "label": "Sample Rate Mode",
+      "type": "Menu",
+      "description": "Sets the sample rate source.",
+      "isReadOnly": false,
+      "menuItems": [
+        "filefps",
+        "custom"
+      ],
+      "menuLabels": [
+        "File FPS",
+        "Custom"
+      ]
+    },
+    {
+      "name": "Sample Rate",
+      "parName": "samplerate",
+      "label": "Sample Rate",
+      "type": "Float",
+      "description": "Sets the custom sample rate.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Play Mode",
+      "parName": "playmode",
+      "label": "Play Mode",
+      "type": "Menu",
+      "description": "Pause or play the geometry animation.",
+      "isReadOnly": false,
+      "menuItems": [
+        "lockedtotimeline",
+        "specifyindex",
+        "sequential"
+      ],
+      "menuLabels": [
+        "Locked to Timeline",
+        "Specify Index",
+        "Sequential"
+      ]
+    },
+    {
+      "name": "Initialize",
+      "parName": "initialize",
+      "label": "Initialize",
+      "type": "Pulse",
+      "description": "Resets the animation to its initial state.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Start",
+      "parName": "start",
+      "label": "Start",
+      "type": "Pulse",
+      "description": "Start playback of animation sequence.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Cue",
+      "parName": "cue",
+      "label": "Cue",
+      "type": "Toggle",
+      "description": "A toggle to jump to Cue Point when it is set to ON and it stays at that position. Only available when Play Mode is Sequential.",
+      "isReadOnly": false,
+      "menuItems": [
+        "cue",
+        "cuepulse"
+      ],
+      "menuLabels": [
+        "Cue",
+        "Cue Pulse"
+      ]
+    },
+    {
+      "name": "Cue Point",
+      "parName": "cuepoint",
+      "label": "Cue Point",
+      "type": "Float",
+      "description": "Set any index in the animation as a point to jump to.",
+      "isReadOnly": false,
+      "menuItems": [
+        "cuepoint",
+        "cuepointunit"
+      ],
+      "menuLabels": [
+        "Cue Point",
+        "Cue Point Unit"
+      ]
+    },
+    {
+      "name": "Play",
+      "parName": "play",
+      "label": "Play",
+      "type": "Toggle",
+      "description": "Enable playback.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Index",
+      "parName": "index",
+      "label": "Index",
+      "type": "Float",
+      "description": "This parameter explicitly sets the animation position when Play Mode is set to Specify Index. The units’ menu on the right lets you specify the index in the following units: Index, Frames, Seconds, and Fraction (percentage).",
+      "isReadOnly": false,
+      "menuItems": [
+        "index",
+        "indexunit"
+      ],
+      "menuLabels": [
+        "Index",
+        "Index Unit"
+      ]
+    },
+    {
+      "name": "Speed",
+      "parName": "speed",
+      "label": "Speed",
+      "type": "Float",
+      "description": "Playback speed.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Trim",
+      "parName": "trim",
+      "label": "Trim",
+      "type": "Toggle",
+      "description": "Enable the Trim Start and Trim End parameters.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Trim Start",
+      "parName": "tstart",
+      "label": "Trim Start",
+      "type": "Float",
+      "description": "The time to consider the starting time of 0.",
+      "isReadOnly": false,
+      "menuItems": [
+        "tstart",
+        "tstartunit"
+      ],
+      "menuLabels": [
+        "Trim Start",
+        "Trim Start Unit"
+      ]
+    },
+    {
+      "name": "Trim End",
+      "parName": "tend",
+      "label": "Trim End",
+      "type": "Float",
+      "description": "TTGrime the end of the animation.",
+      "isReadOnly": false,
+      "menuItems": [
+        "tend",
+        "tendunit"
+      ],
+      "menuLabels": [
+        "Trim End",
+        "Trim End Unit"
+      ]
+    },
+    {
+      "name": "Extend Left",
+      "parName": "textendleft",
+      "label": "Extend Left",
+      "type": "Menu",
+      "description": "Determines how the parent COMP handles animation positions that lie before the Trim Start position.",
+      "isReadOnly": false,
+      "menuItems": [
+        "hold",
+        "cycle",
+        "mirror"
+      ],
+      "menuLabels": [
+        "Hold",
+        "Cycle",
+        "Mirror"
+      ]
+    },
+    {
+      "name": "Extend Right",
+      "parName": "textendright",
+      "label": "Extend Right",
+      "type": "Menu",
+      "description": "Determines how the parent COMP handles animation positions that lie after the Trim End position.",
+      "isReadOnly": false,
+      "menuItems": [
+        "hold",
+        "cycle",
+        "mirror"
+      ],
+      "menuLabels": [
+        "Hold",
+        "Cycle",
+        "Mirror"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Import_Select_POP.htm",
+  "parsedAt": "2025-08-08T03:03:56.500Z",
+  "url": "https://docs.derivative.ca/Import_Select_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Import_Select_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Import_Select_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Import_Select_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

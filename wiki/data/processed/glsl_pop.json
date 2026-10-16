@@ -1,0 +1,487 @@
+{
+  "name": "GLSL POP",
+  "id": "glsl_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "This POP allows you to modify input attributes with GLSL. It works on a single attribute class at a time, Points, Verts or Primitives, and doesn't allow to change the number of input elements (Points, Verts or Primitives). '''Refer to the [[Write GLSL POPs]] article for more info on using this POP.''' See also [[GLSL Advanced POP]]",
+  "parameters": [
+    {
+      "name": "Compute Shader",
+      "parName": "computedat",
+      "label": "Compute Shader",
+      "type": "DAT",
+      "description": "Points to the DAT holding the Compute Shader. Drag & Drop a DAT here, or manually enter the path to the DAT.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Number of Threads",
+      "parName": "numthreadsmode",
+      "label": "Number of Threads",
+      "type": "Menu",
+      "description": "Selects how to set the number of threads for the custom compute shader dispatch.",
+      "isReadOnly": false,
+      "menuItems": [
+        "auto",
+        "otherinputelements",
+        "numelems",
+        "numelemsattrib",
+        "manual"
+      ],
+      "menuLabels": [
+        "Auto",
+        "Number of Elements in Other Input",
+        "Manual Number of Elements",
+        "Number of Elements from Attribute",
+        "Manual"
+      ]
+    },
+    {
+      "name": "Threads Input",
+      "parName": "threadsinput",
+      "label": "Threads Input",
+      "type": "Int",
+      "description": "Determines the input index that contains the number of elements.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Number of Elements",
+      "parName": "numelems",
+      "label": "Number of Elements",
+      "type": "Int",
+      "description": "",
+      "isReadOnly": false
+    },
+    {
+      "name": "POP",
+      "parName": "numelemspop",
+      "label": "POP",
+      "type": "POP",
+      "description": "POP reference when setting the number of elements from an attribute.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Num Elements Attrib",
+      "parName": "numelemsclass",
+      "label": "Num Elements Attrib",
+      "type": "Menu",
+      "description": "Sets the attribute class where the number of elements can be found.",
+      "isReadOnly": false,
+      "menuItems": [
+        "numelemsclass",
+        "numelemsattr"
+      ],
+      "menuLabels": [
+        "Num Elements Attrib",
+        "Num Elements Attrib"
+      ]
+    },
+    {
+      "name": "Work Group Size",
+      "parName": "workgroupsize",
+      "label": "Work Group Size",
+      "type": "Int",
+      "description": "Specifies the workgroup size when manually setting the number of threads.",
+      "isReadOnly": false,
+      "menuItems": [
+        "workgroupsizex",
+        "workgroupsizey",
+        "workgroupsizez"
+      ],
+      "menuLabels": [
+        "Work Group Size",
+        "Work Group Size",
+        "Work Group Size"
+      ]
+    },
+    {
+      "name": "Dispatch Size",
+      "parName": "dispatchsize",
+      "label": "Dispatch Size",
+      "type": "Int",
+      "description": "Determines the number of thread groups to launch in each dimension.",
+      "isReadOnly": false,
+      "menuItems": [
+        "dispatchsizex",
+        "dispatchsizey",
+        "dispatchsizez"
+      ],
+      "menuLabels": [
+        "Dispatch Size",
+        "Dispatch Size",
+        "Dispatch Size"
+      ]
+    },
+    {
+      "name": "Output Attributes",
+      "parName": "outputattrs",
+      "label": "Output Attributes",
+      "type": "StrMenu",
+      "description": "The list of input attributes that will be allocated and can be written to.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Output Access",
+      "parName": "outputaccess",
+      "label": "Output Access",
+      "type": "Menu",
+      "description": "Controls whether the attribute buffers can only be read from or read from and written to.",
+      "isReadOnly": false,
+      "menuItems": [
+        "writeonly",
+        "readwrite"
+      ],
+      "menuLabels": [
+        "Write Only",
+        "Read-Write"
+      ]
+    },
+    {
+      "name": "Initialize Output Attributes",
+      "parName": "initoutputattrs",
+      "label": "Initialize Output Attributes",
+      "type": "Toggle",
+      "description": "Copy input attributes values for existing attributes, set the attributes values to their defaults for new attributes. It's a separate compute shader dispatch happening before the POP custom compute shader dispatch.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Copy Previous Pass Output to Input",
+      "parName": "prevpassoutput",
+      "label": "Copy Previous Pass Output to Input",
+      "type": "Toggle",
+      "description": "Enable copying the previous pass outputs to the next pass inputs.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Passes",
+      "parName": "npasses",
+      "label": "Passes",
+      "type": "Int",
+      "description": "Number of shader passes.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Input",
+      "parName": "input",
+      "label": "Input",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks managing the inputs of the POP.",
+      "isReadOnly": false
+    },
+    {
+      "name": "TDSimplexNoise()",
+      "parName": "simplexnoise",
+      "label": "TDSimplexNoise()",
+      "type": "Menu",
+      "description": "Sets the implementation to use for a simplex noise method that can be called in the shader.",
+      "isReadOnly": false,
+      "menuItems": [
+        "performance",
+        "quality"
+      ],
+      "menuLabels": [
+        "Performance",
+        "Quality"
+      ]
+    },
+    {
+      "name": "New Attribute",
+      "parName": "attr",
+      "label": "New Attribute",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to create new attributes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "attr0name",
+        "attr0customname",
+        "attr0type",
+        "attr0numcomps",
+        "attr0value0",
+        "attr0value1",
+        "attr0value2",
+        "attr0value3"
+      ],
+      "menuLabels": [
+        "New Attribute Name",
+        "Custom Name",
+        "New Attribute Type",
+        "New Attribute Number of Components",
+        "Value",
+        "Value",
+        "Value",
+        "Value"
+      ]
+    },
+    {
+      "name": "Matrix Attribute",
+      "parName": "matattr",
+      "label": "Matrix Attribute",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to create new matrix attributes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "transformMatrix"
+      ],
+      "menuLabels": [
+        "None",
+        "Transform Matrix"
+      ]
+    },
+    {
+      "name": "Pre-Multiply RGB by Alpha",
+      "parName": "premultcolor",
+      "label": "Pre-Multiply RGB by Alpha",
+      "type": "Toggle",
+      "description": "Enable RGB values pre-multiplication with the Alpha.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Color",
+      "parName": "color",
+      "label": "Color",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for color uniforms.",
+      "isReadOnly": false,
+      "menuItems": [
+        "color0rgbr",
+        "color0rgbg",
+        "color0rgbb"
+      ],
+      "menuLabels": [
+        "RGB",
+        "RGB",
+        "RGB"
+      ]
+    },
+    {
+      "name": "Vector",
+      "parName": "vec",
+      "label": "Vector",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to define uniform variables.",
+      "isReadOnly": false,
+      "menuItems": [
+        "float",
+        "vec2",
+        "vec3",
+        "vec4",
+        "double",
+        "dvec2",
+        "dvec3",
+        "dvec4",
+        "int",
+        "ivec2",
+        "ivec3",
+        "ivec4",
+        "uint",
+        "uvec2",
+        "uvec3",
+        "uvec4",
+        "vec0valuex",
+        "vec0valuey",
+        "vec0valuez",
+        "vec0valuew"
+      ],
+      "menuLabels": [
+        "float",
+        "vec2",
+        "vec3",
+        "vec4",
+        "double",
+        "dvec2",
+        "dvec3",
+        "dvec4",
+        "int",
+        "ivec2",
+        "ivec3",
+        "ivec4",
+        "uint",
+        "uvec2",
+        "uvec3",
+        "uvec4",
+        "Value",
+        "Value",
+        "Value",
+        "Value"
+      ]
+    },
+    {
+      "name": "Sampler",
+      "parName": "sampler",
+      "label": "Sampler",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for Samplers to read from the shader.",
+      "isReadOnly": false,
+      "menuItems": [
+        "hold",
+        "zero",
+        "repeat",
+        "mirror",
+        "hold",
+        "zero",
+        "repeat",
+        "mirror",
+        "hold",
+        "zero",
+        "repeat",
+        "mirror",
+        "nearest",
+        "linear"
+      ],
+      "menuLabels": [
+        "Hold",
+        "Zero",
+        "Repeat",
+        "Mirror",
+        "Hold",
+        "Zero",
+        "Repeat",
+        "Mirror",
+        "Hold",
+        "Zero",
+        "Repeat",
+        "Mirror",
+        "Nearest Pixel",
+        "Interpolate Pixels"
+      ]
+    },
+    {
+      "name": "Array",
+      "parName": "array",
+      "label": "Array",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for array uniforms.",
+      "isReadOnly": false,
+      "menuItems": [
+        "float",
+        "vec2",
+        "vec3",
+        "vec4",
+        "uniformarray",
+        "texturebuffer"
+      ],
+      "menuLabels": [
+        "float",
+        "vec2",
+        "vec3",
+        "vec4",
+        "Uniform Array",
+        "Texture Buffer"
+      ]
+    },
+    {
+      "name": "Matrix",
+      "parName": "matrix",
+      "label": "Matrix",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks of matrix uniforms.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Temp Buffer",
+      "parName": "tempbuffer",
+      "label": "Temp Buffer",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks forTemporary buffers used to pass information to the shader as uniforms.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Constant",
+      "parName": "const",
+      "label": "Constant",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for Specialization Constants.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Name",
+      "parName": "asname",
+      "label": "Name",
+      "type": "Str",
+      "description": "The name for the acceleration structure uniform.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Collision POP",
+      "parName": "colpop",
+      "label": "Collision POP",
+      "type": "POP",
+      "description": "The POP to use to create an acceleration structure for use with hardware raytracing in the shader.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Build Flag",
+      "parName": "buildflag",
+      "label": "Build Flag",
+      "type": "Menu",
+      "description": "When using the ray query features with a collision POP, specify whether to try to optimize for build time or trace time.",
+      "isReadOnly": false,
+      "menuItems": [
+        "fastbuild",
+        "fasttrace"
+      ],
+      "menuLabels": [
+        "Fast Build (Dynamic Geometry)",
+        "Fast Trace (Static Geometry)"
+      ]
+    },
+    {
+      "name": "Opaque Collision Geometry",
+      "parName": "opaquecolgeo",
+      "label": "Opaque Collision Geometry",
+      "type": "Toggle",
+      "description": "When using an acceleration structure, specify whether the collision geometry is treated as opaque (only the closest hit is returned) or not.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-GLSL_POP.htm",
+  "parsedAt": "2025-08-08T03:03:56.177Z",
+  "url": "https://docs.derivative.ca/GLSL_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=GLSL_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live GLSL_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=GLSL_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

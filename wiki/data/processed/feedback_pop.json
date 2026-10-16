@@ -1,0 +1,115 @@
+{
+  "name": "Feedback POP",
+  "id": "feedback_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Feedback POP receives the output of another POP called the “target” POP, from the previous frame, i.e. delayed by one cook cycle, and passes it down a chain of operators back to the target POP. This allows existing POP data to be incrementally modified frame after frame. When you Initialize, it snapshots the connected input which is considered its initial state, and holds that until you click Start. (Pressing Start without pressing Initialize snapshots and starts right away.) However if Pre-Roll is greater than 0, pressing Initialize will run the loop for that number of seconds and then put it in a \"ready\" state waiting for a Start. Attach an Info CHOP and look at its <code>initializing</code>, <code>ready</code>, <code>running</code> and <code>done</code> channels as well as some timer counter channels (<code>timer_seconds</code> .... Turning the Play parameter off pauses the looping, and clicking Go To Done ends the feedback loop awaiting an Initialize. Both actions stop nodes along the chain from further cooking. See also the [[Particle POP]], which is an extension of the Feedback POP. See also the [[Trail POP]] and the [[Cache POP]] which capture, hold and manipulate past POP data in other ways.",
+  "parameters": [
+    {
+      "name": "Target POP",
+      "parName": "targetpop",
+      "label": "Target POP",
+      "type": "POP",
+      "description": "A reference to a POP node downstream in the network whose data is retrieved one frame later.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Initialize",
+      "parName": "initializepulse",
+      "label": "Initialize",
+      "type": "Pulse",
+      "description": "Initializes the POP from its input and parameters, it indicates it’s ready by turning on the ready channel in an attached Info CHOP, awaiting a Start pulse.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Start",
+      "parName": "startpulse",
+      "label": "Start",
+      "type": "Pulse",
+      "description": "Start playback.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Play",
+      "parName": "play",
+      "label": "Play",
+      "type": "Toggle",
+      "description": "Pause or play the feedback loop.",
+      "isReadOnly": false,
+      "menuItems": [
+        "play",
+        "steppulse"
+      ],
+      "menuLabels": [
+        "Play",
+        "Step Pulse"
+      ]
+    },
+    {
+      "name": "Pre-Roll",
+      "parName": "preroll",
+      "label": "Pre-Roll",
+      "type": "Float",
+      "description": "Run the loop for this time before it is ready during initialization..",
+      "isReadOnly": false,
+      "menuItems": [
+        "preroll",
+        "prerollunit"
+      ],
+      "menuLabels": [
+        "Pre-Roll",
+        "Pre-Roll Unit"
+      ]
+    },
+    {
+      "name": "Go to Done",
+      "parName": "donepulse",
+      "label": "Go to Done",
+      "type": "Pulse",
+      "description": "Will immediately go to the done state.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Use Memory Limit",
+      "parName": "usememlimit",
+      "label": "Use Memory Limit",
+      "type": "Toggle",
+      "description": "Enable a memory limit on the target POP data that can be copied back.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Input Multiplier",
+      "parName": "inputmul",
+      "label": "Input Multiplier",
+      "type": "Int",
+      "description": "Limits the GPU memory usage of this POP to a multiplier of the input GPU memory usage.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Feedback_POP.htm",
+  "parsedAt": "2025-08-08T03:03:55.563Z",
+  "url": "https://docs.derivative.ca/Feedback_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Feedback_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Feedback_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Feedback_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "name": "Cache POP",
+  "id": "cache_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Cache POP receives POP data every frame in its input and holds the most recent frames of data (up to Cache Size) in GPU memory. It outputs any of these held frames, determined by Output Index, which acts like a time-delay of its input. Furthermore, [[Cache Select POP]]s and [[Cache Blend POP]]s can access any combination the Cache POP's set of held inputs, allowing for multi-frame blends. If the Cache POP's Step Size is 3, for example, the Cache POP will hold every third frame, making the amount of time covered by the Cache POP triple. This reduces the amount of memory needed for long caches. Note that the data held in GPU memory is uncompressed. You can freeze the set of data held in the Cache POP by turning off the Active toggle parameter. You can clear and hold the cache to zero frames while the Reset parameter is on (the input is simply sent to the output), and you can hit Reset Pulse to clear the cache and start growing the cache again right away. (An [[Info CHOP]] connected to a Cache POP will show the number of frames in the cache.) The values you provide for Cache Index are 0 and negative integers. -2 is the third most recent cached data. Indexes that are out of range are clamped to be between and including -(Cache Size-1), and 0. You can also specify two channels to define the weights, one for weight and for indices. Cache POP gives you choices on how to number the index of the cached images. When the <code>.toe</code> or <code>.tox</code> file is restarted, the cache starts cleared - nothing is saved in the file. Note that when frames are dropped, data in the cache may be older that they would be if frames were not dropped. The [[Trail POP]], though different in functionality, deals with frame drops more elegantly by filling in data for missing frames, and tagging each timeslice with an <code>Age</code> attribute. The Cache POP does not have this built-in. See also [[Cache Select POP]], [[Cache Blend POP]], [[Trail POP]], [[Cache TOP]], [[Texture 3D TOP]].",
+  "parameters": [
+    {
+      "name": "Active",
+      "parName": "active",
+      "label": "Active",
+      "type": "Toggle",
+      "description": "When enabled, the cache POP will capture input POP frames.",
+      "isReadOnly": false,
+      "menuItems": [
+        "active",
+        "activepulse"
+      ],
+      "menuLabels": [
+        "Active",
+        "Active Pulse"
+      ]
+    },
+    {
+      "name": "Always Cook",
+      "parName": "alwayscook",
+      "label": "Always Cook",
+      "type": "Toggle",
+      "description": "Forces the operator to cook every frame.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Cache Size",
+      "parName": "cachesize",
+      "label": "Cache Size",
+      "type": "Int",
+      "description": "The maximum number of snapshots to hold in the cache. When full, oldest ones are replaced with the newest ones.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Step Size",
+      "parName": "step",
+      "label": "Step Size",
+      "type": "Float",
+      "description": "Time steps between snapshots into cache.",
+      "isReadOnly": false,
+      "menuItems": [
+        "step",
+        "stepunit"
+      ],
+      "menuLabels": [
+        "Step Size",
+        "Step Size Unit"
+      ]
+    },
+    {
+      "name": "Output Index",
+      "parName": "outputindex",
+      "label": "Output Index",
+      "type": "Float",
+      "description": "Specify the index of POP to output - 0 is current, negative is farther into past.",
+      "isReadOnly": false,
+      "menuItems": [
+        "outputindex",
+        "outputindexunit"
+      ],
+      "menuLabels": [
+        "Output Index",
+        "Output Index Unit"
+      ]
+    },
+    {
+      "name": "Interpolate Frames",
+      "parName": "interp",
+      "label": "Interpolate Frames",
+      "type": "Toggle",
+      "description": "When on the selected index can interpolate between the cached frames if each snapshot has the same number of points. Otherwise, the nearest cached frame is used.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Reset",
+      "parName": "reset",
+      "label": "Reset",
+      "type": "Toggle",
+      "description": "Resets cache and holds one snapshot.",
+      "isReadOnly": false,
+      "menuItems": [
+        "reset",
+        "resetpulse"
+      ],
+      "menuLabels": [
+        "Reset",
+        "Reset"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Cache_POP.htm",
+  "parsedAt": "2025-08-08T03:03:54.510Z",
+  "url": "https://docs.derivative.ca/Cache_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Cache_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Cache_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Cache_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

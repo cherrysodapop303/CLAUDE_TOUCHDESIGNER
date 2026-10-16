@@ -1,0 +1,239 @@
+{
+  "name": "Analyze POP",
+  "id": "analyze_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Analyze POP analyzes any point, vertex or primitive attributes of a POP, and outputs a single point containing the resulting statistics. It typically computes an average, minimum or maximum values of any attribute. Attach an Analyze POP to a [[POP to DAT]] (and set its Transpose) to see what it comes up with. If you select more than one attribute, or if you select all (*), it will append the attribute names of the input POP to all the output attribute names. Tip: The results on the Analyze POP are a single point on the GPU. What you do with it next affects performance. The more you stay on the GPU the faster it will be. Pulling the results to the CPU and using them in parameters will be slower. You can get it to the CPU on the next frame (faster) by using a POP to CHOP but of course it's delayed. Or you can fully stay in the GPU’s POP world by passing the point as an input to other operators like to a Math Mix POP. In the case of an attribute with multiple components, the analysis is per component. For example for <code>P</code>, <code>Min(0)</code> is the min X value, <code>Min(1)</code> is the min Y value. <code>indexMin(0)</code> is the index of the point with the min X value, <code>IndexMin(1)</code> is the index of the point with the min Y value. It can optionaly output the sum and power of the samples of the input attribute. As noted above it can output the index of the point (the point number) of the sample with the maximum or minimum value of the selected input attribute. It is also possible to combine the components of a vector to a single component before performing the analysis, using the Combine Components menu. '''Note''': Palette: popViewer can show the ranges of all attributes. See also: [[Accumulate POP]], [[Histogram POP]]",
+  "parameters": [
+    {
+      "name": "Attributes Class",
+      "parName": "attrclass",
+      "label": "Attributes Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Group",
+      "parName": "group",
+      "label": "Group",
+      "type": "StrMenu",
+      "description": "If there are input groups, specifying a group name in this field will cause this POP to act only upon the group specified.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Number of Elements in Group",
+      "parName": "numgroupelements",
+      "label": "Number of Elements in Group",
+      "type": "Toggle",
+      "description": "Output an attribute with the number of elements in the selected group.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Input Attributes",
+      "parName": "inputattrs",
+      "label": "Input Attributes",
+      "type": "StrMenu",
+      "description": "Input attributes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Append Attrib Names to Output",
+      "parName": "appendattrname",
+      "label": "Append Attrib Names to Output",
+      "type": "Toggle",
+      "description": "Makes the output attribute names include the name of the input attributes that are being analyzed, for clarity.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Combine Components",
+      "parName": "combine",
+      "label": "Combine Components",
+      "type": "Menu",
+      "description": "First perform an operation to combine all components of an attribute into one value, then analye the results.",
+      "isReadOnly": false,
+      "menuItems": [
+        "off",
+        "add",
+        "sub",
+        "mul",
+        "div",
+        "avg",
+        "min",
+        "max",
+        "len"
+      ],
+      "menuLabels": [
+        "Off",
+        "Add",
+        "Subtract",
+        "Multiply",
+        "Divide",
+        "Average",
+        "Minimum",
+        "Maximum",
+        "Length"
+      ]
+    },
+    {
+      "name": "Average",
+      "parName": "avg",
+      "label": "Average",
+      "type": "Toggle",
+      "description": "",
+      "isReadOnly": false
+    },
+    {
+      "name": "Centroid",
+      "parName": "centroid",
+      "label": "Centroid",
+      "type": "Toggle",
+      "description": "Outputs the average of the minimum and maximum values of the attribute.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Minimum",
+      "parName": "min",
+      "label": "Minimum",
+      "type": "Toggle",
+      "description": "",
+      "isReadOnly": false
+    },
+    {
+      "name": "Maximum",
+      "parName": "max",
+      "label": "Maximum",
+      "type": "Toggle",
+      "description": "",
+      "isReadOnly": false
+    },
+    {
+      "name": "Size",
+      "parName": "size",
+      "label": "Size",
+      "type": "Toggle",
+      "description": "Enable size computation on the input attribute by subtracting the minimum value from the maximum values.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Index of Minimum",
+      "parName": "minindex",
+      "label": "Index of Minimum",
+      "type": "Toggle",
+      "description": "Index of the element with the minimum value.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Index of Maximum",
+      "parName": "maxindex",
+      "label": "Index of Maximum",
+      "type": "Toggle",
+      "description": "Index of the element with the maximum value.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Sum",
+      "parName": "sum",
+      "label": "Sum",
+      "type": "Toggle",
+      "description": "Compute the sum of attribute or components of attribute.",
+      "isReadOnly": false
+    },
+    {
+      "name": "RMS Power",
+      "parName": "rmspower",
+      "label": "RMS Power",
+      "type": "Toggle",
+      "description": "Enable discrete root-mean-square power computation.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Num Points, Vertices, Primitives",
+      "parName": "numpointsvertsprims",
+      "label": "Num Points, Vertices, Primitives",
+      "type": "Toggle",
+      "description": "Output the number of points, vertices, and primitives, in attributes.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Num Prims/Verts per Type",
+      "parName": "numprimsbatch",
+      "label": "Num Prims/Verts per Type",
+      "type": "Toggle",
+      "description": "Output the number of primitives and vertices per primitive type in attributes.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Dimension",
+      "parName": "dimension",
+      "label": "Dimension",
+      "type": "Toggle",
+      "description": "Outputs the dimension sizes of this POP.",
+      "isReadOnly": false
+    },
+    {
+      "name": "P Attribute Values",
+      "parName": "pattrvals",
+      "label": "P Attribute Values",
+      "type": "Menu",
+      "description": "Choose which analyzed result to place in the P attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "avg",
+        "centroid",
+        "min",
+        "max"
+      ],
+      "menuLabels": [
+        "Don't Create P Attribute",
+        "Input Attribute Average",
+        "Input Attribute Centroid",
+        "Input Attribute Minimum",
+        "Input Attribute Maximum"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Analyze_POP.htm",
+  "parsedAt": "2025-08-08T03:03:54.093Z",
+  "url": "https://docs.derivative.ca/Analyze_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Analyze_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Analyze_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Analyze_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

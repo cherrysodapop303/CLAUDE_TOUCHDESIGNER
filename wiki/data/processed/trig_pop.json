@@ -1,0 +1,227 @@
+{
+  "name": "Trig POP",
+  "id": "trig_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Trig POP is a simple operator that converts attributes that are angles into the trigonometry representation of angles (sine, cosine, tangent). Alternately, the Trig POP can convert from the sine, cosine, tangent representation back to angles using the asin, acos and atan functions. asin(x) can be thought of as \"the angle whose sine value is x\". You can choose the units your angles are expressed in - degrees (360 per rotation), radians (2 * 3.14157 per rotation) or simply rotations (1 means 1 rotation) For example if an attribute has a value of 30 (degrees) and the Operation is set to sin(A), the Trig POP will output .5 to a new attribute. sinh, cosh and tanh are the hyperbolic functions. This POP does the same thing as the sin, cos... , asin, acos ... functions in the [[Math Mix POP]], [[Math Combine POP]], [[Math POP]]. where you can also choose the units of your angles. sin and cos are true \"functions\" because for every value of angle A, there is one and only one value for sin(A). However asin(A) etc are not functions as values of A may have an infinite number or zero numbers of values for asin(A)). The function atan2(A,B) requires that you provide two attribute values. Note: the other trig functions not included are cot(x) is equal to 1/tan(x). sec(x) = 1/cos(x), and csc(x) = 1/sin(x). See also [[Math Mix POP]], [[LFO CHOP]]",
+  "parameters": [
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Group",
+      "parName": "group",
+      "label": "Group",
+      "type": "StrMenu",
+      "description": "If there are input groups, specifying a group name in this field will cause this POP to act only upon the group specified.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Input Attribute Scope A",
+      "parName": "inputattrscopea",
+      "label": "Input Attribute Scope A",
+      "type": "StrMenu",
+      "description": "Input attribute or attribute components for functions argument A.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Input Attribute Scope B",
+      "parName": "inputattrscopeb",
+      "label": "Input Attribute Scope B",
+      "type": "StrMenu",
+      "description": "Input attribute or attribute components for functions argument B.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Operation",
+      "parName": "operation",
+      "label": "Operation",
+      "type": "Menu",
+      "description": "Selects the operation to perform.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "cos",
+        "sin",
+        "tan",
+        "acos",
+        "asin",
+        "atan",
+        "atan2",
+        "cosh",
+        "sinh",
+        "tanh",
+        "none",
+        "cos",
+        "sin",
+        "tan",
+        "acos",
+        "asin",
+        "atan",
+        "atan2",
+        "cosh",
+        "sinh",
+        "tanh"
+      ],
+      "menuLabels": [
+        "None",
+        "cos(A)",
+        "sin(A)",
+        "tan(A)",
+        "acos(A)",
+        "asin(A)",
+        "atan(A)",
+        "atan2(A,B)",
+        "cosh(A)",
+        "sinh(A)",
+        "tanh(A)",
+        "None",
+        "cos(A)",
+        "sin(A)",
+        "tan(A)",
+        "acos(A)",
+        "asin(A)",
+        "atan(A)",
+        "atan2(A,B)",
+        "cosh(A)",
+        "sinh(A)",
+        "tanh(A)"
+      ]
+    },
+    {
+      "name": "From Angle Units",
+      "parName": "fromunit",
+      "label": "From Angle Units",
+      "type": "Menu",
+      "description": "Controls the angle unit when the selected operation takes an angle as argument.",
+      "isReadOnly": false,
+      "menuItems": [
+        "deg",
+        "rad",
+        "cycle"
+      ],
+      "menuLabels": [
+        "Degrees",
+        "Radians",
+        "Cycles"
+      ]
+    },
+    {
+      "name": "To Angle Units",
+      "parName": "tounit",
+      "label": "To Angle Units",
+      "type": "Menu",
+      "description": "Determines the angles units after the operation.",
+      "isReadOnly": false,
+      "menuItems": [
+        "deg",
+        "rad",
+        "cycle"
+      ],
+      "menuLabels": [
+        "Degrees",
+        "Radians",
+        "Cycles"
+      ]
+    },
+    {
+      "name": "Output Attribute Scope",
+      "parName": "outputattrscope",
+      "label": "Output Attribute Scope",
+      "type": "StrMenu",
+      "description": "Name of attribute to output (can choose components of attribute), can choose from menu.",
+      "isReadOnly": false,
+      "menuItems": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "color",
+        "dcolor",
+        "dir",
+        "ddir",
+        "1",
+        "2",
+        "3",
+        "4",
+        "attrdefaultval0",
+        "attrdefaultval1",
+        "attrdefaultval2",
+        "attrdefaultval3"
+      ],
+      "menuLabels": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "Color",
+        "Color (double)",
+        "Direction",
+        "Direction (double)",
+        "1",
+        "2",
+        "3",
+        "4",
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Trig_POP.htm",
+  "parsedAt": "2025-08-08T03:04:00.793Z",
+  "url": "https://docs.derivative.ca/Trig_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Trig_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Trig_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Trig_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

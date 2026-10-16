@@ -1,0 +1,309 @@
+{
+  "name": "Line Divide POP",
+  "id": "line_divide_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Line Divide POP takes any set of line strips, and for each it generates a new line strip that is subdivided using various interpolation methods. The default is linear interpolation with 4 divisions between incoming points. You can choose the Interpolation Method, the default being Linear interpolation, but you can also choose spline types like Cardinal, BSpline, Beziers and Quadratic. With the spline types, it can use incoming attributes (like those set in the [[Line POP]]) that specify the spline properties like <code>Weight</code>, tangents (<code>TanIn</code> and <code>TanOut</code>), tangent constraints (<code>TanInConstraint</code>) and/or tension. It will also interpret an interpolation method per-point if a <code>SegMethod</code> attribute exists. There are two stages of doing divisions, The first stage allows setting the total divisions for the line strip, or divisions per-segment, dividing by distance along the curves, or by curvature of the line strip. It interpolates all the attributes. The second stage lets you further re-sample the line strip with one of three methods: Divisions per Line Strip, Distance between Points, or Points as Keyframes. Points as Keyframes interpolates by treating one attribute as an independent variable (like <code>Time</code>, or <code>U</code>), like a <code>y = f(x)</code> mathematical function. (For example, if you have an attribute <code>Time</code> on the points, you can resample curves at equal steps of time, assuming you curves express values over time.) NOTE: The Maximum Number of Vertices parameter is required because it is not known on the GPU how many points you will end up with, and the GPU needs to pre-allocate enough memory to do the job. Oherwise line strips will be truncated. To add: distinguish the different beziers, explain <code>TanInConstraint</code>. <code>ControlPoint</code> attribute (laser) See also [[Line POP]], [[Curve POP]], [[Point POP]], [[Primitive POP]], [[Pattern POP]].",
+  "parameters": [
+    {
+      "name": "Divisions Method",
+      "parName": "divmethod",
+      "label": "Divisions Method",
+      "type": "Menu",
+      "description": "The method to apply the divisions.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "linestrip",
+        "segment",
+        "dist",
+        "curvature"
+      ],
+      "menuLabels": [
+        "None",
+        "Divisions per Line Strip",
+        "Divisions per Segment",
+        "Distance between Points",
+        "Distance by Curvature"
+      ]
+    },
+    {
+      "name": "Divisions",
+      "parName": "divs",
+      "label": "Divisions",
+      "type": "Int",
+      "description": "The number of divisions.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Min Distance",
+      "parName": "mindist",
+      "label": "Min Distance",
+      "type": "Float",
+      "description": "The minimum distance between points in the output line strips.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Max Distance",
+      "parName": "maxdist",
+      "label": "Max Distance",
+      "type": "Float",
+      "description": "Divide the line so there are no two adjacent points farther apart than this distance - max distance between points.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Min Max Bias",
+      "parName": "minmaxbias",
+      "label": "Min Max Bias",
+      "type": "Float",
+      "description": "Bias of point creation - more near the minimum or more near the maximum distance.",
+      "isReadOnly": false
+    },
+    {
+      "name": "By Edge",
+      "parName": "byedge",
+      "label": "By Edge",
+      "type": "Toggle",
+      "description": "When dividing using the distance between points, whether to restart at each segment (edge).",
+      "isReadOnly": false
+    },
+    {
+      "name": "Add ControlPoint Attribute",
+      "parName": "addctrlpointattr",
+      "label": "Add ControlPoint Attribute",
+      "type": "Toggle",
+      "description": "Whether to output a ControlPoint attribute set to 1 for control points.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Maximum Number of Vertices",
+      "parName": "maxverts",
+      "label": "Maximum Number of Vertices",
+      "type": "Int",
+      "description": "Sets the number of vertices to be allocated. It should be bigger than the actual number of vertices created (visible in info popup). More vertices allocated use more GPU memory.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Interpolation Method per Segment",
+      "parName": "interpmethodpersegment",
+      "label": "Interpolation Method per Segment",
+      "type": "Toggle",
+      "description": "When toggle is on, it uses a separate interpolation method for each segment in the input line strips.",
+      "isReadOnly": false,
+      "menuItems": [
+        "interpmethodpersegment",
+        "segmethodattr"
+      ],
+      "menuLabels": [
+        "Interpolation Method per Segment",
+        "Segment Method Attribute"
+      ]
+    },
+    {
+      "name": "Interpolation Method",
+      "parName": "interpmethod",
+      "label": "Interpolation Method",
+      "type": "Menu",
+      "description": "Method to use for interpolation.",
+      "isReadOnly": false,
+      "menuItems": [
+        "linear",
+        "cardinal",
+        "bspline",
+        "cubicbeziertang",
+        "cubicbezier",
+        "quadraticbezier"
+      ],
+      "menuLabels": [
+        "Linear",
+        "Cardinal (Interpolating)",
+        "BSpline",
+        "Cubic Bezier With Tangents",
+        "Cubic Bezier",
+        "Quadratic Bezier"
+      ]
+    },
+    {
+      "name": "Weight Attribute",
+      "parName": "useweight",
+      "label": "Weight Attribute",
+      "type": "Toggle",
+      "description": "When on, the points will have a weight attribute affecting the tightness of the curve around the point.",
+      "isReadOnly": false,
+      "menuItems": [
+        "useweight",
+        "weightattr"
+      ],
+      "menuLabels": [
+        "Weight Attribute",
+        "Weight Attribute Name"
+      ]
+    },
+    {
+      "name": "In Tangent Attribute",
+      "parName": "usetanin",
+      "label": "In Tangent Attribute",
+      "type": "Toggle",
+      "description": "When on, the points will have a attribute to be the tangent going into the point.",
+      "isReadOnly": false,
+      "menuItems": [
+        "usetanin",
+        "taninattr"
+      ],
+      "menuLabels": [
+        "In Tangent Attribute",
+        "In Tangent Attribute Name"
+      ]
+    },
+    {
+      "name": "Out Tangent Attribute",
+      "parName": "usetanout",
+      "label": "Out Tangent Attribute",
+      "type": "Toggle",
+      "description": "When on, the points will have a attribute to be the tangent going out of the point.",
+      "isReadOnly": false,
+      "menuItems": [
+        "usetanout",
+        "tanoutattr"
+      ],
+      "menuLabels": [
+        "Out Tangent Attribute",
+        "Out Tangent Attribute Name"
+      ]
+    },
+    {
+      "name": "In Tangent Constraint Attribute",
+      "parName": "usetaninconst",
+      "label": "In Tangent Constraint Attribute",
+      "type": "Toggle",
+      "description": "When on, the points will have an attribute to be constraints of a curve at that point..",
+      "isReadOnly": false,
+      "menuItems": [
+        "usetaninconst",
+        "taninconstattr"
+      ],
+      "menuLabels": [
+        "In Tangent Constraint Attribute",
+        "In Tangent Constraint Attribute Name"
+      ]
+    },
+    {
+      "name": "Clamped",
+      "parName": "clamped",
+      "label": "Clamped",
+      "type": "Toggle",
+      "description": "When using Cardinal or BSpline interpolation, whether to duplicate the start and end control points so the resulting curve start and end at the control points. Only has an effect on open line strips.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Tension",
+      "parName": "tension",
+      "label": "Tension",
+      "type": "Float",
+      "description": "Controls how tightly the cardinal line strip bends through the control points",
+      "isReadOnly": false
+    },
+    {
+      "name": "Post-Resample Method",
+      "parName": "resamplemethod",
+      "label": "Post-Resample Method",
+      "type": "Menu",
+      "description": "Resampling method used after division.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "linestrip",
+        "dist",
+        "keyframes"
+      ],
+      "menuLabels": [
+        "None",
+        "Divisions per Line Strip",
+        "Distance between Points",
+        "Points as Keyframes"
+      ]
+    },
+    {
+      "name": "Divisions",
+      "parName": "resampledivs",
+      "label": "Divisions",
+      "type": "Int",
+      "description": "The number of divisions.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Independant Variable Attribute",
+      "parName": "indvarattr",
+      "label": "Independant Variable Attribute",
+      "type": "StrMenu",
+      "description": "Attribute to use as the independent variable.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Independant Variable Step",
+      "parName": "indvarstep",
+      "label": "Independant Variable Step",
+      "type": "Float",
+      "description": "Step size to use for the independent variable, usually a fraction of the independent variable range.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Maximum Number of Vertices",
+      "parName": "resamplemaxverts",
+      "label": "Maximum Number of Vertices",
+      "type": "Int",
+      "description": "Sets the number of vertices to be allocated. It should be bigger than the actual number of vertices created (visible in info popup). More vertices allocated use more GPU memory.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Max Tries for Binary Search",
+      "parName": "maxtries",
+      "label": "Max Tries for Binary Search",
+      "type": "Int",
+      "description": "Max number of iterations for binary search when linearly resampling.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Remove Unused Points",
+      "parName": "rmvunusedpts",
+      "label": "Remove Unused Points",
+      "type": "Toggle",
+      "description": "Removes unused points not referenced by primitives.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Max Distance",
+      "parName": "resamplemaxdist",
+      "label": "Max Distance",
+      "type": "Float",
+      "description": "Maximum Distance between Points",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Line_Divide_POP.htm",
+  "parsedAt": "2025-08-08T03:03:56.801Z",
+  "url": "https://docs.derivative.ca/Line_Divide_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Line_Divide_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Line_Divide_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Line_Divide_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

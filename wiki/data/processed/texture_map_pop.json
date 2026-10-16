@@ -1,0 +1,475 @@
+{
+  "name": "Texture Map POP",
+  "id": "texture_map_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Texture Map POP creates the <code>Tex</code> attribute which is used to apply texture maps to surfaces, or to position procedurally-generated textures to surfaces. The <code>Tex</code> attribute is a float3 3-component attribute. It can appear as a point attribute or a vertex attribute. It is created by all the generator POPs like the [[Plane POP]], [[Grid POP]], [[Sphere POP]], [[Rectangle POP]], [[Box POP]] etc., but <code>Tex</code> can also created with the Texture Map POP. There are various projection methods, each useful depending on the type of geometry it is being applied to and its use-case. Equirectangular Inside and Outside is a spherical polar longitude/latitude mapping used on vertices, used in VR, either to be viewed from the inside of a sphere or outside. Domes require the mapping type Equidistant Azimuth, a fish eye projection. Projection mapping uses perspective from camera simulating what is \"seen\" from the position of a projector. Triplanar Coordinates is a type that generates 3 sets of texture coordinates (3 attributes) used to map 1 texture onto an object but is a blend of 3 orthographic projections onto 3 sides of an object. There is nothing special about the <code>Tex</code> attribute - any attribute can be used by a Material. The [[Normalize POP]] and the [[Projection POP]] produce attributes that can be used with a material, like doing orhtographic scaled projections, or spherical/cylindrical projections. Some materials require multiple texture coordinates, which can be created with any of these methods in creating <code>Tex2</code>, <code>Tex3</code>, etc. and provided to the materials. Note: In SOPs this was similar to the use of the <code>uvw</code> attribute for texture coordinates. See also [[PBR MAT]], [[Phong MAT]], [[Normalize POP]] and the [[Projection POP]]",
+  "parameters": [
+    {
+      "name": "Primitive Group",
+      "parName": "group",
+      "label": "Primitive Group",
+      "type": "StrMenu",
+      "description": "Optional primitive group to select.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Transform Input Texture Coord",
+      "parName": "transforminput",
+      "label": "Transform Input Texture Coord",
+      "type": "Toggle",
+      "description": "Enable transforms on the input texture coordinates.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Input Texture Coord Attribute",
+      "parName": "inputtexattr",
+      "label": "Input Texture Coord Attribute",
+      "type": "StrMenu",
+      "description": "Input Texture coordinate attribute to transform.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Position Attribute",
+      "parName": "posattr",
+      "label": "Position Attribute",
+      "type": "StrMenu",
+      "description": "Projected position attribute.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Projection Axis",
+      "parName": "axis",
+      "label": "Projection Axis",
+      "type": "Menu",
+      "description": "Transform axis used for the projection",
+      "isReadOnly": false,
+      "menuItems": [
+        "x",
+        "y",
+        "z"
+      ],
+      "menuLabels": [
+        "X Axis",
+        "Y Axis",
+        "Z Axis"
+      ]
+    },
+    {
+      "name": "FOV Angle",
+      "parName": "fov",
+      "label": "FOV Angle",
+      "type": "",
+      "description": "Determines the camera's field of view angle.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Center Mode",
+      "parName": "centermode",
+      "label": "Center Mode",
+      "type": "Menu",
+      "description": "For fisheye projection, whether the projection will use the bounding box center or a manually specified center.",
+      "isReadOnly": false,
+      "menuItems": [
+        "bbcenter",
+        "manual"
+      ],
+      "menuLabels": [
+        "Bounding Box Center",
+        "Manual"
+      ]
+    },
+    {
+      "name": "Center",
+      "parName": "center",
+      "label": "Center",
+      "type": "XYZW",
+      "description": "For fisheye projection, when center is manual, the position of the center to use for the projection.",
+      "isReadOnly": false,
+      "menuItems": [
+        "centerx",
+        "centery",
+        "centerz"
+      ],
+      "menuLabels": [
+        "Center",
+        "Center",
+        "Center"
+      ]
+    },
+    {
+      "name": "Camera",
+      "parName": "camera",
+      "label": "Camera",
+      "type": "Object",
+      "description": "Specify the camera component.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Camera Aspect",
+      "parName": "cameraaspect",
+      "label": "Camera Aspect",
+      "type": "XYZW",
+      "description": "The aspect ratio for the projection.",
+      "isReadOnly": false,
+      "menuItems": [
+        "cameraaspectx",
+        "cameraaspecty"
+      ],
+      "menuLabels": [
+        "Camera Aspect",
+        "Camera Aspect"
+      ]
+    },
+    {
+      "name": "Apply to",
+      "parName": "applyto",
+      "label": "Apply to",
+      "type": "Menu",
+      "description": "Where to apply the texture coordinates.",
+      "isReadOnly": false,
+      "menuItems": [
+        "natural",
+        "point",
+        "vertex"
+      ],
+      "menuLabels": [
+        "Natural location",
+        "Point texture",
+        "Vertex texture (fix seams)"
+      ]
+    },
+    {
+      "name": "Scale",
+      "parName": "s",
+      "label": "Scale",
+      "type": "UVW",
+      "description": "UV transform scaling factor.",
+      "isReadOnly": false,
+      "menuItems": [
+        "su",
+        "sv",
+        "sw"
+      ],
+      "menuLabels": [
+        "Scale",
+        "Scale",
+        "Scale"
+      ]
+    },
+    {
+      "name": "Offset",
+      "parName": "offset",
+      "label": "Offset",
+      "type": "UVW",
+      "description": "Adds an offset to the resulting texture mapping.",
+      "isReadOnly": false,
+      "menuItems": [
+        "offsetu",
+        "offsetv",
+        "offsetw"
+      ],
+      "menuLabels": [
+        "Offset",
+        "Offset",
+        "Offset"
+      ]
+    },
+    {
+      "name": "Rotate",
+      "parName": "angle",
+      "label": "Rotate",
+      "type": "",
+      "description": "Rotates the texture coordinate the specified value.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Fix Face Seams",
+      "parName": "fixseams",
+      "label": "Fix Face Seams",
+      "type": "Toggle",
+      "description": "Enable attempting to correct texture continuity at face seams.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Output Attribute Scope",
+      "parName": "outputattrscope",
+      "label": "Output Attribute Scope",
+      "type": "StrMenu",
+      "description": "Name of attribute to output (can choose components of attribute), can choose from menu.",
+      "isReadOnly": false,
+      "menuItems": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth"
+      ],
+      "menuLabels": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth"
+      ]
+    },
+    {
+      "name": "Override Automatic Attribute",
+      "parName": "overrideautoattr",
+      "label": "Override Automatic Attribute",
+      "type": "Toggle",
+      "description": "Whether to override the kind of attribute automatically created based on the POP input and parameters. Allows to specify manually the type and number of components of the new attribute.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Attribute Type",
+      "parName": "attrtype",
+      "label": "Attribute Type",
+      "type": "Menu",
+      "description": "The output attribute's data type, default float.",
+      "isReadOnly": false,
+      "menuItems": [
+        "float",
+        "double",
+        "int",
+        "uint",
+        "color",
+        "dcolor",
+        "dir",
+        "ddir"
+      ],
+      "menuLabels": [
+        "float",
+        "double",
+        "int",
+        "uint",
+        "Color",
+        "Color (double)",
+        "Direction",
+        "Direction (double)"
+      ]
+    },
+    {
+      "name": "Components",
+      "parName": "attrnumcomps",
+      "label": "Components",
+      "type": "Menu",
+      "description": "The number of components in the new custom attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "menuLabels": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "name": "Default Value",
+      "parName": "attrdefaultval",
+      "label": "Default Value",
+      "type": "Float",
+      "description": "Default values of the output attribute components if they cannot be computed.",
+      "isReadOnly": false,
+      "menuItems": [
+        "attrdefaultval0",
+        "attrdefaultval1",
+        "attrdefaultval2",
+        "attrdefaultval3"
+      ],
+      "menuLabels": [
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    },
+    {
+      "name": "Texture Method",
+      "parName": "texmethod",
+      "label": "Texture Method",
+      "type": "Menu",
+      "description": "Determines how the texture coordinates are applied.",
+      "isReadOnly": false,
+      "menuItems": [
+        "xyznorm",
+        "xyzposition",
+        "cylin",
+        "face",
+        "facefitoutside",
+        "equirectangularin",
+        "equirectangularout",
+        "equiazimuth",
+        "persp",
+        "triplanar"
+      ],
+      "menuLabels": [
+        "XYZ Normalized (Point)",
+        "XYZ Position (Point)",
+        "Cylindrical (Vertex)",
+        "Face (Vertex)",
+        "Face Fit Outside (Vertex)",
+        "Equirectangular Inside (Spherical Polar) (Vertex)",
+        "Equirectangular Outside (Spherical Polar) (Vertex)",
+        "Equidistant Azimuth (Fish Eye) (Point)",
+        "Perspective From Camera (Point)",
+        "Triplanar Coordinates (Point)"
+      ]
+    },
+    {
+      "name": "Transform Order",
+      "parName": "xord",
+      "label": "Transform Order",
+      "type": "Menu",
+      "description": "Sets the overall transform order for the transformations.",
+      "isReadOnly": false,
+      "menuItems": [
+        "srt",
+        "str",
+        "rst",
+        "rts",
+        "tsr",
+        "trs"
+      ],
+      "menuLabels": [
+        "Scale Rotate Translate",
+        "Scale Translate Rotate",
+        "Rotate Scale Translate",
+        "Rotate Translate Scale",
+        "Translate Scale Rotate",
+        "Translate Rotate Scale"
+      ]
+    },
+    {
+      "name": "Rotate Order",
+      "parName": "rord",
+      "label": "Rotate Order",
+      "type": "Menu",
+      "description": "Sets the order of the rotations within the overall transform order.",
+      "isReadOnly": false,
+      "menuItems": [
+        "xyz",
+        "xzy",
+        "yxz",
+        "yzx",
+        "zxy",
+        "zyx"
+      ],
+      "menuLabels": [
+        "Rx Ry Rz",
+        "Rx Rz Ry",
+        "Ry Rx Rz",
+        "Ry Rz Rx",
+        "Rz Rx Ry",
+        "Rz Ry Rx"
+      ]
+    },
+    {
+      "name": "Translate",
+      "parName": "t",
+      "label": "Translate",
+      "type": "XYZW",
+      "description": "Translate the texture coordinates in the three axes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "tx",
+        "ty",
+        "tz"
+      ],
+      "menuLabels": [
+        "Translate",
+        "Translate",
+        "Translate"
+      ]
+    },
+    {
+      "name": "Rotate",
+      "parName": "r",
+      "label": "Rotate",
+      "type": "XYZW",
+      "description": "Rotate the points around the corresponding X, Y and Z axes. Angles are given in degrees.",
+      "isReadOnly": false,
+      "menuItems": [
+        "rx",
+        "ry",
+        "rz"
+      ],
+      "menuLabels": [
+        "Rotate",
+        "Rotate",
+        "Rotate"
+      ]
+    },
+    {
+      "name": "Scale",
+      "parName": "scaletwo",
+      "label": "Scale",
+      "type": "XYZW",
+      "description": "UV transform scaling factor.",
+      "isReadOnly": false,
+      "menuItems": [
+        "scaletwox",
+        "scaletwoy",
+        "scaletwoz"
+      ],
+      "menuLabels": [
+        "Scale",
+        "Scale",
+        "Scale"
+      ]
+    },
+    {
+      "name": "Pivot",
+      "parName": "p",
+      "label": "Pivot",
+      "type": "XYZW",
+      "description": "The pivot point for the transform rotates and scales.",
+      "isReadOnly": false,
+      "menuItems": [
+        "px",
+        "py",
+        "pz"
+      ],
+      "menuLabels": [
+        "Pivot",
+        "Pivot",
+        "Pivot"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Texture_Map_POP.htm",
+  "parsedAt": "2025-08-08T03:04:00.271Z",
+  "url": "https://docs.derivative.ca/Texture_Map_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Texture_Map_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Texture_Map_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Texture_Map_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

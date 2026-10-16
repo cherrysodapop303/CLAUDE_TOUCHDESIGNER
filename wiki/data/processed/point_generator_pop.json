@@ -1,0 +1,409 @@
+{
+  "name": "Point Generator POP",
+  "id": "point_generator_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Point Generator POP creates a specified number of points, either randomly or in a pattern, on the surface of shape or within the volume of a closed shape. The Shape is not a set of polygons (see [[Sprinkle POP]] for that) but is a common mathematical shape like a sphere, circle, box, cylinder, torus, rectangle or line, whose shape and position/scale/rotation is controlled with POP parameters. A menu chooses between points on a surface, or points within its volume. Volumes should be closed surfaces, but Point Generator still gives a distribution of points around holes of non-closed surfaces. A Random toggle, when off, gives predictable but patterned distribution of points on/in surfaces. There are controls of orientation axis and angles of the basic shapes. Note: Presently there is no option to make the distribution of points be uniform per unit of surface area. For example, triangles get approximately the same number of points on small triangles as on large triangles. (future option) A Random distribution of points along a line segment in Line mode is controlled with two points in XYZ. You can add normal (<code>N</code> float3) and tangent (<code>T</code> float4) attribute vectors on points, vertices or primitives, with some choices of further randomization of these attributes. See also [[Sprinkle POP]], [[Random POP]], [[Noise POP]]",
+  "parameters": [
+    {
+      "name": "Shape",
+      "parName": "shape",
+      "label": "Shape",
+      "type": "Menu",
+      "description": "Sets the points generated shape.",
+      "isReadOnly": false,
+      "menuItems": [
+        "sphere",
+        "box",
+        "torus",
+        "tube",
+        "rectangle",
+        "circle",
+        "line"
+      ],
+      "menuLabels": [
+        "Sphere",
+        "Box",
+        "Torus",
+        "Tube",
+        "Rectangle",
+        "Circle",
+        "Line"
+      ]
+    },
+    {
+      "name": "Create Point Primitives",
+      "parName": "createpointprim",
+      "label": "Create Point Primitives",
+      "type": "Toggle",
+      "description": "Enable creating point primitives",
+      "isReadOnly": false
+    },
+    {
+      "name": "Number of Points",
+      "parName": "numpoints",
+      "label": "Number of Points",
+      "type": "Int",
+      "description": "Sets the number of points.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Distribution",
+      "parName": "distribution",
+      "label": "Distribution",
+      "type": "Menu",
+      "description": "Determines what distribution type is returned",
+      "isReadOnly": false,
+      "menuItems": [
+        "volume",
+        "surface"
+      ],
+      "menuLabels": [
+        "Volume",
+        "Surface"
+      ]
+    },
+    {
+      "name": "Random",
+      "parName": "random",
+      "label": "Random",
+      "type": "Toggle",
+      "description": "Enable random surface distribution.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Seed",
+      "parName": "seed",
+      "label": "Seed",
+      "type": "Float",
+      "description": "Numerical value that initializes the randomization.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Orientation",
+      "parName": "orient",
+      "label": "Orientation",
+      "type": "Menu",
+      "description": "Sets the point cloud orientation.",
+      "isReadOnly": false,
+      "menuItems": [
+        "default",
+        "xy",
+        "yz",
+        "zx"
+      ],
+      "menuLabels": [
+        "Default",
+        "XY Plane (Z axis)",
+        "YZ Plane (X axis)",
+        "ZX Plane (Y axis)"
+      ]
+    },
+    {
+      "name": "Size",
+      "parName": "size",
+      "label": "Size",
+      "type": "XYZW",
+      "description": "The geometry 3D size.",
+      "isReadOnly": false,
+      "menuItems": [
+        "size1",
+        "size2",
+        "size3",
+        "sizex",
+        "sizey",
+        "sizez"
+      ],
+      "menuLabels": [
+        "Size",
+        "Size",
+        "Size",
+        "Size",
+        "Size",
+        "Size"
+      ]
+    },
+    {
+      "name": "Radius",
+      "parName": "radius",
+      "label": "Radius",
+      "type": "XYZW",
+      "description": "Radius.",
+      "isReadOnly": false,
+      "menuItems": [
+        "radius1",
+        "radius2",
+        "radius3",
+        "radiusx",
+        "radiusy",
+        "radiusz"
+      ],
+      "menuLabels": [
+        "Radius",
+        "Radius",
+        "Radius",
+        "Radius",
+        "Radius",
+        "Radius"
+      ]
+    },
+    {
+      "name": "Height",
+      "parName": "height",
+      "label": "Height",
+      "type": "Float",
+      "description": "The height of the tube.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Point A",
+      "parName": "pointa",
+      "label": "Point A",
+      "type": "XYZW",
+      "description": "Line first point.",
+      "isReadOnly": false,
+      "menuItems": [
+        "pointa1",
+        "pointa2",
+        "pointa3",
+        "pointax",
+        "pointay",
+        "pointaz"
+      ],
+      "menuLabels": [
+        "Point A",
+        "Point A",
+        "Point A",
+        "Point A",
+        "Point A",
+        "Point A"
+      ]
+    },
+    {
+      "name": "Point B",
+      "parName": "pointb",
+      "label": "Point B",
+      "type": "XYZW",
+      "description": "Line second point.",
+      "isReadOnly": false,
+      "menuItems": [
+        "pointb1",
+        "pointb2",
+        "pointb3",
+        "pointbx",
+        "pointby",
+        "pointbz"
+      ],
+      "menuLabels": [
+        "Point B",
+        "Point B",
+        "Point B",
+        "Point B",
+        "Point B",
+        "Point B"
+      ]
+    },
+    {
+      "name": "Normal",
+      "parName": "normal",
+      "label": "Normal",
+      "type": "Menu",
+      "description": "Choose whether to create a normal attribute and the attribute class of the normal attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "pointNormals",
+        "vertNormals",
+        "primNormals"
+      ],
+      "menuLabels": [
+        "None",
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Normal Direction",
+      "parName": "normaldirection",
+      "label": "Normal Direction",
+      "type": "Menu",
+      "description": "Choose the normal direction.",
+      "isReadOnly": false,
+      "menuItems": [
+        "default",
+        "random"
+      ],
+      "menuLabels": [
+        "Default",
+        "Random"
+      ]
+    },
+    {
+      "name": "Tangent",
+      "parName": "dotangent",
+      "label": "Tangent",
+      "type": "Menu",
+      "description": "Sets the tangent mode.",
+      "isReadOnly": false,
+      "menuItems": [
+        "off",
+        "default",
+        "randomtonormal",
+        "random"
+      ],
+      "menuLabels": [
+        "Off",
+        "Default",
+        "Random to Normal",
+        "Random"
+      ]
+    },
+    {
+      "name": "Transform Order",
+      "parName": "xord",
+      "label": "Transform Order",
+      "type": "Menu",
+      "description": "Sets the overall transform order for the transformations.",
+      "isReadOnly": false,
+      "menuItems": [
+        "srt",
+        "str",
+        "rst",
+        "rts",
+        "tsr",
+        "trs"
+      ],
+      "menuLabels": [
+        "Scale Rotate Translate",
+        "Scale Translate Rotate",
+        "Rotate Scale Translate",
+        "Rotate Translate Scale",
+        "Translate Scale Rotate",
+        "Translate Rotate Scale"
+      ]
+    },
+    {
+      "name": "Rotate Order",
+      "parName": "rord",
+      "label": "Rotate Order",
+      "type": "Menu",
+      "description": "Sets the order of the rotations within the overall transform order.",
+      "isReadOnly": false,
+      "menuItems": [
+        "xyz",
+        "xzy",
+        "yxz",
+        "yzx",
+        "zxy",
+        "zyx"
+      ],
+      "menuLabels": [
+        "Rx Ry Rz",
+        "Rx Rz Ry",
+        "Ry Rx Rz",
+        "Ry Rz Rx",
+        "Rz Rx Ry",
+        "Rz Ry Rx"
+      ]
+    },
+    {
+      "name": "Translate",
+      "parName": "t",
+      "label": "Translate",
+      "type": "XYZW",
+      "description": "Translate the points in the three axes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "tx",
+        "ty",
+        "tz"
+      ],
+      "menuLabels": [
+        "Translate",
+        "Translate",
+        "Translate"
+      ]
+    },
+    {
+      "name": "Rotate",
+      "parName": "r",
+      "label": "Rotate",
+      "type": "XYZW",
+      "description": "Rotate the points around the corresponding X, Y and Z axes. Angles are given in degrees.",
+      "isReadOnly": false,
+      "menuItems": [
+        "rx",
+        "ry",
+        "rz"
+      ],
+      "menuLabels": [
+        "Rotate",
+        "Rotate",
+        "Rotate"
+      ]
+    },
+    {
+      "name": "Scale",
+      "parName": "s",
+      "label": "Scale",
+      "type": "XYZW",
+      "description": "These three fields scale the Source geometry in the three axes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "sx",
+        "sy",
+        "sz"
+      ],
+      "menuLabels": [
+        "Scale",
+        "Scale",
+        "Scale"
+      ]
+    },
+    {
+      "name": "Pivot",
+      "parName": "p",
+      "label": "Pivot",
+      "type": "XYZW",
+      "description": "The pivot point for the transform rotates and scales.",
+      "isReadOnly": false,
+      "menuItems": [
+        "px",
+        "py",
+        "pz"
+      ],
+      "menuLabels": [
+        "Pivot",
+        "Pivot",
+        "Pivot"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Point_Generator_POP.htm",
+  "parsedAt": "2025-08-08T03:03:58.538Z",
+  "url": "https://docs.derivative.ca/Point_Generator_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Point_Generator_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Point_Generator_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Point_Generator_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

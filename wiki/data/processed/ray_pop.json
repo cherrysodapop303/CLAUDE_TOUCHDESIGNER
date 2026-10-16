@@ -1,0 +1,319 @@
+{
+  "name": "Ray POP",
+  "id": "ray_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Ray POP casts a ray from each points of the input, in the direction defined by the Ray Attribute, and outputs new attributes that report what each ray hits. The second input is the set of triangles and quads that the rays are tested against. The Ray POP can count the number of primitives it hit as it transmits through all primitive in its line, and the distance to the closest primitive. It can output properties of the primitive it hit - its primitive index, the barymetric position on the primitive it hit, and the values of any attributes on the primitive it hit. It can also output information about rays that are reflected. Assuming the Collision Geometry is a closed surface, the Ray POP can report whether it is located inside or outside the volume. It can be put into a mode where it outputs line strips representing the rays that it casts, intersects and reflects. By default, the Ray POP projects the points on the collision mesh, Scale is a 0 to 1 multiplier between original position and projected position, Lift is also a control to move the point along the ray but in absolute units (to move points inside or outside a bit from the collision surface. It can leverage [[Hardware Ray Tracing]]. See also [[Math Mix POP]] (has ray functions)",
+  "parameters": [
+    {
+      "name": "Ray Attribute",
+      "parName": "rayattrib",
+      "label": "Ray Attribute",
+      "type": "StrMenu",
+      "description": "Ray direction attribute.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Negate Ray",
+      "parName": "negateray",
+      "label": "Negate Ray",
+      "type": "Toggle",
+      "description": "Negates the direction of the ray.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Number of Bounces",
+      "parName": "numbounces",
+      "label": "Number of Bounces",
+      "type": "Int",
+      "description": "The number of bounces for the rays.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Connect Points",
+      "parName": "connectpoints",
+      "label": "Connect Points",
+      "type": "Toggle",
+      "description": "When doing multiple bounces, for each input point whether to connect the intersections as a line strip.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Limit Ray Length",
+      "parName": "limitraylength",
+      "label": "Limit Ray Length",
+      "type": "Toggle",
+      "description": "The ray length will be limited.",
+      "isReadOnly": false,
+      "menuItems": [
+        "limitraylength",
+        "raydistancemaxattr"
+      ],
+      "menuLabels": [
+        "Limit Ray Length",
+        "Ray Distance Max Attrib"
+      ]
+    },
+    {
+      "name": "Trim Ray",
+      "parName": "trimray",
+      "label": "Trim Ray",
+      "type": "Toggle",
+      "description": "Option to trim ray line strip.",
+      "isReadOnly": false,
+      "menuItems": [
+        "trimray",
+        "trimdistanceattr"
+      ],
+      "menuLabels": [
+        "Trim Ray",
+        "Trim Distance Attrib"
+      ]
+    },
+    {
+      "name": "Hardware Ray Tracing",
+      "parName": "hwraytracing",
+      "label": "Hardware Ray Tracing",
+      "type": "Menu",
+      "description": "Selects mode for Hardware Ray Tracing if supported",
+      "isReadOnly": false,
+      "menuItems": [
+        "off",
+        "fastbuild",
+        "fasttrace"
+      ],
+      "menuLabels": [
+        "Off",
+        "Fast Build (Dynamic Geometry)",
+        "Fast Trace (Static Geometry)"
+      ]
+    },
+    {
+      "name": "Opaque Geometry",
+      "parName": "opaque",
+      "label": "Opaque Geometry",
+      "type": "Toggle",
+      "description": "When using hardware raytracing, specify whether the collision geometry is treated as opaque (only the closest or the first hit is returned) or not.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Any Hit",
+      "parName": "anyhit",
+      "label": "Any Hit",
+      "type": "Toggle",
+      "description": "Whether to return the first hit, not guaranteed to be the closest or the farthest one.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Hit Normal",
+      "parName": "hitnormal",
+      "label": "Hit Normal",
+      "type": "Toggle",
+      "description": "Generate normal attribute at hit locations.",
+      "isReadOnly": false,
+      "menuItems": [
+        "hitnormal",
+        "hitnormalname"
+      ],
+      "menuLabels": [
+        "Hit Normal",
+        "Hit Normal Name"
+      ]
+    },
+    {
+      "name": "Reflected Ray",
+      "parName": "doreflectedray",
+      "label": "Reflected Ray",
+      "type": "Toggle",
+      "description": "Whether to output an attribute containing the reflected ray direction.",
+      "isReadOnly": false,
+      "menuItems": [
+        "doreflectedray",
+        "reflectedrayname"
+      ],
+      "menuLabels": [
+        "Reflected Ray",
+        "Reflected Ray Name"
+      ]
+    },
+    {
+      "name": "Point Intersection Distance",
+      "parName": "dist",
+      "label": "Point Intersection Distance",
+      "type": "Toggle",
+      "description": "Whether to output an attribute with the distance between the original point and the intersection with the collision geometry.",
+      "isReadOnly": false,
+      "menuItems": [
+        "dist",
+        "distname"
+      ],
+      "menuLabels": [
+        "Point Intersection Distance",
+        "Point Intersection Distance Name"
+      ]
+    },
+    {
+      "name": "Farthest Hit",
+      "parName": "farhit",
+      "label": "Farthest Hit",
+      "type": "Toggle",
+      "description": "Whether to output an attribute with the farthest hit position.",
+      "isReadOnly": false,
+      "menuItems": [
+        "farhit",
+        "farhitname"
+      ],
+      "menuLabels": [
+        "Farthest Hit",
+        "Farthest Hit Name"
+      ]
+    },
+    {
+      "name": "Number of Hits",
+      "parName": "numhits",
+      "label": "Number of Hits",
+      "type": "Toggle",
+      "description": "The Number of hits for rays passing through all the primitives in the ray direction.",
+      "isReadOnly": false,
+      "menuItems": [
+        "numhits",
+        "numhitsname"
+      ],
+      "menuLabels": [
+        "Number of Hits",
+        "Number of Hits Name"
+      ]
+    },
+    {
+      "name": "Inside",
+      "parName": "inside",
+      "label": "Inside",
+      "type": "Toggle",
+      "description": "Outputs an attribute containing 0 for rays stating outside a volume (a closed polygon surface), or 1 for rays originating inside a volume.",
+      "isReadOnly": false,
+      "menuItems": [
+        "inside",
+        "insidename"
+      ],
+      "menuLabels": [
+        "Inside",
+        "Inside Name"
+      ]
+    },
+    {
+      "name": "Hit Primitive Index",
+      "parName": "hitprimindex",
+      "label": "Hit Primitive Index",
+      "type": "Toggle",
+      "description": "Generate primitive index at hit locations.",
+      "isReadOnly": false,
+      "menuItems": [
+        "hitprimindex",
+        "hitprimindexname"
+      ],
+      "menuLabels": [
+        "Hit Primitive Index",
+        "Hit Primitive Index Name"
+      ]
+    },
+    {
+      "name": "Barycentric Coordinates",
+      "parName": "barycoords",
+      "label": "Barycentric Coordinates",
+      "type": "Toggle",
+      "description": "Whether to output an attribute with the barycentric coordinates of the intersection point.",
+      "isReadOnly": false,
+      "menuItems": [
+        "barycoords",
+        "barycoordsname"
+      ],
+      "menuLabels": [
+        "Barycentric Coordinates",
+        "Barycentric Coordinates Name"
+      ]
+    },
+    {
+      "name": "Scale",
+      "parName": "scale",
+      "label": "Scale",
+      "type": "Float",
+      "description": "Intersection scaling factor.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Lift",
+      "parName": "lift",
+      "label": "Lift",
+      "type": "Float",
+      "description": "This value offsets the point from the collision geometry in the direction of its normal.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Hit Point Attr Scope",
+      "parName": "hitpointattrscope",
+      "label": "Hit Point Attr Scope",
+      "type": "StrMenu",
+      "description": "Point attributes to sample on the collision geometry.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Hit Primitive Attr Scope",
+      "parName": "hitprimattrscope",
+      "label": "Hit Primitive Attr Scope",
+      "type": "StrMenu",
+      "description": "Primitive attributes to sample on the collision geometry.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Hit Vertex Attr Scope",
+      "parName": "hitvertattrscope",
+      "label": "Hit Vertex Attr Scope",
+      "type": "StrMenu",
+      "description": "Vertex attributes to sample on the collision geometry.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Ray_POP.htm",
+  "parsedAt": "2025-08-08T03:03:59.325Z",
+  "url": "https://docs.derivative.ca/Ray_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Ray_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Ray_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Ray_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

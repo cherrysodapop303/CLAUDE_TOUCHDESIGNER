@@ -1,0 +1,67 @@
+{
+  "name": "CPlusPlus POP",
+  "id": "cplusplus_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The CPlusPlus POP allows you to make custom POP operators by writing your own plugin using C++. See [[Write a CPlusPlus Plugin]], [[Write a CPlusPlus POP]] and the other articles in the [[:Category:C++ | C++ Category]] for more detailed information on how to make plugins for use with this node and how to access example projects.",
+  "parameters": [
+    {
+      "name": "Plugin Path",
+      "parName": "plugin",
+      "label": "Plugin Path",
+      "type": "File",
+      "description": "The path to the plugin you want to load.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Re-Init Class",
+      "parName": "reinit",
+      "label": "Re-Init Class",
+      "type": "Toggle",
+      "description": "When this parameter is On, it will delete the instance of the class created by the plugin, and create a new one.",
+      "isReadOnly": false,
+      "menuItems": [
+        "reinit",
+        "reinitpulse"
+      ],
+      "menuLabels": [
+        "Re-Init Class",
+        "Re-Init Class"
+      ]
+    },
+    {
+      "name": "Unload Plugin",
+      "parName": "unloadplugin",
+      "label": "Unload Plugin",
+      "type": "Toggle",
+      "description": "When this parameter goes above 1, it will delete the instance of the class created by the plugin and unload the plugin. If multiple TOPs have loaded the same plugin they will all need to unload it to release the file.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-CPlusPlus_POP.htm",
+  "parsedAt": "2025-08-08T03:03:54.965Z",
+  "url": "https://docs.derivative.ca/CPlusPlus_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=CPlusPlus_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live CPlusPlus_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=CPlusPlus_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

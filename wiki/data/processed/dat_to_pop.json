@@ -1,0 +1,77 @@
+{
+  "name": "DAT to POP",
+  "id": "dat_to_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The DAT to POP converts a DAT table into a POP point list, where each column is a name heading followed by values, one row per POP point. The table must be structured as you get with POP to DAT, though for DAT to POP you don't need an <code>index</code> column as it is automatically implied. The column headers need to be in the usual POP form. Vectors (like float3) must be expressed as one column per component of the vector, with headings, for example, <code>P(0)</code> or <code>Color(3)</code>. Arrays components must be in <code>MyArray[0]</code> etc form. In each [[Sequential_Parameters#Sequence_Blocks|sequential block]], you need to specify an attribute to create. You can use <code>?</code> in <code>P(?)</code> to specify that columns <code>P(0)</code>, <code>P(1)</code> and <code>P(2)</code> will form a float3 vector <code>P</code>. At present, DAT to POP cannot convert or specify primitives or vertices of primitives. This will we implemented at a later date, at which time you will be able to represent any POP as three or four DATs.",
+  "parameters": [
+    {
+      "name": "Points DAT",
+      "parName": "pointsdat",
+      "label": "Points DAT",
+      "type": "DAT",
+      "description": "DAT containing point attributes.",
+      "isReadOnly": false
+    },
+    {
+      "name": "New Attribute",
+      "parName": "attr",
+      "label": "New Attribute",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to create new attributes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "name",
+        "number",
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "attr0type",
+        "attr0numcomps"
+      ],
+      "menuLabels": [
+        "Name",
+        "Number",
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "Attribute Type",
+        "Components"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-DAT_to_POP.htm",
+  "parsedAt": "2025-08-08T03:03:55.127Z",
+  "url": "https://docs.derivative.ca/DAT_to_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=DAT_to_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live DAT_to_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=DAT_to_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

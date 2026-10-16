@@ -1,0 +1,277 @@
+{
+  "name": "DMX Out POP",
+  "id": "dmx_out_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The DMX Out POP can send to DMX, Art-Net, sACN, [https://www.colorkinetics.com/global/learn/optics-matter KiNET], or FTDI devices. The DMX Out POP merges the DMX universes from each of its [[DMX Fixture POP]] inputs, and sends them to the device. It can merge any number of DMX Fixture POPs but conflicts may arise if multiple DMX Fixture POPs write to the same channel value of a DMX universe. A warning will be output in that case, and for debugging such conflicts the [[DMX Map DAT]] is a useful tool. '''Note: ''' every input must be a DMX Fixture POP, whether they are wired or by parameter OP reference. The DMX in TouchDesigner was developed on the [http://www.enttec.com ENTTEC] device, namely their [http://www.enttec.com/?main_menu=Products&pn=70304 DMX USB Pro] and DMX over Ethernet devices, but it should work for many devices and software that support DMX/Art-Net/sACN/KiNET. A Routing Table can be provided in a DAT where network addresses can be specified by adding rows for each DMX512 universe and then specifying the net, subnet and universe values. '''Tip''': You can use a single DMX Out POP to gather and serve any number of DMX Fixture POPs in your project because you can specify recursively from root <code>/*</code> the path of all DMX Fixture POPs to Search for in the DMX Fixture POPs parameter. You can use a [[Folder DAT]] to find all the DMX Fixture POPs in your project. '''ENTTEC NOTE:''' - Use ENTTEC's [http://www.enttec.com/us/products/controls/dmx-over-ethernet/nmu/ NMU (Node Management Utility)] to configure and inspect the ENTTEC devices found on your network. '''macOS NOTE:''' - ENTTEC USB Pro may not connect automatically, to enable it enter the following command in the Terminal: <code>sudo kextunload -b com.apple.driver.AppleUSBFTDI</code> '''Tip''': Use [https://www.wireshark.org/ WireShark] to watch your DMX network traffic. When sending to a large number of universes (eg. for volumetric lighting) it is advantageous to use unicast (see: DMXFixtureNetAddress attribute for the [[DMX Fixture POP]]) rather than broadcast as it will be more efficient and can avoid overwhelming the network. See also: [[Art-Net]], [[sACN]], [[DMX In CHOP]], [[DMX Out CHOP]], [[DMX]]",
+  "parameters": [
+    {
+      "name": "Active",
+      "parName": "active",
+      "label": "Active",
+      "type": "Toggle",
+      "description": "When enabled, will be actively sending to the device.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Interface",
+      "parName": "interface",
+      "label": "Interface",
+      "type": "Menu",
+      "description": "Select the type of interface to connect to the device with.",
+      "isReadOnly": false,
+      "menuItems": [
+        "serial",
+        "enttecusbpro",
+        "enttecusbpromk2",
+        "artnet",
+        "sacn",
+        "kinet"
+      ],
+      "menuLabels": [
+        "Generic Serial",
+        "Enttec USB Pro",
+        "Enttec USB Pro Mk2",
+        "Art-Net",
+        "sACN",
+        "KiNET"
+      ]
+    },
+    {
+      "name": "Rate",
+      "parName": "rate",
+      "label": "Rate",
+      "type": "Int",
+      "description": "How often data is sent to the device (per second). '''WARNING: DMX512 devices have a maximum refresh rate of 44Hz. It is recommended that Rate <= 44 for reliable performance.'''",
+      "isReadOnly": false
+    },
+    {
+      "name": "Fixture",
+      "parName": "fixture",
+      "label": "Fixture",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for DMX Fixture POP inputs, either wired or referenced.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Serial Port",
+      "parName": "serialport",
+      "label": "Serial Port",
+      "type": "StrMenu",
+      "description": "When the Interface parameter is set to Generic Serial this parameter lets you select which Serial (COM) port to use.",
+      "isReadOnly": false,
+      "menuItems": [
+        "com3"
+      ],
+      "menuLabels": [
+        "COM3"
+      ]
+    },
+    {
+      "name": "DMXking Port",
+      "parName": "dmxkingport",
+      "label": "DMXking Port",
+      "type": "Menu",
+      "description": "Select a DMXking port to send to.",
+      "isReadOnly": false,
+      "menuItems": [
+        "default"
+      ],
+      "menuLabels": [
+        "Default"
+      ]
+    },
+    {
+      "name": "Device",
+      "parName": "device",
+      "label": "Device",
+      "type": "StrMenu",
+      "description": "Select a DMX device from the menu.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Multicast",
+      "parName": "multicast",
+      "label": "Multicast",
+      "type": "Toggle",
+      "description": "Enable multicast for sACN. Multicast automatically builds the IP based on Net, Subnet, and Universe of the device. This allows for sending to multiple devices at once by specifying multiple universes.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Network Address",
+      "parName": "netaddress",
+      "label": "Network Address",
+      "type": "Str",
+      "description": "Specify the IP address to use. This address corresponds to the receiving device address. When the address is set to its default 255.255.255.255, the messages are instead broadcast to all devices on the network. The Net, Subnet and Universe of the receiving devices must still match those specified in the DMX Out POP in all cases. If a netaddress is specified in the Routing Table for a given net/subnet/universe then that will be used instead.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Local Address",
+      "parName": "localaddress",
+      "label": "Local Address",
+      "type": "StrMenu",
+      "description": "When the sending machine is equipped with multiple network adapters, this parameter can be used to choose which adapter to send the data from by specifying its IP address here.",
+      "isReadOnly": false,
+      "menuItems": [
+        "192.168.178.150",
+        "10.2.0.2"
+      ],
+      "menuLabels": [
+        "192.168.178.150",
+        "10.2.0.2"
+      ]
+    },
+    {
+      "name": "Local Port",
+      "parName": "localport",
+      "label": "Local Port",
+      "type": "Int",
+      "description": "In rare cases it can be necessary to supply a custom port from which the data should be sent. The default of <code>-1</code> means the O/S assigned port is being used.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Use Custom Port",
+      "parName": "customport",
+      "label": "Use Custom Port",
+      "type": "Toggle",
+      "description": "Enable the Network Port parameter to specify the port of the receiving hardware. When disabled, default port is 6454 for Art-Net, 5568 for sACN, and 6038 for KiNET.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Network Port",
+      "parName": "netport",
+      "label": "Network Port",
+      "type": "Int",
+      "description": "Specify the port of the receiving hardware.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Priority",
+      "parName": "priority",
+      "label": "Priority",
+      "type": "Int",
+      "description": "The data priority, if there are multiple sources. Used with sACN and KiNET protocols.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Send ArtSync",
+      "parName": "sendartsync",
+      "label": "Send ArtSync",
+      "type": "Toggle",
+      "description": "When enabled will send out ArtSync packets. ArtSync packets are used to synchronize multiple universes together. It will do this by waiting for all ArtDmx packets to finish sending, then follow up by sending an ArtSync packet.",
+      "isReadOnly": false
+    },
+    {
+      "name": "ArtSync Timeout",
+      "parName": "artsynctimeout",
+      "label": "ArtSync Timeout",
+      "type": "Int",
+      "description": "Specify the time in milliseconds that ArtSync will wait for all ArtDmx packets to complete sending, before sending the ArtSync packet. If they have not all been sent when the timeout is reached, then ArtSync will terminate and the ArtSync packet will not be sent. Additionally, a new frame of ArtDmx packets will be sent and a new ArtSync will be initiated.",
+      "isReadOnly": false
+    },
+    {
+      "name": "CID",
+      "parName": "cid",
+      "label": "CID",
+      "type": "Str",
+      "description": "The unique ID of the sender.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Source",
+      "parName": "source",
+      "label": "Source",
+      "type": "Str",
+      "description": "User assigned name of source (for informative purposes).",
+      "isReadOnly": false
+    },
+    {
+      "name": "KiNET Version",
+      "parName": "kinetversion",
+      "label": "KiNET Version",
+      "type": "Menu",
+      "description": "Select the version of the KiNET protocol to use.",
+      "isReadOnly": false,
+      "menuItems": [
+        "v1",
+        "v2"
+      ],
+      "menuLabels": [
+        "DmxOut (v1)",
+        "PortOut (v2)"
+      ]
+    },
+    {
+      "name": "Use Custom KiNET Port",
+      "parName": "customkinetport",
+      "label": "Use Custom KiNET Port",
+      "type": "Toggle",
+      "description": "When enabled, can specify a custom port for the KiNET v2 interface. When disabled, the port will be the broadcast port: 255.",
+      "isReadOnly": false
+    },
+    {
+      "name": "KiNET Port",
+      "parName": "kinetport",
+      "label": "KiNET Port",
+      "type": "Int",
+      "description": "Specifies the port for KiNET v2 interface.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Routing Table",
+      "parName": "routingtable",
+      "label": "Routing Table",
+      "type": "DAT",
+      "description": "Use a Table DAT to specify netaddress, source, cid, priority, and kinetport values for specific universes. The net, subnet, universe columns must be filled in with valid values. Note: the [[DMX Fixture POP]] can override the netaddress value with its own Routing Table.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Use Multipliers",
+      "parName": "usemultipliers",
+      "label": "Use Multipliers",
+      "type": "Toggle",
+      "description": "Enable the use of multipliers, which apply a post-operation multiply [0-1] on specific named channels (ie. the name set using the Name parameter on a DMX Fixture POP).",
+      "isReadOnly": false
+    },
+    {
+      "name": "Multiplier",
+      "parName": "multiplier",
+      "label": "Multiplier",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for a channel multipplier. If there are duplicate channel names the multipliers will be combined for that channel.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-DMX_Out_POP.htm",
+  "parsedAt": "2025-08-08T03:03:55.389Z",
+  "url": "https://docs.derivative.ca/DMX_Out_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=DMX_Out_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live DMX_Out_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=DMX_Out_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

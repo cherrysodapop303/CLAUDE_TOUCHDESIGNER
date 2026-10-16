@@ -1,0 +1,51 @@
+{
+  "name": "GLSL Select POP",
+  "id": "glsl_select_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The GLSL Select POP allows you to select one of the Extra Output POPs that can be made available with a [[GLSL Advanced POP]].",
+  "parameters": [
+    {
+      "name": "POP",
+      "parName": "pop",
+      "label": "POP",
+      "type": "POP",
+      "description": "POP reference.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Output Name",
+      "parName": "name",
+      "label": "Output Name",
+      "type": "Str",
+      "description": "Name of an extra output on the selected GLSL Advanced POP to select and output.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-GLSL_Select_POP.htm",
+  "parsedAt": "2025-08-08T03:03:56.236Z",
+  "url": "https://docs.derivative.ca/GLSL_Select_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=GLSL_Select_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live GLSL_Select_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=GLSL_Select_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

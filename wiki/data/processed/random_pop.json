@@ -1,0 +1,445 @@
+{
+  "name": "Random POP",
+  "id": "random_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Random POP takes its input and either (1) generates a new attribute containing random values, or (2) sets, adds or multiplies an existing attribute by a random value for each point. The random values can be applied to point, vertex or primitive attributes. By default, the random values are uniformly distributed between 0 and 1, but there is a variety of alternate distributions controlled with the Type menu. These include Gaussian (also known as Normal) distribution (where most points are near the center of the range), two values randomly chosen with a fraction probability of each (Two Values), a random Direction vector (within a certain cone angle) which always has length of 1, random float3 vectors within a unit Sphere, and Exponential which is an exponential dropoff above 0 separately in each axis. The random values can be generated within a specified range (Value A and Value B), and then optionally clamped between two values. There is an option to generate 2 or more points for every input point to increase the density of points around the source points. (Extra Points per Source Point) The random values can also be restricted to certain point, vertex or primitive Groups. Tip: You can get random distributions radially around a point by using the [[Projection POP]] by generating random numbers in polar space and converting to Cartesian. '''Per-point mapping of parameters''' - The Random POP has a Map page, which allows every point to get a different value for Amplitude, Offset, Exponent, Period, Value A and B and other parameters. In this mechanism, a separate attribute in the input contains values that override (or add to / multiply by) the parameter value. See [[Mapping POP Attributes to Parameters]]. See also [[Point Generator POP]], [[Noise POP]]",
+  "parameters": [
+    {
+      "name": "Extra Points per Source Point",
+      "parName": "extrapts",
+      "label": "Extra Points per Source Point",
+      "type": "Int",
+      "description": "Determines how many additional random points are generated per input point.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Type",
+      "parName": "type",
+      "label": "Type",
+      "type": "Menu",
+      "description": "Determines the random type.",
+      "isReadOnly": false,
+      "menuItems": [
+        "constant",
+        "twovalues",
+        "uniform",
+        "uniformdiscrete",
+        "direction",
+        "insidesphere",
+        "normal",
+        "exponential",
+        "lognormal",
+        "cauchylorentz",
+        "customramp",
+        "none",
+        "gaussian"
+      ],
+      "menuLabels": [
+        "Constant",
+        "Two Values",
+        "Uniform (Continuous)",
+        "Uniform (Discrete)",
+        "Direction",
+        "Inside Sphere",
+        "Normal (Gaussian)",
+        "Exponential",
+        "Log-Normal",
+        "Cauchy-Lorentz",
+        "Custom Ramp",
+        "None",
+        "Gaussian (Normal)"
+      ]
+    },
+    {
+      "name": "CHOP",
+      "parName": "chop",
+      "label": "CHOP",
+      "type": "CHOP",
+      "description": "When the distribution type is Custom Ramp, the CHOP to use for the custom ramp.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Random Size",
+      "parName": "randomsize",
+      "label": "Random Size",
+      "type": "Menu",
+      "description": "Number of random components.",
+      "isReadOnly": false,
+      "menuItems": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "menuLabels": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "name": "Seed",
+      "parName": "seed",
+      "label": "Seed",
+      "type": "Float",
+      "description": "Numerical value that initializes the randomization.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Parameter Size",
+      "parName": "parsize",
+      "label": "Parameter Size",
+      "type": "Menu",
+      "description": "Number of independent configurable parameter values.",
+      "isReadOnly": false,
+      "menuItems": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "menuLabels": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "name": "Amplitude",
+      "parName": "amp",
+      "label": "Amplitude",
+      "type": "Float",
+      "description": "For certain types of random values, the random values amplitude (a scale on the values output).",
+      "isReadOnly": false
+    },
+    {
+      "name": "Exponent",
+      "parName": "exp",
+      "label": "Exponent",
+      "type": "Float",
+      "description": "Sets the exponent. The internal value is raised by the power of the exponent",
+      "isReadOnly": false
+    },
+    {
+      "name": "Offset",
+      "parName": "offset",
+      "label": "Offset",
+      "type": "Float",
+      "description": "Adds an offset to the resulting value.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Value A",
+      "parName": "valuea",
+      "label": "Value A",
+      "type": "Float",
+      "description": "One of two values determining the random numbers that are output.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Value B",
+      "parName": "valueb",
+      "label": "Value B",
+      "type": "Float",
+      "description": "One of two values determining the random numbers that are output.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Value B Probability",
+      "parName": "valuebproba",
+      "label": "Value B Probability",
+      "type": "Float",
+      "description": "The probability that the numbers will be biased toward value B vs A.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Clamp Value",
+      "parName": "clamp",
+      "label": "Clamp Value",
+      "type": "Toggle",
+      "description": "Whether to clamp the output value between a minimum and a maximum.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Clamp Min",
+      "parName": "minval",
+      "label": "Clamp Min",
+      "type": "Float",
+      "description": "Minimum output value.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Clamp Max",
+      "parName": "maxval",
+      "label": "Clamp Max",
+      "type": "Float",
+      "description": "Maximum output value.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Cone Direction",
+      "parName": "conedir",
+      "label": "Cone Direction",
+      "type": "XYZW",
+      "description": "When random distribution is direction, specifies the cone direction.",
+      "isReadOnly": false,
+      "menuItems": [
+        "conedirx",
+        "conediry",
+        "conedirz"
+      ],
+      "menuLabels": [
+        "Cone Direction",
+        "Cone Direction",
+        "Cone Direction"
+      ]
+    },
+    {
+      "name": "Cone Angle",
+      "parName": "coneangle",
+      "label": "Cone Angle",
+      "type": "Float",
+      "description": "When random distribution is direction, specifies the cone angle around the cone direction.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Combine Operation",
+      "parName": "combineop",
+      "label": "Combine Operation",
+      "type": "Menu",
+      "description": "Specify how to combine the output value with the combine attribute value.",
+      "isReadOnly": false,
+      "menuItems": [
+        "set",
+        "add",
+        "mult",
+        "translatealongnormal"
+      ],
+      "menuLabels": [
+        "Set",
+        "Add",
+        "Multiply",
+        "Translate along Normal"
+      ]
+    },
+    {
+      "name": "Combine Attribute Scope",
+      "parName": "combineattrscope",
+      "label": "Combine Attribute Scope",
+      "type": "StrMenu",
+      "description": "Input attribute scope for the combine operation.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Output Attribute Scope",
+      "parName": "outputattrscope",
+      "label": "Output Attribute Scope",
+      "type": "StrMenu",
+      "description": "Name of attribute to output (can choose components of attribute), can choose from menu.",
+      "isReadOnly": false,
+      "menuItems": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth"
+      ],
+      "menuLabels": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth"
+      ]
+    },
+    {
+      "name": "Override Automatic Attribute",
+      "parName": "overrideautoattr",
+      "label": "Override Automatic Attribute",
+      "type": "Toggle",
+      "description": "Whether to override the kind of attribute automatically created based on the POP input and parameters. Allows to specify manually the type and number of components of the new attribute.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Attribute Type",
+      "parName": "attrtype",
+      "label": "Attribute Type",
+      "type": "Menu",
+      "description": "The output attribute's data type, default float.",
+      "isReadOnly": false,
+      "menuItems": [
+        "float",
+        "double",
+        "int",
+        "uint",
+        "color",
+        "dcolor",
+        "dir",
+        "ddir"
+      ],
+      "menuLabels": [
+        "float",
+        "double",
+        "int",
+        "uint",
+        "Color",
+        "Color (double)",
+        "Direction",
+        "Direction (double)"
+      ]
+    },
+    {
+      "name": "Components",
+      "parName": "attrnumcomps",
+      "label": "Components",
+      "type": "Menu",
+      "description": "The number of components in the new custom attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "menuLabels": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "name": "Default Value",
+      "parName": "attrdefaultval",
+      "label": "Default Value",
+      "type": "Float",
+      "description": "Default values of the output attribute components if they cannot be computed.",
+      "isReadOnly": false,
+      "menuItems": [
+        "attrdefaultval0",
+        "attrdefaultval1",
+        "attrdefaultval2",
+        "attrdefaultval3"
+      ],
+      "menuLabels": [
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    },
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Group",
+      "parName": "group",
+      "label": "Group",
+      "type": "StrMenu",
+      "description": "If there are input groups, specifying a group name in this field will cause this POP to act only upon the group specified.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Compute Point Normals",
+      "parName": "computenormals",
+      "label": "Compute Point Normals",
+      "type": "Toggle",
+      "description": "Whether to compute point normals as a post operation.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Mapping",
+      "parName": "map",
+      "label": "Mapping",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for attribute-to-parameter mapping.",
+      "isReadOnly": false,
+      "menuItems": [
+        "amp",
+        "exp",
+        "offset",
+        "valuea",
+        "valueb",
+        "valuebproba",
+        "stepval",
+        "minval",
+        "maxval",
+        "conedir",
+        "conedirx",
+        "conediry",
+        "conedirz",
+        "coneangle",
+        "set",
+        "mult",
+        "add"
+      ],
+      "menuLabels": [
+        "amp (Amplitude)",
+        "exp (Exponent)",
+        "offset (Offset)",
+        "valuea (Value A)",
+        "valueb (Value B)",
+        "valuebproba (Value B Probability)",
+        "stepval (Step Value)",
+        "minval (Clamp Min)",
+        "maxval (Clamp Max)",
+        "conedir (Cone Direction)",
+        "conedirx",
+        "conediry",
+        "conedirz",
+        "coneangle (Cone Angle)",
+        "Set",
+        "Multiply",
+        "Add"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Random_POP.htm",
+  "parsedAt": "2025-08-08T03:03:59.274Z",
+  "url": "https://docs.derivative.ca/Random_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Random_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Random_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Random_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

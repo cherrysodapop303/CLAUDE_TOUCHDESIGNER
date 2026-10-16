@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "1.0",
+  "description": "TouchDesigner experimental/beta build series tracking. Experimental builds precede stable releases and contain unreleased features that may change before stable release. Build identifiers use the YYYY.NNNNN form (e.g. 2025.31310).",
+  "_provenance": [
+    {
+      "fact": "TouchDesigner 2025 official core Python is 3.11.10",
+      "url": "https://derivative.ca/community-post/2025-official-update/73153",
+      "quote": "TouchDesigner's core python version has been updated to 3.11.10."
+    },
+    {
+      "fact": "POPs (Point Operators) are the flagship new operator family of the 2025 release and the first new family in over a decade",
+      "url": "https://derivative.ca/community-post/2025-official-update/73153",
+      "quote": "This is the first new operator family we've added in over a decade and it promises to be a game changer for the way you work in TouchDesigner!"
+    },
+    {
+      "fact": "POPs are a new GPU-based operator family that create or modify 3D data",
+      "url": "https://docs.derivative.ca/Release_Notes/2025.30000",
+      "quote": "Introducing POPs, aka Point Operators! POPs are a new family of operators that run on the GPU and create or modify 3D data."
+    },
+    {
+      "fact": "The latest official 2025 build is 2025.32820, released May 06 2026",
+      "url": "https://docs.derivative.ca/Release_Notes/2025.30000",
+      "quote": "Current Official Build 2025.32820 Download - May 06 2026"
+    },
+    {
+      "fact": "The 2025.30000 experimental series updated Python to 3.11.10",
+      "url": "https://docs.derivative.ca/Release_Notes/2025.30000/experimental",
+      "quote": "Python version updated to 3.11.10"
+    },
+    {
+      "fact": "The 2025.30000 experimental series runs from build 2025.30060 to 2025.31310, with 2025.31500 promoted to official",
+      "url": "https://docs.derivative.ca/Release_Notes/2025.30000/experimental",
+      "quote": "2025.31310 Oct 8, 2025"
+    },
+    {
+      "fact": "POPs were announced on May 19 2024 and run almost entirely on the GPU",
+      "url": "https://derivative.ca/community-post/pops-new-operator-family-touchdesigner/69468",
+      "quote": "Introducing Point Operators - POPs - a new set of operators that run on the GPU for manipulating 3D data"
+    },
+    {
+      "fact": "POPs announcement was posted May 19th 2024",
+      "url": "https://derivative.ca/community-post/pops-new-operator-family-touchdesigner/69468",
+      "quote": "Posted on: May 19th 2024"
+    },
+    {
+      "fact": "As of the 2022 release, OpenGL was removed and Vulkan became TouchDesigner's sole graphics API",
+      "url": "https://derivative.ca/community-post/2022-official-update/66222",
+      "quote": "The openGL engine used for the last 20 years is gone and TouchDesigner's graphics API is now Vulkan."
+    },
+    {
+      "fact": "The 2022 release upgraded core Python to 3.9.5",
+      "url": "https://derivative.ca/community-post/2022-official-update/66222",
+      "quote": "Beginning with an upgrade of TouchDesigner's core python to version 3.9.5."
+    },
+    {
+      "fact": "Vulkan became the graphics API (OpenGL retired) and Python was updated to 3.9.5 in the 2021 experimental build 2021.38110",
+      "url": "https://derivative.ca/release/experimental-202138110/65595",
+      "quote": "TouchDesigner's graphics API is now Vulkan, openGL has been retired."
+    },
+    {
+      "fact": "The 2021 experimental build 2021.38110 updated Python to 3.9.5",
+      "url": "https://derivative.ca/release/experimental-202138110/65595",
+      "quote": "The version of Python in TouchDesigner has been updated to 3.9.5."
+    },
+    {
+      "fact": "The 2021 experimental build is 2021.38110, dated Dec 17 2021",
+      "url": "https://derivative.ca/release/experimental-202138110/65595",
+      "quote": "Build 2021.38110 - Dec 17, 2021"
+    },
+    {
+      "fact": "Engine COMP and USD COMP are shipping operators in the 2022 series",
+      "url": "https://docs.derivative.ca/Release_Notes/2022.20000",
+      "quote": "[USD COMP](/USD_COMP \"USD COMP\") - Fixed a crash that could occur when importing geometry."
+    },
+    {
+      "fact": "Build identifiers use the YYYY.NNNNN form; the 2022 series includes builds such as 2022.35320",
+      "url": "https://docs.derivative.ca/Release_Notes/2022.20000",
+      "quote": "2022.35320"
+    }
+  ],
+  "trackInfo": {
+    "stable": "Annual numbered releases — production ready. Official series are 2021, 2022, 2023, and 2025 (there is no 2024 official release; the path runs 2023 official -> 2025 official).",
+    "experimental": "Build-numbered pre-releases with new features under active development. Not recommended for production use. An experimental series carries the same year prefix as the release it leads into; the 2025.30000 experimental series (Python 3.11.10) preceded the 2025 official release.",
+    "buildNumbering": "TD build identifiers use the YYYY.NNNNN form (e.g. 2022.35320, 2025.31310, 2025.32820), not bare 5-digit integers. Within a year, higher build numbers are newer.",
+    "releaseURL": "https://derivative.ca/download",
+    "changelogURL": "https://docs.derivative.ca/Release_Notes"
+  },
+  "currentExperimentalSeries": "2025.30000",
+  "buildSeries": [
+    {
+      "seriesId": "2025.30000",
+      "label": "TouchDesigner 2025.30000 Experimental — POPs (Point Operators) & Python 3.11.10",
+      "buildRange": { "min": "2025.30060", "max": "2025.31310" },
+      "basedOnStable": "2023",
+      "releaseYear": 2025,
+      "stabilityStatus": "graduated",
+      "stabilityNotes": "The 2025.30000 experimental series led into the 2025 official release (posted Oct 29 2025). It updated core Python to 3.11.10 and introduced POPs (Point Operators) as the flagship new operator family. Experimental builds ran from 2025.30060 (Jun 6 2024) through 2025.31310 (Oct 8 2025); build 2025.31500 was promoted to official. Source: https://docs.derivative.ca/Release_Notes/2025.30000/experimental",
+      "featureFlags": {
+        "python_311_10": true,
+        "pop_operators": true
+      },
+      "newFeatures": [
+        "POPs (Point Operators) — a new family of operators that run on the GPU and create or modify 3D data; the first new operator family in over a decade (source: https://docs.derivative.ca/Release_Notes/2025.30000)",
+        "Python version updated to 3.11.10 (source: https://docs.derivative.ca/Release_Notes/2025.30000/experimental)"
+      ],
+      "experimentalOperators": [],
+      "breakingChangesVsStable": [],
+      "pythonApiAdditions": [],
+      "featureAreas": ["operators", "Python API"]
+    },
+    {
+      "seriesId": "2021.30000",
+      "label": "TouchDesigner 2021 Experimental — Vulkan (experimental) & Python 3.9.5 (build 2021.38110)",
+      "buildRange": { "min": "2021.38110", "max": "2021.38110" },
+      "basedOnStable": "2021",
+      "releaseYear": 2021,
+      "stabilityStatus": "graduated",
+      "stabilityNotes": "In the 2021 experimental build 2021.38110 (Dec 17 2021), TouchDesigner's graphics API moved to Vulkan (OpenGL retired) and core Python was updated to 3.9.5. These changes became official in the 2022 release. (2021 official Python was 3.7.2; Python 3.9.5 first arrived in this 2021 experimental build.) Source: https://derivative.ca/release/experimental-202138110/65595",
+      "featureFlags": {
+        "vulkan_experimental": true,
+        "python_39_5": true
+      },
+      "newFeatures": [
+        "TouchDesigner's graphics API is now Vulkan, OpenGL has been retired (source: https://derivative.ca/release/experimental-202138110/65595)",
+        "The version of Python in TouchDesigner has been updated to 3.9.5 (source: https://derivative.ca/release/experimental-202138110/65595)"
+      ],
+      "experimentalOperators": [],
+      "breakingChangesVsStable": [],
+      "pythonApiAdditions": [],
+      "featureAreas": ["rendering", "Python API"]
+    }
+  ],
+  "featureAreaIndex": {
+    "rendering": [
+      "2021.30000"
+    ],
+    "Python API": [
+      "2025.30000",
+      "2021.30000"
+    ],
+    "operators": [
+      "2025.30000"
+    ]
+  }
+}

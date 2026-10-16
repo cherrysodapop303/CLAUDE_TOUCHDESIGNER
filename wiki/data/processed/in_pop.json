@@ -1,0 +1,51 @@
+{
+  "name": "In POP",
+  "id": "in_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The In POP gets data from a POP that is connected to one of the inputs of the In POP's parent component. For each In POP inside a component, there is one input connector added to the In POP's parent component. If there is nothing connected to the parent component's input, then the In POP will output what is connected to its second input, if any. This is useful for making sure there is some default data to work with.",
+  "parameters": [
+    {
+      "name": "Label",
+      "parName": "label",
+      "label": "Label",
+      "type": "Str",
+      "description": "Creates a pop-up label when the cursor rolls over this Component input.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Connect Order",
+      "parName": "connectorder",
+      "label": "Connect Order",
+      "type": "Float",
+      "description": "All the connect orders from the In Ops are sorted to determine the order of the connectors on the parent COMP.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-In_POP.htm",
+  "parsedAt": "2025-08-08T03:03:56.555Z",
+  "url": "https://docs.derivative.ca/In_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=In_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live In_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=In_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

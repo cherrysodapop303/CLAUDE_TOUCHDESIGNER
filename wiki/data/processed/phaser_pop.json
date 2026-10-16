@@ -1,0 +1,265 @@
+{
+  "name": "Phaser POP",
+  "id": "phaser_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Phaser POP works like the [[Phaser CHOP]]. It does staggered (time-offset) animation interpolation on a POP attribute. Phaser outputs one new attribute <code>Phaser</code>. Each point animates <code>Phaser</code> from 0 to 1 over a cycle, but each point's value rises from 0 and arrives at 1 at different times. The Output Attribute Scope <code>Phase</code> can be used to blend or animate other attributes downstream. <code>Phase</code> is multi-component if the Phase Attribute Scope is multi-component. The Fraction parameter is by default clamped between 0 and 1. The Extend Input menu lets you control Fraction with numbers below 0 and above 1 with different effect. When Fraction goes above 1: * Clamp - default and current behavior - the values hold. * Cycle - the Phaser goes back to its 0 state and cycles the input time 0-1 * Mirror - the Phaser fully reverses and zig-zags the input time between 0-1 * Mirror Slope - the first sample starts decreasing first after the input time goes above 1 * Add - the Phaser outputs values that keep increasing when the input time goes beyond 1 See also [[Phaser CHOP]]",
+  "parameters": [
+    {
+      "name": "Phase Attribute Scope",
+      "parName": "phaseattrscope",
+      "label": "Phase Attribute Scope",
+      "type": "StrMenu",
+      "description": "Input attribute scope.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Fraction",
+      "parName": "fract",
+      "label": "Fraction",
+      "type": "Float",
+      "description": "Sets the phase fraction.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Parameter Size",
+      "parName": "parsize",
+      "label": "Parameter Size",
+      "type": "Menu",
+      "description": "Number of independent configurable parameter values.",
+      "isReadOnly": false,
+      "menuItems": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "menuLabels": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "name": "Edge",
+      "parName": "edge",
+      "label": "Edge",
+      "type": "Float",
+      "description": "Set the separation edge of the phasing between two states",
+      "isReadOnly": false
+    },
+    {
+      "name": "Reverse Phase",
+      "parName": "reversephase",
+      "label": "Reverse Phase",
+      "type": "Toggle",
+      "description": "Reverse the staggered animation interpolation.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Smooth Step",
+      "parName": "smoothstep",
+      "label": "Smooth Step",
+      "type": "Toggle",
+      "description": "Enable value remapping with a smoothstep function.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Cast to",
+      "parName": "castto",
+      "label": "Cast to",
+      "type": "Menu",
+      "description": "Allows to cast the output attribute to a different type if wanted.",
+      "isReadOnly": false,
+      "menuItems": [
+        "auto",
+        "float",
+        "int"
+      ],
+      "menuLabels": [
+        "Automatic",
+        "Float",
+        "Int"
+      ]
+    },
+    {
+      "name": "Output Attribute Scope",
+      "parName": "outputattrscope",
+      "label": "Output Attribute Scope",
+      "type": "StrMenu",
+      "description": "Name of attribute to output (can choose components of attribute), can choose from menu.",
+      "isReadOnly": false,
+      "menuItems": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth"
+      ],
+      "menuLabels": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth"
+      ]
+    },
+    {
+      "name": "Override Automatic Attribute",
+      "parName": "overrideautoattr",
+      "label": "Override Automatic Attribute",
+      "type": "Toggle",
+      "description": "Whether to override the kind of attribute automatically created based on the POP input and parameters. Allows to specify manually the type and number of components of the new attribute.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Attribute Type",
+      "parName": "attrtype",
+      "label": "Attribute Type",
+      "type": "Menu",
+      "description": "The output attribute's data type, default float.",
+      "isReadOnly": false,
+      "menuItems": [
+        "float",
+        "double",
+        "int",
+        "uint",
+        "color",
+        "dcolor",
+        "dir",
+        "ddir"
+      ],
+      "menuLabels": [
+        "float",
+        "double",
+        "int",
+        "uint",
+        "Color",
+        "Color (double)",
+        "Direction",
+        "Direction (double)"
+      ]
+    },
+    {
+      "name": "Components",
+      "parName": "attrnumcomps",
+      "label": "Components",
+      "type": "Menu",
+      "description": "The number of components in the new custom attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "menuLabels": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "name": "Default Value",
+      "parName": "attrdefaultval",
+      "label": "Default Value",
+      "type": "Float",
+      "description": "Default values of the output attribute components if they cannot be computed.",
+      "isReadOnly": false,
+      "menuItems": [
+        "attrdefaultval0",
+        "attrdefaultval1",
+        "attrdefaultval2",
+        "attrdefaultval3"
+      ],
+      "menuLabels": [
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    },
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "From Low",
+      "parName": "fromlow",
+      "label": "From Low",
+      "type": "Float",
+      "description": "Reranges the phase attribute value.",
+      "isReadOnly": false
+    },
+    {
+      "name": "From High",
+      "parName": "fromhigh",
+      "label": "From High",
+      "type": "Float",
+      "description": "Reranges the phase attribute value.",
+      "isReadOnly": false
+    },
+    {
+      "name": "To Low",
+      "parName": "tolow",
+      "label": "To Low",
+      "type": "Float",
+      "description": "Sets low value on the output range.",
+      "isReadOnly": false
+    },
+    {
+      "name": "To High",
+      "parName": "tohigh",
+      "label": "To High",
+      "type": "Float",
+      "description": "Sets high value on the output range.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Phaser_POP.htm",
+  "parsedAt": "2025-08-08T03:03:58.365Z",
+  "url": "https://docs.derivative.ca/Phaser_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Phaser_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Phaser_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Phaser_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

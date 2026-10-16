@@ -1,0 +1,173 @@
+{
+  "name": "Line Break POP",
+  "id": "line_break_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Line Break POP creates new line strips from the points and line strips of its input. It can create a set of line strips using an attribute, default named <code>LineBreak</code>, where it steps through all the points of the input and a new line strip is started if the <code>LineBreak</code> attribute is 1. If <code>LineBreak</code> is 0, it continues the line to include current point. Alternately, It can use a point attribute <code>LineStripIndex</code> (same attribute name as Line Metrics creates) to make separate line strips. It can also split a line strip based on a point being farther that a specified distance from the previous point. It can split a line strip every N points. It can simply create one line strip from its input points. See also [[Primitive POP]], [[Convert POP]]",
+  "parameters": [
+    {
+      "name": "Mode",
+      "parName": "connecmode",
+      "label": "Mode",
+      "type": "Menu",
+      "description": "When on, use the input line strips' connectivity otherwise use only the input points order.",
+      "isReadOnly": false,
+      "menuItems": [
+        "noconnec",
+        "onelinestrip",
+        "inputlinestrips"
+      ],
+      "menuLabels": [
+        "No Connectivity",
+        "One Line Strip (point order)",
+        "Input Line Strips"
+      ]
+    },
+    {
+      "name": "Line Break Attribute",
+      "parName": "uselinebreak",
+      "label": "Line Break Attribute",
+      "type": "Toggle",
+      "description": "When on, the attribute will contain 1 for line breaks, 0 for non-line breaks.",
+      "isReadOnly": false,
+      "menuItems": [
+        "uselinebreak",
+        "linebreakname"
+      ],
+      "menuLabels": [
+        "Line Break Attribute",
+        "Line Break Attribute"
+      ]
+    },
+    {
+      "name": "Line Strip Index Attribute",
+      "parName": "uselinestripindex",
+      "label": "Line Strip Index Attribute",
+      "type": "Toggle",
+      "description": "When on, the attribute will contain integers where points with same integer are part of one line strip..",
+      "isReadOnly": false,
+      "menuItems": [
+        "uselinestripindex",
+        "linestripindexname"
+      ],
+      "menuLabels": [
+        "Line Strip Index Attribute",
+        "Line Strip Index Attribute"
+      ]
+    },
+    {
+      "name": "Use Input Line Breaks",
+      "parName": "useinputlinebreaks",
+      "label": "Use Input Line Breaks",
+      "type": "Toggle",
+      "description": "Use a line break attribute of teh input to determine breaks between line strips.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Every N Points",
+      "parName": "everyn",
+      "label": "Every N Points",
+      "type": "Toggle",
+      "description": "Enable addition on line breaks every N points",
+      "isReadOnly": false
+    },
+    {
+      "name": "N",
+      "parName": "n",
+      "label": "N",
+      "type": "Int",
+      "description": "N value when Every N Points is enabled.",
+      "isReadOnly": false
+    },
+    {
+      "name": "By Distance Threshold",
+      "parName": "bydistancethreshold",
+      "label": "By Distance Threshold",
+      "type": "Toggle",
+      "description": "Whether to create line breaks using a distance threshold between two points.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Distance Threshold",
+      "parName": "distancethreshold",
+      "label": "Distance Threshold",
+      "type": "Float",
+      "description": "Determines the minimum distance between points to add new line breaks",
+      "isReadOnly": false
+    },
+    {
+      "name": "Distance Threshold Attribute",
+      "parName": "distancethresholdattr",
+      "label": "Distance Threshold Attribute",
+      "type": "StrMenu",
+      "description": "Determines the scope of the attribute used to compute the distances between points",
+      "isReadOnly": false
+    },
+    {
+      "name": "Output Line Break Attribute",
+      "parName": "outputlinebreakattr",
+      "label": "Output Line Break Attribute",
+      "type": "Toggle",
+      "description": "Whether to output a LineBreak attribute.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Output Lines",
+      "parName": "outputlines",
+      "label": "Output Lines",
+      "type": "Toggle",
+      "description": "Whether to output Line Strip or Lines primitive (determined by the Line Type menu)",
+      "isReadOnly": false
+    },
+    {
+      "name": "Line Type",
+      "parName": "linetype",
+      "label": "Line Type",
+      "type": "Menu",
+      "description": "Specifies whether lines should be made of line strip primitives or lines primitives.",
+      "isReadOnly": false,
+      "menuItems": [
+        "linestrip",
+        "lines"
+      ],
+      "menuLabels": [
+        "Line Strip",
+        "Lines"
+      ]
+    },
+    {
+      "name": "Copy Topology Info Back to CPU",
+      "parName": "cpureadback",
+      "label": "Copy Topology Info Back to CPU",
+      "type": "Toggle",
+      "description": "Enable copying the point count and topology information held on the GPU to the CPU.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Line_Break_POP.htm",
+  "parsedAt": "2025-08-08T03:03:56.711Z",
+  "url": "https://docs.derivative.ca/Line_Break_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Line_Break_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Line_Break_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Line_Break_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

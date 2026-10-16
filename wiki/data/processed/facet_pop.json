@@ -1,0 +1,163 @@
+{
+  "name": "Facet POP",
+  "id": "facet_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Facet POP does operations to make points ve shared between multiple primitives, or create new points so that the points are not shared. Unique Points will create new points so that each vertex of each primitive does not shared a point with any other vertex. (exception: on closed line strips the first vertex and the last vertex refer to the same point, by definition) Consolidate Points will potentially reduce the number of points by combining points that are within a specified distance tolerance into one point. Then multiple vertices may refer to each point, i.e. \"share\" a point. Cusp Polygon will look at all edges between polygons, and if the adjacent two faces to an edge are not aligned within a specified angle tolerance, it will make the edge point unique. You may follow the Facet POP with a [[Normal POP]] which computes the point or vertex normals, giving the surfaces a faceted loop or not.",
+  "parameters": [
+    {
+      "name": "Group",
+      "parName": "group",
+      "label": "Group",
+      "type": "StrMenu",
+      "description": "If there are input groups, specifying a group name in this field will cause this POP to act only upon the group specified.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Operation",
+      "parName": "operation",
+      "label": "Operation",
+      "type": "Menu",
+      "description": "Selects the operation to perform.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "unique",
+        "cusp",
+        "conspoints"
+      ],
+      "menuLabels": [
+        "No Operation",
+        "Unique Points",
+        "Cusp Polygons",
+        "Consolidate Points"
+      ]
+    },
+    {
+      "name": "Angle",
+      "parName": "angle",
+      "label": "Angle",
+      "type": "",
+      "description": "The threshold angle between faces above which the shared edge vertices don't share points.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Distance",
+      "parName": "dist",
+      "label": "Distance",
+      "type": "Float",
+      "description": "Sets the maximum distance between points when consolidating points.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Max Tries",
+      "parName": "maxtries",
+      "label": "Max Tries",
+      "type": "Int",
+      "description": "Max number of iterations when trying to consolidate points, in case the target point has already been consolidated.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Remove Degenerate",
+      "parName": "removedegenerate",
+      "label": "Remove Degenerate",
+      "type": "Toggle",
+      "description": "Remove primitives where consecutive vertices reference the same point.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Remove Unused Points",
+      "parName": "removeunusedpoints",
+      "label": "Remove Unused Points",
+      "type": "Toggle",
+      "description": "Removes unused points not referenced by primitives.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Technique",
+      "parName": "technique",
+      "label": "Technique",
+      "type": "Menu",
+      "description": "Points consolidation technique.",
+      "isReadOnly": false,
+      "menuItems": [
+        "bruteforce",
+        "sharedmemory",
+        "spatialgrid",
+        "spatialgridpervoxel"
+      ],
+      "menuLabels": [
+        "Brute Force",
+        "Shared Memory",
+        "Spatial Grid",
+        "Spatial Grid Per Voxel"
+      ]
+    },
+    {
+      "name": "Voxels Grid Resolution",
+      "parName": "gridres",
+      "label": "Voxels Grid Resolution",
+      "type": "Int",
+      "description": "Defines the voxel grid resolution used when consolidating points via the Spatial Grid Per Voxel method.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Specify Bounding Box",
+      "parName": "specifybbox",
+      "label": "Specify Bounding Box",
+      "type": "Toggle",
+      "description": "Enable specifying a bounding box when consolidating points with the spacial grid per voxel method.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Bounding Box",
+      "parName": "bbox",
+      "label": "Bounding Box",
+      "type": "SOP",
+      "description": "SOP to use as bounding box when specifying a bounding box when consolidating points with the Spatial Grid method.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Compute Point Normals",
+      "parName": "computenormals",
+      "label": "Compute Point Normals",
+      "type": "Toggle",
+      "description": "Whether to compute point normals as a post operation.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Copy Topology Info Back to CPU",
+      "parName": "cpureadback",
+      "label": "Copy Topology Info Back to CPU",
+      "type": "Toggle",
+      "description": "Enable copying the point count and topology information held on the GPU to the CPU.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Facet_POP.htm",
+  "parsedAt": "2025-08-08T03:03:55.515Z",
+  "url": "https://docs.derivative.ca/Facet_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Facet_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Facet_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Facet_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

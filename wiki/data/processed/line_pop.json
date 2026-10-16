@@ -1,0 +1,333 @@
+{
+  "name": "Line POP",
+  "id": "line_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Line POP generates a line strip where you create a set of points using parameters, and then (optionally) subdivides each segment using various interpolation methods. The default is two points with 20 divisions between them, linearly interpolated. You add a point by creating a new sequential block on the Points page and specifying the position <code>P</code> using its parameters. But each point can have any set of attributes: On the Setup page, use New Attribute to define all the attributes you want for the points. The points are automatically connected as a line strip. On Setup, you can choose the Interpolation Method for the Divisions page, the default being Linear interpolation, but also possible are splines including Cardinal, BSpline, Beziers and Quadratic. With the spline types, the Line POP adds extra parameters on the Point page for setting the spline weight, tangents and/or tension. You can also choose to have a different interpolation method per-point. On the Setup page, the toggle Multiple Line Strips lets you break the points into separate line strips, thus a parameter is added to the Points' sequential block that lets you indicate where the line breaks are. Also points can be repeated, and line strips can be open or closed. The Divisions page subdivides the line strips in two stages. The first stage allows setting the total divisions for the line strip, or the divisions per-segment, or lets you divide by distance along the curves. The second stage lets you further re-sample the line strip, adding or removing points. If you want to output your pre-divided point list, then do some other operations on it with other POPs, and later divide using the [[Line Divide POP]], you can output the line strip(s) of the Line POP with the necessary attributes to be used by the Line Divide POP to control the divisions, including the interpolation type (<code>SegMethod</code>, in integer form). <code>SegMethod</code> is 0 for Linear, 1 for Cardinal and so on following the order in the Interpolation Method menu. It will also output attributes for weight and tangents etc. Look at the mclick popup info box to see the attributes it outputs. This mode is chosen with the Output menu. See also [[Line Divide POP]], [[Curve POP]], [[Point POP]], [[Primitive POP]], [[Pattern POP]].",
+  "parameters": [
+    {
+      "name": "Output",
+      "parName": "output",
+      "label": "Output",
+      "type": "Menu",
+      "description": "Instead of subdividing the line strip, it can output your point list as undivided control points that can be later subdivided with a [[Line Divide POP]]. It will add interpolation attributes like <code>SegMethod</code>.",
+      "isReadOnly": false,
+      "menuItems": [
+        "subdivlines",
+        "ctrlpoints"
+      ],
+      "menuLabels": [
+        "Subdivided Lines",
+        "Control Points"
+      ]
+    },
+    {
+      "name": "Multiple Line Strips",
+      "parName": "multiplelinestrips",
+      "label": "Multiple Line Strips",
+      "type": "Toggle",
+      "description": "Allows the creation of multiple line strips, adding a line break toggle per point.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Interpolation Method per Segment",
+      "parName": "interpmethodpersegment",
+      "label": "Interpolation Method per Segment",
+      "type": "Toggle",
+      "description": "When toggle is on, it uses a separate interpolation method for each segment in the input line strips.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Interpolation Method",
+      "parName": "interpmethod",
+      "label": "Interpolation Method",
+      "type": "Menu",
+      "description": "Method to use for interpolation.",
+      "isReadOnly": false,
+      "menuItems": [
+        "linear",
+        "cardinal",
+        "bspline",
+        "cubicbeziertang",
+        "cubicbezier",
+        "quadraticbezier"
+      ],
+      "menuLabels": [
+        "Linear",
+        "Cardinal (Interpolating)",
+        "BSpline",
+        "Cubic Bezier With Tangents",
+        "Cubic Bezier",
+        "Quadratic Bezier"
+      ]
+    },
+    {
+      "name": "Tension",
+      "parName": "tension",
+      "label": "Tension",
+      "type": "Float",
+      "description": "Controls how tightly the cardinal line strip bends through the control points",
+      "isReadOnly": false
+    },
+    {
+      "name": "Enable Weights",
+      "parName": "enableweights",
+      "label": "Enable Weights",
+      "type": "Toggle",
+      "description": "Enable specifying control points weigths",
+      "isReadOnly": false
+    },
+    {
+      "name": "Enable Tangents",
+      "parName": "enabletangent",
+      "label": "Enable Tangents",
+      "type": "Toggle",
+      "description": "Enable specifying control points tangents",
+      "isReadOnly": false
+    },
+    {
+      "name": "Enable Point Repeat",
+      "parName": "enablepointrepeat",
+      "label": "Enable Point Repeat",
+      "type": "Toggle",
+      "description": "Enable specifying repeated control points for B-Splines",
+      "isReadOnly": false
+    },
+    {
+      "name": "Closed",
+      "parName": "closed",
+      "label": "Closed",
+      "type": "Toggle",
+      "description": "The last vertex is connected to the first vertex.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Pre-Multiply RGB by Alpha",
+      "parName": "premultcolor",
+      "label": "Pre-Multiply RGB by Alpha",
+      "type": "Toggle",
+      "description": "Enable RGB values pre-multiplication with the Alpha.",
+      "isReadOnly": false
+    },
+    {
+      "name": "New Attribute",
+      "parName": "attr",
+      "label": "New Attribute",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to create new attributes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "custom",
+        "n",
+        "color",
+        "tex",
+        "pointscale",
+        "linewidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "dir",
+        "ddir",
+        "1",
+        "2",
+        "3",
+        "4",
+        "attr0value0",
+        "attr0value1",
+        "attr0value2",
+        "attr0value3"
+      ],
+      "menuLabels": [
+        "Custom",
+        "N",
+        "Color",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "dir",
+        "dbl dir",
+        "1",
+        "2",
+        "3",
+        "4",
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    },
+    {
+      "name": "Point",
+      "parName": "pt",
+      "label": "Point",
+      "type": "Sequence",
+      "description": "",
+      "isReadOnly": false,
+      "menuItems": [
+        "pt0posx",
+        "pt0posy",
+        "pt0posz",
+        "pt1posx",
+        "pt1posy",
+        "pt1posz"
+      ],
+      "menuLabels": [
+        "Position",
+        "Position",
+        "Position",
+        "Position",
+        "Position",
+        "Position"
+      ]
+    },
+    {
+      "name": "Divisions Method",
+      "parName": "divmethod",
+      "label": "Divisions Method",
+      "type": "Menu",
+      "description": "The method to apply the divisions.",
+      "isReadOnly": false,
+      "menuItems": [
+        "linestrip",
+        "segment",
+        "defpersegment",
+        "distseg"
+      ],
+      "menuLabels": [
+        "Divisions per Line Strip",
+        "Divisions per Segment",
+        "Divisions Defined per Segment",
+        "Distance between Points (per Segment)"
+      ]
+    },
+    {
+      "name": "Divisions",
+      "parName": "divs",
+      "label": "Divisions",
+      "type": "Int",
+      "description": "The number of divisions.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Distance",
+      "parName": "dist",
+      "label": "Distance",
+      "type": "Float",
+      "description": "Distance between points when post-resampling by distance.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Add ControlPoint Attribute",
+      "parName": "addctrlpointattr",
+      "label": "Add ControlPoint Attribute",
+      "type": "Toggle",
+      "description": "Whether to the output control points with attributes or subdivided line strips.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Post-Resample Method",
+      "parName": "resamplemethod",
+      "label": "Post-Resample Method",
+      "type": "Menu",
+      "description": "Resampling method used after division.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "linestrip",
+        "dist",
+        "keyframes"
+      ],
+      "menuLabels": [
+        "None",
+        "Divisions per Line Strip",
+        "Distance between Points",
+        "Points as Keyframes"
+      ]
+    },
+    {
+      "name": "Divisions",
+      "parName": "resampledivs",
+      "label": "Divisions",
+      "type": "Int",
+      "description": "The number of divisions.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Distance",
+      "parName": "resampledist",
+      "label": "Distance",
+      "type": "Float",
+      "description": "Sets the maximum distance when resampling by distance between points",
+      "isReadOnly": false
+    },
+    {
+      "name": "Independant Variable Attribute",
+      "parName": "indvarattr",
+      "label": "Independant Variable Attribute",
+      "type": "StrMenu",
+      "description": "Attribute to use as the independent variable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "P(0)"
+      ],
+      "menuLabels": [
+        "P(0)"
+      ]
+    },
+    {
+      "name": "Independant Variable Step",
+      "parName": "indvarstep",
+      "label": "Independant Variable Step",
+      "type": "Float",
+      "description": "Step size to use for the independent variable, usually a fraction of the independent variable range.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Maximum Number of Vertices",
+      "parName": "resamplemaxverts",
+      "label": "Maximum Number of Vertices",
+      "type": "Int",
+      "description": "Sets the number of vertices to be allocated. It should be bigger than the actual number of vertices created (visible in info popup). More vertices allocated use more GPU memory.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Max Tries for Binary Search",
+      "parName": "maxtries",
+      "label": "Max Tries for Binary Search",
+      "type": "Int",
+      "description": "Max number of iterations for binary search when linearly resampling.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Line_POP.htm",
+  "parsedAt": "2025-08-08T03:03:56.930Z",
+  "url": "https://docs.derivative.ca/Line_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Line_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Line_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Line_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

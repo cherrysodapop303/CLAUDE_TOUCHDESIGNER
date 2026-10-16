@@ -1,0 +1,271 @@
+{
+  "name": "Rectangle POP",
+  "id": "rectangle_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Rectangle POP creates a 4-point rectangle with optional rounded corners, and outputs it as a line strip, a pair of triangles, a quad, separate 2-point lines, unconnected point primitives, or without any primitives. The mode Fill Camera View uses a [[Camera COMP]] and extra viewing information (aspect ratio) to put the four points of the rectangle at the corners of the camera view at a certain distance away from the camera. This is useful for rendering a background plate that fills the field of view of a camera, behind the geometry of a scene, or for aligning geometry in the field of view of a camera. If a POP is connected to the input, it will translate / scale the rectangle to the bounding box of the input. If a POP is connected to the input and if Modify Bounds is set, it will scale / translate the rectangle to the bounding box of the input, and you can further translate/scale/rotate the rectangle. You can add texture coordinates (<code>Tex</code>), or normal (<code>N</code>) attributes to the points or to the vertices. Orientation is in the XY plane. The left, middle or right side of the rectangle can be anchored to X=0. Similar for Y, and then the rectangle can be further scaled, rotated and translated. See also [[Circle POP]], [[Primitive POP]], [[Line POP]], [[Point POP]].",
+  "parameters": [
+    {
+      "name": "Connectivity",
+      "parName": "surftype",
+      "label": "Connectivity",
+      "type": "Menu",
+      "description": "Determines the primitive used to connect the points.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "point",
+        "lines",
+        "linestrips",
+        "triangles",
+        "quads"
+      ],
+      "menuLabels": [
+        "None",
+        "Point Primitives",
+        "Lines",
+        "Line Strips",
+        "Triangles",
+        "Quadrilaterals"
+      ]
+    },
+    {
+      "name": "Modify Bounds",
+      "parName": "modifybounds",
+      "label": "Modify Bounds",
+      "type": "Toggle",
+      "description": "Available only when an input is connected to the POP to set bounds for the POP. When Modify Bounds is On the parameters below will further modify the shape of the POP.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Orientation",
+      "parName": "orient",
+      "label": "Orientation",
+      "type": "Menu",
+      "description": "Sets the rectangle orientation.",
+      "isReadOnly": false,
+      "menuItems": [
+        "xy",
+        "yz",
+        "zx",
+        "cam"
+      ],
+      "menuLabels": [
+        "XY plane",
+        "YZ plane",
+        "ZX plane",
+        "Fill Camera View"
+      ]
+    },
+    {
+      "name": "Camera",
+      "parName": "camera",
+      "label": "Camera",
+      "type": "Object",
+      "description": "Specify the camera component.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Dist from Camera",
+      "parName": "distfromcam",
+      "label": "Dist from Camera",
+      "type": "Float",
+      "description": "Sets the distance of the rectangle from the camera when orienting it to face the camera",
+      "isReadOnly": false
+    },
+    {
+      "name": "Camera Aspect",
+      "parName": "cameraaspect",
+      "label": "Camera Aspect",
+      "type": "XYZW",
+      "description": "The aspect ratio for the projection.",
+      "isReadOnly": false,
+      "menuItems": [
+        "cameraaspectx",
+        "cameraaspecty"
+      ],
+      "menuLabels": [
+        "Camera Aspect",
+        "Camera Aspect"
+      ]
+    },
+    {
+      "name": "Size",
+      "parName": "size",
+      "label": "Size",
+      "type": "XYZW",
+      "description": "The geometry 3D size.",
+      "isReadOnly": false,
+      "menuItems": [
+        "sizex",
+        "sizey"
+      ],
+      "menuLabels": [
+        "Size",
+        "Size"
+      ]
+    },
+    {
+      "name": "Round Corners",
+      "parName": "roundcorners",
+      "label": "Round Corners",
+      "type": "Toggle",
+      "description": "Enable round corners.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Corner Radius",
+      "parName": "cornerradius",
+      "label": "Corner Radius",
+      "type": "Float",
+      "description": "Set the corner radius for the round corners rectagle",
+      "isReadOnly": false
+    },
+    {
+      "name": "Corner Sides",
+      "parName": "cornersides",
+      "label": "Corner Sides",
+      "type": "Int",
+      "description": "Sets the number of sides on round corners",
+      "isReadOnly": false
+    },
+    {
+      "name": "Anchor U",
+      "parName": "anchoru",
+      "label": "Anchor U",
+      "type": "Float",
+      "description": "Puts the left side, the middle or the right side at the origin 0.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Anchor V",
+      "parName": "anchorv",
+      "label": "Anchor V",
+      "type": "Float",
+      "description": "Puts the bottom side, the middle or the top side at the origin 0.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Translate",
+      "parName": "t",
+      "label": "Translate",
+      "type": "XYZW",
+      "description": "Translate the points in the three axes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "tx",
+        "ty",
+        "tz"
+      ],
+      "menuLabels": [
+        "Translate",
+        "Translate",
+        "Translate"
+      ]
+    },
+    {
+      "name": "Rotate",
+      "parName": "r",
+      "label": "Rotate",
+      "type": "XYZW",
+      "description": "Rotate the points around the corresponding X, Y and Z axes. Angles are given in degrees.",
+      "isReadOnly": false,
+      "menuItems": [
+        "rx",
+        "ry",
+        "rz"
+      ],
+      "menuLabels": [
+        "Rotate",
+        "Rotate",
+        "Rotate"
+      ]
+    },
+    {
+      "name": "Uniform Scale",
+      "parName": "scale",
+      "label": "Uniform Scale",
+      "type": "Float",
+      "description": "Specifies a uniform scale factor in all axes.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Normal",
+      "parName": "normal",
+      "label": "Normal",
+      "type": "Menu",
+      "description": "Choose whether to create a normal attribute and the attribute class of the normal attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "pointNormals"
+      ],
+      "menuLabels": [
+        "None",
+        "Point"
+      ]
+    },
+    {
+      "name": "Texture Coordinates",
+      "parName": "texture",
+      "label": "Texture Coordinates",
+      "type": "Menu",
+      "description": "Sets the attribute class where the texture coordinates should be created.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "point",
+        "vert"
+      ],
+      "menuLabels": [
+        "None",
+        "Point",
+        "Vertex"
+      ]
+    },
+    {
+      "name": "Texture Fit",
+      "parName": "texturefit",
+      "label": "Texture Fit",
+      "type": "Menu",
+      "description": "Determines how the texture coordinates are scaled and positioned relative to the rectangle.",
+      "isReadOnly": false,
+      "menuItems": [
+        "fill",
+        "best",
+        "outside"
+      ],
+      "menuLabels": [
+        "Fill",
+        "Fit Best",
+        "Fit Outside"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Rectangle_POP.htm",
+  "parsedAt": "2025-08-08T03:03:59.371Z",
+  "url": "https://docs.derivative.ca/Rectangle_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Rectangle_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Rectangle_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Rectangle_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

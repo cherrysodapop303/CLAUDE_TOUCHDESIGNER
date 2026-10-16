@@ -1,0 +1,189 @@
+{
+  "name": "Proximity POP",
+  "id": "proximity_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Proximity POP connects points to nearby points in its first input within a specified near/far distance. If a second input is connected, it connects points of the second input with points of the first input that are in-range. Two parameters set the Maximum Distance and the Minimum Distance between points to connect. You can limit how many lines each point can connect from. The Uniform Distribution parameter gives a more random distribution of connecting points. You can ensure each pair of points have at most one line between them. When there are two inputs to Proximity, you can output (via the Output menu) the connecting lines, or simply point primitives of the first input that are within range of the second input. When outputting lines, you can include primitive attributes <code>LineDir</code> and <code>LineLength</code>. When outputting points you can also output all the attributes of the matching point as separate new attributes (<code>EndP</code>, <code>EndN</code>, <code>EndTex</code> etc) by select End Point Attributes. Each connecting primitive is a 2-point \"line primitive\", not a line strip. See also [[Neighbor POP]], [[Line Metrics POP]]",
+  "parameters": [
+    {
+      "name": "Maximum Distance",
+      "parName": "maxdist",
+      "label": "Maximum Distance",
+      "type": "Float",
+      "description": "Maximum distance from current point for candidate points to create lines to.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Minimum Distance",
+      "parName": "mindist",
+      "label": "Minimum Distance",
+      "type": "Float",
+      "description": "Minimum distance from current point for candidate points to create lines to.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Max Lines per Point",
+      "parName": "maxlinesperpoint",
+      "label": "Max Lines per Point",
+      "type": "Int",
+      "description": "Specifies the max number of lines emanating from each point in the first input.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Uniform Distribution",
+      "parName": "uniformdist",
+      "label": "Uniform Distribution",
+      "type": "Toggle",
+      "description": "Allows evenly distributed selection among nearby points, rather than defaulting to the first ones found.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Max Temp Neighbors",
+      "parName": "maxtempneighbors",
+      "label": "Max Temp Neighbors",
+      "type": "Int",
+      "description": "Used internally to store candidate points to create lines to before removing some to reach the max number of lines per point.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Duplicate Lines",
+      "parName": "duplines",
+      "label": "Duplicate Lines",
+      "type": "Menu",
+      "description": "Determines what to do with duplicated proximity lines",
+      "isReadOnly": false,
+      "menuItems": [
+        "donothing",
+        "avoid",
+        "delete"
+      ],
+      "menuLabels": [
+        "Do Nothing",
+        "Avoid",
+        "Delete"
+      ]
+    },
+    {
+      "name": "Num Hash Buckets",
+      "parName": "numhashbuckets",
+      "label": "Num Hash Buckets",
+      "type": "Int",
+      "description": "The number of buckets the points will be sorted in based on their position. A good heuristic is to choose it to be close to the number of points.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Output",
+      "parName": "output",
+      "label": "Output",
+      "type": "Menu",
+      "description": "Whether to output points with attributes or lines.",
+      "isReadOnly": false,
+      "menuItems": [
+        "lines",
+        "points"
+      ],
+      "menuLabels": [
+        "Lines (Shared Points)",
+        "Point Prims"
+      ]
+    },
+    {
+      "name": "Line Direction",
+      "parName": "linedir",
+      "label": "Line Direction",
+      "type": "Toggle",
+      "description": "Enable addition of line direction attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "linedir",
+        "linedirname"
+      ],
+      "menuLabels": [
+        "Line Direction",
+        "Line Direction Attrib Name"
+      ]
+    },
+    {
+      "name": "Line Length",
+      "parName": "linelength",
+      "label": "Line Length",
+      "type": "Toggle",
+      "description": "Enable addition of line length attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "linelength",
+        "linelengthname"
+      ],
+      "menuLabels": [
+        "Line Length",
+        "Line Length Attrib Name"
+      ]
+    },
+    {
+      "name": "End Point Attributes",
+      "parName": "endptattrs",
+      "label": "End Point Attributes",
+      "type": "Toggle",
+      "description": "Enable outputting end point attributes from second input",
+      "isReadOnly": false
+    },
+    {
+      "name": "Origin",
+      "parName": "origin",
+      "label": "Origin",
+      "type": "Menu",
+      "description": "Sets whether the lines origin comes from the first input or the second input.",
+      "isReadOnly": false,
+      "menuItems": [
+        "first",
+        "second"
+      ],
+      "menuLabels": [
+        "First Input Points",
+        "Second Input Points"
+      ]
+    },
+    {
+      "name": "Remove Unused Points",
+      "parName": "remunusedpoints",
+      "label": "Remove Unused Points",
+      "type": "Toggle",
+      "description": "Removes unused points not referenced by primitives.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Copy Topology Info Back to CPU",
+      "parName": "cpureadback",
+      "label": "Copy Topology Info Back to CPU",
+      "type": "Toggle",
+      "description": "Enable copying the point count and topology information held on the GPU to the CPU.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Proximity_POP.htm",
+  "parsedAt": "2025-08-08T03:03:59.120Z",
+  "url": "https://docs.derivative.ca/Proximity_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Proximity_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Proximity_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Proximity_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

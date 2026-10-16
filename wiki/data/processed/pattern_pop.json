@@ -1,0 +1,459 @@
+{
+  "name": "Pattern POP",
+  "id": "pattern_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Pattern POP is a generator that makes simple line strip shapes using elementary math functions in X, Y and Z. Alternately it can add a new attribute to an input POP using the elementary math functions. The math functions include sine, cos, triangles, square waves, as well as ease in/out and random. Parameters control phase, repeats and re-ranging. The Pattern POP can: * make one or more 3D line strips generating a <code>P</code> attribute containing a different curve in X, Y and Z. (it can create <code>Tex</code> at the same time). (generator) * add a new attribute (1-4 components) to an input POP, each component containing a separate type of curve. (filter) * modify an existing attribute of an input POP by adding/multiplying the curve to it. (filter) * create a POP that has no P attribute - just a curve in a new attribute. (generator) See also: [[Curve POP]], [[Math Mix POP]]",
+  "parameters": [
+    {
+      "name": "Number of Points",
+      "parName": "numpoints",
+      "label": "Number of Points",
+      "type": "Int",
+      "description": "Sets the number of points.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Cyclic",
+      "parName": "cyclic",
+      "label": "Cyclic",
+      "type": "Toggle",
+      "description": "Enable having completes cycle correspond to Number of Points + 1 values.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Connectivity",
+      "parName": "connectivity",
+      "label": "Connectivity",
+      "type": "Menu",
+      "description": "Determines whether and how to connect the points.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "linestrip",
+        "lines",
+        "points"
+      ],
+      "menuLabels": [
+        "None",
+        "Line Strip",
+        "Lines",
+        "Point Prims"
+      ]
+    },
+    {
+      "name": "Parameter Size",
+      "parName": "parsize",
+      "label": "Parameter Size",
+      "type": "Menu",
+      "description": "Number of independent configurable parameter values.",
+      "isReadOnly": false,
+      "menuItems": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "menuLabels": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "name": "Type",
+      "parName": "type",
+      "label": "Type",
+      "type": "Menu",
+      "description": "Determines the pattern type.",
+      "isReadOnly": false,
+      "menuItems": [
+        "type0",
+        "type1",
+        "type2"
+      ],
+      "menuLabels": [
+        "Type",
+        "Type",
+        "Type"
+      ]
+    },
+    {
+      "name": "Seed",
+      "parName": "seed",
+      "label": "Seed",
+      "type": "Float",
+      "description": "Numerical value that initializes the randomization.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Number of Cycles",
+      "parName": "numcycles",
+      "label": "Number of Cycles",
+      "type": "Float",
+      "description": "Set the number of repeating cycles of the Type shapes over the Length, except for Random.",
+      "isReadOnly": false,
+      "menuItems": [
+        "numcycles0",
+        "numcycles1",
+        "numcycles2"
+      ],
+      "menuLabels": [
+        "Number of Cycles",
+        "Number of Cycles",
+        "Number of Cycles"
+      ]
+    },
+    {
+      "name": "Step per Cycle",
+      "parName": "steppercycle",
+      "label": "Step per Cycle",
+      "type": "Float",
+      "description": "Step added to each cycle.",
+      "isReadOnly": false,
+      "menuItems": [
+        "steppercycle0",
+        "steppercycle1",
+        "steppercycle2"
+      ],
+      "menuLabels": [
+        "Step per Cycle",
+        "Step per Cycle",
+        "Step per Cycle"
+      ]
+    },
+    {
+      "name": "Bias",
+      "parName": "bias",
+      "label": "Bias",
+      "type": "Float",
+      "description": "Makes Triangle type into a sawtooth wave, and sets the Square type variable-width.",
+      "isReadOnly": false,
+      "menuItems": [
+        "bias0",
+        "bias1",
+        "bias2"
+      ],
+      "menuLabels": [
+        "Bias",
+        "Bias",
+        "Bias"
+      ]
+    },
+    {
+      "name": "Phase",
+      "parName": "phase",
+      "label": "Phase",
+      "type": "Float",
+      "description": "Shifts the cycle.",
+      "isReadOnly": false,
+      "menuItems": [
+        "phase0",
+        "phase1",
+        "phase2"
+      ],
+      "menuLabels": [
+        "Phase",
+        "Phase",
+        "Phase"
+      ]
+    },
+    {
+      "name": "Exponent",
+      "parName": "exp",
+      "label": "Exponent",
+      "type": "Float",
+      "description": "Sets the exponent. The internal value is raised by the power of the exponent",
+      "isReadOnly": false,
+      "menuItems": [
+        "exp0",
+        "exp1",
+        "exp2"
+      ],
+      "menuLabels": [
+        "Exponent",
+        "Exponent",
+        "Exponent"
+      ]
+    },
+    {
+      "name": "Map from Low",
+      "parName": "fromlow",
+      "label": "Map from Low",
+      "type": "Float",
+      "description": "Reranges the attribute value.",
+      "isReadOnly": false,
+      "menuItems": [
+        "fromlow0",
+        "fromlow1",
+        "fromlow2"
+      ],
+      "menuLabels": [
+        "Map from Low",
+        "Map from Low",
+        "Map from Low"
+      ]
+    },
+    {
+      "name": "Map from High",
+      "parName": "fromhigh",
+      "label": "Map from High",
+      "type": "Float",
+      "description": "Reranges the attribute value.",
+      "isReadOnly": false,
+      "menuItems": [
+        "fromhigh0",
+        "fromhigh1",
+        "fromhigh2"
+      ],
+      "menuLabels": [
+        "Map from High",
+        "Map from High",
+        "Map from High"
+      ]
+    },
+    {
+      "name": "Map to Low",
+      "parName": "tolow",
+      "label": "Map to Low",
+      "type": "Float",
+      "description": "Reranges the attribute value.",
+      "isReadOnly": false,
+      "menuItems": [
+        "tolow0",
+        "tolow1",
+        "tolow2"
+      ],
+      "menuLabels": [
+        "Map to Low",
+        "Map to Low",
+        "Map to Low"
+      ]
+    },
+    {
+      "name": "Map to High",
+      "parName": "tohigh",
+      "label": "Map to High",
+      "type": "Float",
+      "description": "Reranges the attribute value.",
+      "isReadOnly": false,
+      "menuItems": [
+        "tohigh0",
+        "tohigh1",
+        "tohigh2"
+      ],
+      "menuLabels": [
+        "Map to High",
+        "Map to High",
+        "Map to High"
+      ]
+    },
+    {
+      "name": "Reverse",
+      "parName": "reverse",
+      "label": "Reverse",
+      "type": "Toggle",
+      "description": "Enable reverse order.",
+      "isReadOnly": false,
+      "menuItems": [
+        "reverse0",
+        "reverse1",
+        "reverse2"
+      ],
+      "menuLabels": [
+        "Reverse",
+        "Reverse",
+        "Reverse"
+      ]
+    },
+    {
+      "name": "Line Break Each Cycle",
+      "parName": "linebreakcycle",
+      "label": "Line Break Each Cycle",
+      "type": "Toggle",
+      "description": "When on, creates a line break at each cycle.",
+      "isReadOnly": false,
+      "menuItems": [
+        "linebreakcycle0",
+        "linebreakcycle1",
+        "linebreakcycle2"
+      ],
+      "menuLabels": [
+        "Line Break Each Cycle",
+        "Line Break Each Cycle",
+        "Line Break Each Cycle"
+      ]
+    },
+    {
+      "name": "Closed",
+      "parName": "closed",
+      "label": "Closed",
+      "type": "Toggle",
+      "description": "The last vertex is connected to the first vertex.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Output Line Break Attribute",
+      "parName": "outputlinebreakattr",
+      "label": "Output Line Break Attribute",
+      "type": "Toggle",
+      "description": "Whether to output a LineBreak attribute.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Texture Coordinates",
+      "parName": "texture",
+      "label": "Texture Coordinates",
+      "type": "Menu",
+      "description": "Sets the texture coordinate mode relative to the cylcles.",
+      "isReadOnly": false,
+      "menuItems": [
+        "off",
+        "rampstartend",
+        "ramppercycle"
+      ],
+      "menuLabels": [
+        "Off",
+        "Ramp Start to End",
+        "Ramp Per Cycle"
+      ]
+    },
+    {
+      "name": "Combine Operation",
+      "parName": "combineop",
+      "label": "Combine Operation",
+      "type": "Menu",
+      "description": "Specify how to combine the output value with the combine attribute value.",
+      "isReadOnly": false,
+      "menuItems": [
+        "set",
+        "add",
+        "mult"
+      ],
+      "menuLabels": [
+        "Set",
+        "Add",
+        "Multiply"
+      ]
+    },
+    {
+      "name": "Combine Attribute Scope",
+      "parName": "combineattrscope",
+      "label": "Combine Attribute Scope",
+      "type": "StrMenu",
+      "description": "Input attribute scope for the combine operation.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Output Attribute Scope",
+      "parName": "outputattrscope",
+      "label": "Output Attribute Scope",
+      "type": "StrMenu",
+      "description": "Name of attribute to output (can choose components of attribute), can choose from menu.",
+      "isReadOnly": false,
+      "menuItems": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "color",
+        "dcolor",
+        "dir",
+        "ddir",
+        "1",
+        "2",
+        "3",
+        "4",
+        "attrdefaultval0",
+        "attrdefaultval1",
+        "attrdefaultval2",
+        "attrdefaultval3"
+      ],
+      "menuLabels": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "Color",
+        "Color (double)",
+        "Direction",
+        "Direction (double)",
+        "1",
+        "2",
+        "3",
+        "4",
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    },
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Group",
+      "parName": "group",
+      "label": "Group",
+      "type": "StrMenu",
+      "description": "If there are input groups, specifying a group name in this field will cause this POP to act only upon the group specified.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Pattern_POP.htm",
+  "parsedAt": "2025-08-08T03:03:58.304Z",
+  "url": "https://docs.derivative.ca/Pattern_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Pattern_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Pattern_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Pattern_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,213 @@
+{
+  "name": "Neighbor POP",
+  "id": "neighbor_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Neighbor POP uses the <code>P</code> attribute to find, for each point of the input, the closest points to it. It puts the indexes of the closest points in an array attribute <code>Nebr</code>. You specify the max number of neighbors, and you choose the Max Neighbors Distance to look for neighbors. The size of the attribute <code>Nebr</code> is the Max Neighbors parameter. If fewer than that number is found, it puts a special number <code>4294967295</code> as the value for the neighbor index. The attribute <code>NumNebrs</code> holds the number of neighbors found for each point. You can output the average distance to the found neighbors, optionally including the point's position. Alternately you can output the Inverse Distance Weighted Average, where the closest points have the highest influence on the average. Instead of outputting the indexes of the neighbors, you can output any set of attributes of the neighbors (careful, this can produce a lot of data). An alternate form of the Neighbor POP takes a second input, where the each point of the first input is compared to points of the second input. Neighbors are determined by distance between points, but via the Neighbors Type menu, they can also be determined by connectivity along any primitive connecting edges to neighboring points (only one step currently). For example, two points adjacent to each other in a line strip or quad are neighbors of each other. ( Distribution - Default, Unique, Closest ) Internally it is using a unbounded spatial hashing algorithm nad put into one of Num Hash Buckets.",
+  "parameters": [
+    {
+      "name": "Neighbors Type",
+      "parName": "nebrtype",
+      "label": "Neighbors Type",
+      "type": "Menu",
+      "description": "When checking for neighbors, choose to use edge connectivity or only distance to neighbor points.",
+      "isReadOnly": false,
+      "menuItems": [
+        "distance",
+        "connected"
+      ],
+      "menuLabels": [
+        "By Distance",
+        "Connected"
+      ]
+    },
+    {
+      "name": "Max Neighbors Distance",
+      "parName": "maxdistance",
+      "label": "Max Neighbors Distance",
+      "type": "Float",
+      "description": "Specifies the distance below which a point is considered a neighbor of the current point.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Distribution",
+      "parName": "distribution",
+      "label": "Distribution",
+      "type": "Menu",
+      "description": "Determines what kind of neighbor sets are returned.",
+      "isReadOnly": false,
+      "menuItems": [
+        "default",
+        "unique",
+        "closest"
+      ],
+      "menuLabels": [
+        "Default",
+        "Unique",
+        "Closest"
+      ]
+    },
+    {
+      "name": "Num Hash Buckets",
+      "parName": "numhashbuckets",
+      "label": "Num Hash Buckets",
+      "type": "Int",
+      "description": "The number of buckets the points will be sorted in based on their position. A good heuristic is to choose it to be close to the number of points.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Output Hash Attrib",
+      "parName": "outputhash",
+      "label": "Output Hash Attrib",
+      "type": "Toggle",
+      "description": "Whether to output an attribute with the Spatial Hash values, which can be useful to debug and optimize performance.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Output",
+      "parName": "nebroutput",
+      "label": "Output",
+      "type": "Menu",
+      "description": "Whether to output the individual neighbors and their attributes in array attributes, or their average or distance weighted average.",
+      "isReadOnly": false,
+      "menuItems": [
+        "nebr",
+        "avg",
+        "weightedavg"
+      ],
+      "menuLabels": [
+        "Neighbors",
+        "Average",
+        "Inverse Distance Weighted Average"
+      ]
+    },
+    {
+      "name": "Max Neighbors",
+      "parName": "maxneighbors",
+      "label": "Max Neighbors",
+      "type": "Int",
+      "description": "Specifies the max number of neighbors. This sets the array size of all the attributes storing neighbors information.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Neighbors",
+      "parName": "nebrs",
+      "label": "Neighbors",
+      "type": "Toggle",
+      "description": "Enable addition of the neighbors attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "nebrs",
+        "nebrattrname"
+      ],
+      "menuLabels": [
+        "Neighbors",
+        "Neighbor Attr Name"
+      ]
+    },
+    {
+      "name": "Num Neighbors",
+      "parName": "numnebrs",
+      "label": "Num Neighbors",
+      "type": "Toggle",
+      "description": "Enable the addition of the number of neighbors attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "numnebrs",
+        "numnbrsattrname"
+      ],
+      "menuLabels": [
+        "Num Neighbors",
+        "Num Neighbors Attr Name"
+      ]
+    },
+    {
+      "name": "Add Distance Attribute",
+      "parName": "dodist",
+      "label": "Add Distance Attribute",
+      "type": "Toggle",
+      "description": "Whether to output an attribute containing the distance to the query point.",
+      "isReadOnly": false,
+      "menuItems": [
+        "dodist",
+        "distattrname"
+      ],
+      "menuLabels": [
+        "Add Distance Attribute",
+        "Distance Attribute Name"
+      ]
+    },
+    {
+      "name": "Max Neighbors for Average",
+      "parName": "maxnebrsavg",
+      "label": "Max Neighbors for Average",
+      "type": "Int",
+      "description": "Specifies the max number of neighbors considered when averaging neighbor attributes.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Include Query Point",
+      "parName": "incquerypt",
+      "label": "Include Query Point",
+      "type": "Toggle",
+      "description": "When on, includes the query point when calculating average when output is average.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Add Prefix",
+      "parName": "addprefix",
+      "label": "Add Prefix",
+      "type": "Toggle",
+      "description": "Whether to add Nebr prefix when outputting neighbor attributes.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Cast Integers to Floats",
+      "parName": "castintstofloats",
+      "label": "Cast Integers to Floats",
+      "type": "Toggle",
+      "description": "When averaging the neighbor attribute values, whether to cast integer attributes to float.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Neighbor Point Attributes",
+      "parName": "nebrptattrs",
+      "label": "Neighbor Point Attributes",
+      "type": "StrMenu",
+      "description": "Creates array attributes the size of max neighbors with the neighbor attributes for each point in the first input.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Neighbor_POP.htm",
+  "parsedAt": "2025-08-08T03:03:57.677Z",
+  "url": "https://docs.derivative.ca/Neighbor_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Neighbor_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Neighbor_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Neighbor_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

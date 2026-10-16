@@ -1,0 +1,305 @@
+{
+  "name": "Normal POP",
+  "id": "normal_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Normal POP lets you create “normal vectors” and “tangent vectors” based on the incoming set of triangles or quads. You can create normals or tangents as point attributes, vertex attributes or primitive attributes. You can choose from several strategies for computing normals and tangents, based on each point being a member of several primitives. You usually use the P position attribute to compute the normals and tangents, but you can use any vec3 attribute. The results are placed in the N and (optionally) T attributes, but you can name the new attribute anything. If the incoming geometry already has normal or tangent vectors, you can choose to do nothing, re-compute values, error, or delete the attributes. Because this runs on the GPU that needs pre-determined sizes, you need to set the Max Number of Primitives per Point, the default 6 being typically sufficient.",
+  "parameters": [
+    {
+      "name": "Normals Action",
+      "parName": "nml",
+      "label": "Normals Action",
+      "type": "Menu",
+      "description": "Choose what to do regarding normals.",
+      "isReadOnly": false,
+      "menuItems": [
+        "noaction",
+        "alwayscompute",
+        "computeifnone",
+        "remove"
+      ],
+      "menuLabels": [
+        "No Action",
+        "Always Compute",
+        "Compute if it doesn't exist",
+        "Remove"
+      ]
+    },
+    {
+      "name": "Input Position Attribute",
+      "parName": "inputposattrn",
+      "label": "Input Position Attribute",
+      "type": "StrMenu",
+      "description": "Input Position attribute used to calculate normals.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Normals Weighting",
+      "parName": "nmlweighting",
+      "label": "Normals Weighting",
+      "type": "Menu",
+      "description": "For point normals, choose how to weight the normals of the primitives the point is a part of.",
+      "isReadOnly": false,
+      "menuItems": [
+        "average",
+        "angleWeighted",
+        "areaweighted"
+      ],
+      "menuLabels": [
+        "Average",
+        "Angle Weighted",
+        "Area Weighted"
+      ]
+    },
+    {
+      "name": "Compute Normals Technique",
+      "parName": "compnmltech",
+      "label": "Compute Normals Technique",
+      "type": "Menu",
+      "description": "Specify which technique to use to calculate point normals.",
+      "isReadOnly": false,
+      "menuItems": [
+        "atomicfloat",
+        "atomiccompswap",
+        "loopprims"
+      ],
+      "menuLabels": [
+        "Atomic Float (if supported)",
+        "Atomic Comp Swap",
+        "Loop over Primitives Per Point"
+      ]
+    },
+    {
+      "name": "Max Number of Primitives per Point",
+      "parName": "maxprimsperpoint",
+      "label": "Max Number of Primitives per Point",
+      "type": "Int",
+      "description": "Used to allocate temporary storage with the \"Loop over Primitives Per Point\" method, it should be set to the maximum number of primitives a point can be a part of in the input geometry.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Angle",
+      "parName": "angle",
+      "label": "Angle",
+      "type": "",
+      "description": "For vertex normals, the threshold angle between faces above which the shared edge vertices don't share normals.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Normal Output Attribute Scope",
+      "parName": "outputattrscopen",
+      "label": "Normal Output Attribute Scope",
+      "type": "StrMenu",
+      "description": "Output attribute scope for the normal.",
+      "isReadOnly": false,
+      "menuItems": [
+        "P",
+        "N",
+        "Color",
+        "Color.i012",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "dir",
+        "ddir",
+        "1",
+        "2",
+        "3",
+        "4",
+        "attrdefaultvaln0",
+        "attrdefaultvaln1",
+        "attrdefaultvaln2",
+        "attrdefaultvaln3"
+      ],
+      "menuLabels": [
+        "P",
+        "N",
+        "Color",
+        "Color.i012",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "dir",
+        "dbl dir",
+        "1",
+        "2",
+        "3",
+        "4",
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    },
+    {
+      "name": "Tangents Action",
+      "parName": "tang",
+      "label": "Tangents Action",
+      "type": "Menu",
+      "description": "Sets the tangent operation.",
+      "isReadOnly": false,
+      "menuItems": [
+        "noaction",
+        "alwayscompute",
+        "computeifnone",
+        "remove"
+      ],
+      "menuLabels": [
+        "No Action",
+        "Always Compute",
+        "Compute if it doesn't exist",
+        "Remove"
+      ]
+    },
+    {
+      "name": "Input Position Attribute",
+      "parName": "inputposattrt",
+      "label": "Input Position Attribute",
+      "type": "StrMenu",
+      "description": "Input Position attribute used to calculate tangents.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Input Normal Attribute",
+      "parName": "inputnormalattr",
+      "label": "Input Normal Attribute",
+      "type": "StrMenu",
+      "description": "Input normal attribute used to calculate tangents.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Input Texture Coord Attribute",
+      "parName": "inputtexattrib",
+      "label": "Input Texture Coord Attribute",
+      "type": "StrMenu",
+      "description": "Input texture coordinate attribute used to calculate tangents.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Compute Tangents Technique",
+      "parName": "comptangtech",
+      "label": "Compute Tangents Technique",
+      "type": "Menu",
+      "description": "Specify which technique to use to calculate tangents.",
+      "isReadOnly": false,
+      "menuItems": [
+        "atomicfloat",
+        "atomiccompswap"
+      ],
+      "menuLabels": [
+        "Atomic Float (if supported)",
+        "Atomic Comp Swap"
+      ]
+    },
+    {
+      "name": "Tangent Output Attribute Scope",
+      "parName": "outputattrscopet",
+      "label": "Tangent Output Attribute Scope",
+      "type": "StrMenu",
+      "description": "Output attribute scope for the tangent.",
+      "isReadOnly": false,
+      "menuItems": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "color",
+        "dcolor",
+        "dir",
+        "ddir",
+        "1",
+        "2",
+        "3",
+        "4",
+        "attrdefaultvalt0",
+        "attrdefaultvalt1",
+        "attrdefaultvalt2",
+        "attrdefaultvalt3"
+      ],
+      "menuLabels": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "Color",
+        "Color (double)",
+        "Direction",
+        "Direction (double)",
+        "1",
+        "2",
+        "3",
+        "4",
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Normal_POP.htm",
+  "parsedAt": "2025-08-08T03:03:57.936Z",
+  "url": "https://docs.derivative.ca/Normal_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Normal_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Normal_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Normal_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

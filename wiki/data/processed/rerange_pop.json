@@ -1,0 +1,197 @@
+{
+  "name": "ReRange POP",
+  "id": "rerange_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The ReRange POP takes any attribute of its input, re-ranges its values, and outputs them to the same attribute, any other existing attribute or a new attribute. It operates on either point, vertex or primitive [[attribute]]s. It takes each value of the specified attribute and applies a From range - To range conversion. If you set Parameter Size to 3 and your attribute is a float3 like <code>P</code>, then for each component of <code>P</code> you can have separate re-range parameters for each attribute component. The attributes you specify can be any type, including float2, float3, float4, double, etc. You can cause the output parameter to be converted to integers. When creating a new attribute, you simply put the new attribute name in Output Attribute Scope. The ReRange POP will determine what data type it will be, but you can override it with the >>> expansion parameters. For Input Attribute Scope you can specify a subset of the components, like <code>P(1) P(0)</code> (same as <code>P.yx</code> swizzle notation) which has the effect of re-ordering Y and X.",
+  "parameters": [
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Group",
+      "parName": "group",
+      "label": "Group",
+      "type": "StrMenu",
+      "description": "If there are input groups, specifying a group name in this field will cause this POP to act only upon the group specified.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Input Attribute Scope",
+      "parName": "inputattrscope",
+      "label": "Input Attribute Scope",
+      "type": "StrMenu",
+      "description": "Input's attributes you want to affect within the chosen attribute class, or attribute components.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Parameter Size",
+      "parName": "parsize",
+      "label": "Parameter Size",
+      "type": "Menu",
+      "description": "Number of independent configurable parameter values.",
+      "isReadOnly": false,
+      "menuItems": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "menuLabels": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "name": "Map from Low",
+      "parName": "fromlow",
+      "label": "Map from Low",
+      "type": "Float",
+      "description": "Reranges the attribute value.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Map from High",
+      "parName": "fromhigh",
+      "label": "Map from High",
+      "type": "Float",
+      "description": "Reranges the attribute value.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Map to Low",
+      "parName": "tolow",
+      "label": "Map to Low",
+      "type": "Float",
+      "description": "Reranges the attribute value.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Map to High",
+      "parName": "tohigh",
+      "label": "Map to High",
+      "type": "Float",
+      "description": "Reranges the attribute value.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Cast to",
+      "parName": "castto",
+      "label": "Cast to",
+      "type": "Menu",
+      "description": "Allows to cast the output attribute to a different type if wanted.",
+      "isReadOnly": false,
+      "menuItems": [
+        "auto",
+        "float",
+        "int"
+      ],
+      "menuLabels": [
+        "Automatic",
+        "Float",
+        "Int"
+      ]
+    },
+    {
+      "name": "Output Attribute Scope",
+      "parName": "outputattrscope",
+      "label": "Output Attribute Scope",
+      "type": "StrMenu",
+      "description": "Name of attribute to output (can choose components of attribute), can choose from menu.",
+      "isReadOnly": false,
+      "menuItems": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "color",
+        "dcolor",
+        "dir",
+        "ddir",
+        "1",
+        "2",
+        "3",
+        "4",
+        "attrdefaultval0",
+        "attrdefaultval1",
+        "attrdefaultval2",
+        "attrdefaultval3"
+      ],
+      "menuLabels": [
+        "P",
+        "N",
+        "Color",
+        "Color.rgb",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "Color",
+        "Color (double)",
+        "Direction",
+        "Direction (double)",
+        "1",
+        "2",
+        "3",
+        "4",
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-ReRange_POP.htm",
+  "parsedAt": "2025-08-08T03:03:59.415Z",
+  "url": "https://docs.derivative.ca/ReRange_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=ReRange_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live ReRange_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=ReRange_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

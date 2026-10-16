@@ -1,0 +1,165 @@
+{
+  "name": "Blend POP",
+  "id": "blend_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Blend POP lets you blend together an attribute that occurs in all of it input POPs, such as the P attribute of all the inputs. There are at least 8 blend types. The simplest blend types will do operations like average an attribute of all the inputs, or take the maximum, minimum, sum or product of all the inputs for one attribute. The more complex blend types will mix based on a Blend Input factor (often a number between 0 and 1) for each input. You can specify more than one point attribute, more than one vertex and more than one primitive attribute to blend at the same time. You can get blend weights from attributes of the input POPs. The Blend POP's architecture for handling multiple inputs is similar to the [[Attribute Combine POP]]. '''Per-point mapping of parameters''' - The Random POP has a Map page, which allows every point to get a different value for the Blend Input weight parameter. In this mechanism, a separate attribute in the input contains values that override (or add to / multiply by) the parameter value. See [[Mapping POP Attributes to Parameters]].",
+  "parameters": [
+    {
+      "name": "Blend Type",
+      "parName": "blendtype",
+      "label": "Blend Type",
+      "type": "Menu",
+      "description": "The Nth point of each input is blended according to this menu. The first group are simple blends, the last group depends on the weight of each input.",
+      "isReadOnly": false,
+      "menuItems": [
+        "off",
+        "avg",
+        "add",
+        "mul",
+        "min",
+        "max",
+        "differencing",
+        "proportional",
+        "proportionalsmoothed"
+      ],
+      "menuLabels": [
+        "Off",
+        "Average",
+        "Add",
+        "Multiply",
+        "Minimum",
+        "Maximum",
+        "Differencing",
+        "Proportional",
+        "Proportional Smoothed"
+      ]
+    },
+    {
+      "name": "Length Mismatch",
+      "parName": "lengthmismatchnotif",
+      "label": "Length Mismatch",
+      "type": "Menu",
+      "description": "Length mis-match motification action.",
+      "isReadOnly": false,
+      "menuItems": [
+        "ignore",
+        "warning",
+        "error",
+        "lengthmismatchnotif",
+        "lengthmismatchaction"
+      ],
+      "menuLabels": [
+        "Ignore",
+        "Warning",
+        "Error",
+        "Length Mismatch",
+        "Length Mismatch Action"
+      ]
+    },
+    {
+      "name": "Blend Weights CHOP",
+      "parName": "weightchop",
+      "label": "Blend Weights CHOP",
+      "type": "CHOP",
+      "description": "Instead of the blend weights coling from parameters, they can come from a CHOP, wither one weight per channel, or one weight per sample.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Point Attribute Scope",
+      "parName": "pointattrscope",
+      "label": "Point Attribute Scope",
+      "type": "StrMenu",
+      "description": "The Point attribute scope to blend.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Primitive Attribute Scope",
+      "parName": "primattrscope",
+      "label": "Primitive Attribute Scope",
+      "type": "StrMenu",
+      "description": "The Primitive attribute scope to blend.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Vertex Attribute Scope",
+      "parName": "vertattrscope",
+      "label": "Vertex Attribute Scope",
+      "type": "StrMenu",
+      "description": "The Vertex attribute scope to blend.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Input",
+      "parName": "input",
+      "label": "Input",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks managing the inputs of the POP.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Mapping",
+      "parName": "map",
+      "label": "Mapping",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for attribute-to-parameter mapping.",
+      "isReadOnly": false,
+      "menuItems": [
+        "input0weight",
+        "set",
+        "mult",
+        "add"
+      ],
+      "menuLabels": [
+        "input0weight (Blend Input)",
+        "Set",
+        "Multiply",
+        "Add"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Blend_POP.htm",
+  "parsedAt": "2025-08-08T03:03:54.346Z",
+  "url": "https://docs.derivative.ca/Blend_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Blend_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Blend_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Blend_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

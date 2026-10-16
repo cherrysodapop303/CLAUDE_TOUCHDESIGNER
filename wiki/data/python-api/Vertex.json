@@ -1,0 +1,18 @@
+{
+  "className": "Vertex",
+  "displayName": "Vertex Class",
+  "description": "A Vertex describes an instance to a single geometry vertex, contained within a Prim object.",
+  "category": "General",
+  "fileName": "Vertex_Class.htm",
+  "members": [
+    {
+      "name": "index",
+      "id": "content",
+      "returnType": "int",
+      "readOnly": true,
+      "description": ""
+    }
+  ],
+  "methods": [],
+  "enhanced": true
+}

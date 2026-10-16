@@ -1,0 +1,933 @@
+{
+  "name": "GLSL Advanced POP",
+  "id": "glsl_advanced_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "'''Refer to the [[Write GLSL POPs]] article for more info on using this POP.''' In single shader dispatch mode, runs a single compute shader that can read and write to points, verts, and primitive attributes simultaneously. In per primitive batch mode, runs the shader once per primitive batch. The number of threads mode defines how many threads are used.",
+  "parameters": [
+    {
+      "name": "Compute Shader",
+      "parName": "computedat",
+      "label": "Compute Shader",
+      "type": "DAT",
+      "description": "Points to the DAT holding the Compute Shader. Drag & Drop a DAT here, or manually enter the path to the DAT.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Shader Dispatch Mode",
+      "parName": "shaderdispatchmode",
+      "label": "Shader Dispatch Mode",
+      "type": "Menu",
+      "description": "Specifies the compute shader dispatch mode.",
+      "isReadOnly": false,
+      "menuItems": [
+        "single",
+        "perprimbatch"
+      ],
+      "menuLabels": [
+        "Single Shader Dispatch",
+        "Per Primitive Batch"
+      ]
+    },
+    {
+      "name": "Number of Elements",
+      "parName": "numelems",
+      "label": "Number of Elements",
+      "type": "Int",
+      "description": "The number of elements when setting it manually with a parameter.",
+      "isReadOnly": false
+    },
+    {
+      "name": "POP",
+      "parName": "numelemspop",
+      "label": "POP",
+      "type": "POP",
+      "description": "POP reference when setting the number of elements from an attribute.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Num Elements Attrib",
+      "parName": "numelemsclass",
+      "label": "Num Elements Attrib",
+      "type": "Menu",
+      "description": "Sets the attribute class where the number of elements can be found.",
+      "isReadOnly": false,
+      "menuItems": [
+        "numelemsclass",
+        "numelemsattr"
+      ],
+      "menuLabels": [
+        "Num Elements Attrib",
+        "Num Elements Attrib"
+      ]
+    },
+    {
+      "name": "Work Group Size",
+      "parName": "workgroupsize",
+      "label": "Work Group Size",
+      "type": "Int",
+      "description": "Specifies the workgroup size when manually setting the number of threads.",
+      "isReadOnly": false,
+      "menuItems": [
+        "workgroupsizex",
+        "workgroupsizey",
+        "workgroupsizez"
+      ],
+      "menuLabels": [
+        "Work Group Size",
+        "Work Group Size",
+        "Work Group Size"
+      ]
+    },
+    {
+      "name": "Dispatch Size",
+      "parName": "dispatchsize",
+      "label": "Dispatch Size",
+      "type": "Int",
+      "description": "Determines the number of thread groups to launch in each dimension.",
+      "isReadOnly": false,
+      "menuItems": [
+        "dispatchsizex",
+        "dispatchsizey",
+        "dispatchsizez"
+      ],
+      "menuLabels": [
+        "Dispatch Size",
+        "Dispatch Size",
+        "Dispatch Size"
+      ]
+    },
+    {
+      "name": "Number of Threads per Batch Mode",
+      "parName": "numthreadsbatchmode",
+      "label": "Number of Threads per Batch Mode",
+      "type": "Menu",
+      "description": "Sets how the number of threads per primitive batch is determined.",
+      "isReadOnly": false,
+      "menuItems": [
+        "inputvert",
+        "inputprim",
+        "outputvert",
+        "outputprim"
+      ],
+      "menuLabels": [
+        "Per Input Vertex",
+        "Per Input Primitive",
+        "Per Output Vertex",
+        "Per Output Primitive"
+      ]
+    },
+    {
+      "name": "Point Output Attributes",
+      "parName": "ptoutputattrs",
+      "label": "Point Output Attributes",
+      "type": "StrMenu",
+      "description": "Input point attributes modified by the shader.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Prim Output Attributes",
+      "parName": "primoutputattrs",
+      "label": "Prim Output Attributes",
+      "type": "StrMenu",
+      "description": "Input primitive attributes modified by the shader.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Vert Output Attributes",
+      "parName": "vertoutputattrs",
+      "label": "Vert Output Attributes",
+      "type": "StrMenu",
+      "description": "The vertex attributes to output.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Output Access",
+      "parName": "outputaccess",
+      "label": "Output Access",
+      "type": "Menu",
+      "description": "Controls whether the attribute buffers can only be read from or read from and written to.",
+      "isReadOnly": false,
+      "menuItems": [
+        "writeonly",
+        "readwrite"
+      ],
+      "menuLabels": [
+        "Write Only",
+        "Read-Write"
+      ]
+    },
+    {
+      "name": "Initialize Output Attributes",
+      "parName": "initoutputattrs",
+      "label": "Initialize Output Attributes",
+      "type": "Toggle",
+      "description": "Copy input attributes values for existing attributes, set the attributes values to their defaults for new attributes. It's a separate compute shader dispatch happening before the POP custom compute shader dispatch.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Copy Previous Pass Output to Input",
+      "parName": "prevpassoutput",
+      "label": "Copy Previous Pass Output to Input",
+      "type": "Toggle",
+      "description": "Enable copying the previous pass outputs to the next pass inputs.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Passes",
+      "parName": "npasses",
+      "label": "Passes",
+      "type": "Int",
+      "description": "Number of shader passes.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Input",
+      "parName": "input",
+      "label": "Input",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks managing the inputs of the POP.",
+      "isReadOnly": false
+    },
+    {
+      "name": "TDSimplexNoise()",
+      "parName": "simplexnoise",
+      "label": "TDSimplexNoise()",
+      "type": "Menu",
+      "description": "Sets the implementation to use for a simplex noise method that can be called in the shader.",
+      "isReadOnly": false,
+      "menuItems": [
+        "performance",
+        "quality"
+      ],
+      "menuLabels": [
+        "Performance",
+        "Quality"
+      ]
+    },
+    {
+      "name": "Number of Threads",
+      "parName": "numthreadsmode",
+      "label": "Number of Threads",
+      "type": "Menu",
+      "description": "Selects how to set the number of threads for the custom compute shader dispatch.",
+      "isReadOnly": false,
+      "menuItems": [
+        "inputpoint",
+        "inputvert",
+        "inputprim",
+        "outputpoint",
+        "outputvert",
+        "outputprim",
+        "numelems",
+        "numelemsattrib",
+        "manual"
+      ],
+      "menuLabels": [
+        "Per Input Point",
+        "Per Input Vertex",
+        "Per Input Primitive",
+        "Per Max Output Point",
+        "Per Max Output Vertex",
+        "Per Max Output Primitive",
+        "Manual Number of Elements",
+        "Number of Elements from Attribute",
+        "Manual Number of Threads"
+      ]
+    },
+    {
+      "name": "Render",
+      "parName": "render",
+      "label": "Render",
+      "type": "Toggle",
+      "description": "Enables rendering in the viewer. Disable when output data is in an intermediate or non-renderable state",
+      "isReadOnly": false
+    },
+    {
+      "name": "Max Points",
+      "parName": "maxpointsmode",
+      "label": "Max Points",
+      "type": "Menu",
+      "description": "Determines if the maximum number of points is determined by the input or by a custom value.",
+      "isReadOnly": false,
+      "menuItems": [
+        "maxpointsmode",
+        "maxpoints"
+      ],
+      "menuLabels": [
+        "Max Points",
+        "Max Points"
+      ]
+    },
+    {
+      "name": "Point Count Info",
+      "parName": "pointcountinfo",
+      "label": "Point Count Info",
+      "type": "Menu",
+      "description": "Input point count source.",
+      "isReadOnly": false,
+      "menuItems": [
+        "input",
+        "fromattrs",
+        "fromparams"
+      ],
+      "menuLabels": [
+        "From Input",
+        "From Attributes",
+        "From Max Parameters"
+      ]
+    },
+    {
+      "name": "Point Count",
+      "parName": "pointcountmode",
+      "label": "Point Count",
+      "type": "Menu",
+      "description": "Output point count source.",
+      "isReadOnly": false,
+      "menuItems": [
+        "input",
+        "zero",
+        "set"
+      ],
+      "menuLabels": [
+        "From Input",
+        "Zero",
+        "Set"
+      ]
+    },
+    {
+      "name": "Point Count POP",
+      "parName": "pointcountpop",
+      "label": "Point Count POP",
+      "type": "POP",
+      "description": "POP that holds the point count.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Point Count Attribute",
+      "parName": "pointcountclass",
+      "label": "Point Count Attribute",
+      "type": "Menu",
+      "description": "Attribute class of the attribute that holds the point count.",
+      "isReadOnly": false,
+      "menuItems": [
+        "pointcountclass",
+        "pointcountattr"
+      ],
+      "menuLabels": [
+        "Point Count Attribute",
+        "Point Count Attribute"
+      ]
+    },
+    {
+      "name": "Max Triangles",
+      "parName": "maxtrianglesmode",
+      "label": "Max Triangles",
+      "type": "Menu",
+      "description": "Specifies how to set the max number of triangle primitives. If the POP topology info is on the CPU, that's the actual number of triangle primitives.",
+      "isReadOnly": false,
+      "menuItems": [
+        "maxtrianglesmode",
+        "maxtriangles"
+      ],
+      "menuLabels": [
+        "Max Triangles",
+        "Max Triangles"
+      ]
+    },
+    {
+      "name": "Max Quads",
+      "parName": "maxquadsmode",
+      "label": "Max Quads",
+      "type": "Menu",
+      "description": "Specifies how to set the max number of quadrilaterals primitives. If the POP topology info is on the CPU, that's the actual number of quadrilateral primitives.",
+      "isReadOnly": false,
+      "menuItems": [
+        "maxquadsmode",
+        "maxquads"
+      ],
+      "menuLabels": [
+        "Max Quads",
+        "Max Quads"
+      ]
+    },
+    {
+      "name": "Max Line Strips",
+      "parName": "maxlinestripsmode",
+      "label": "Max Line Strips",
+      "type": "Menu",
+      "description": "Specifies how to set the maximum number of line strips.",
+      "isReadOnly": false,
+      "menuItems": [
+        "maxlinestripsmode",
+        "maxlinestrips"
+      ],
+      "menuLabels": [
+        "Max Line Strips",
+        "Max Line Strips"
+      ]
+    },
+    {
+      "name": "Max Line Strip Verts",
+      "parName": "maxlsvertsmode",
+      "label": "Max Line Strip Verts",
+      "type": "Menu",
+      "description": "Sets the max number of line strip vertices. If the POP topology is on the CPU, that's the actual number of line strip vertices.",
+      "isReadOnly": false,
+      "menuItems": [
+        "maxlsvertsmode",
+        "maxlsverts"
+      ],
+      "menuLabels": [
+        "Max Line Strip Verts",
+        "Max Line Strip Verts"
+      ]
+    },
+    {
+      "name": "Max Lines",
+      "parName": "maxlinesmode",
+      "label": "Max Lines",
+      "type": "Menu",
+      "description": "Specifies how to set the maximum number of line primitives.",
+      "isReadOnly": false,
+      "menuItems": [
+        "maxlinesmode",
+        "maxlines"
+      ],
+      "menuLabels": [
+        "Max Lines",
+        "Max Lines"
+      ]
+    },
+    {
+      "name": "Max Point Prims",
+      "parName": "maxpointprimsmode",
+      "label": "Max Point Prims",
+      "type": "Menu",
+      "description": "Specifies how to set the max number of point primitives.",
+      "isReadOnly": false,
+      "menuItems": [
+        "maxpointprimsmode",
+        "maxpointprims"
+      ],
+      "menuLabels": [
+        "Max Point Prims",
+        "Max Point Prims"
+      ]
+    },
+    {
+      "name": "Line Strip Info Update",
+      "parName": "lsinfoupdate",
+      "label": "Line Strip Info Update",
+      "type": "Menu",
+      "description": "Allows you to choose how the Line Strip Info buffers get updated.",
+      "isReadOnly": false,
+      "menuItems": [
+        "auto",
+        "zero",
+        "manual"
+      ],
+      "menuLabels": [
+        "Auto",
+        "Zero",
+        "Manual"
+      ]
+    },
+    {
+      "name": "Line Strip Info POP",
+      "parName": "lsinfopop",
+      "label": "Line Strip Info POP",
+      "type": "POP",
+      "description": "POP with the attribute to use for the Line Strip Info buffer.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Line Strip Info Attribute",
+      "parName": "lsinfoclass",
+      "label": "Line Strip Info Attribute",
+      "type": "Menu",
+      "description": "Sets the attribute class where the line strip info attribute can be found.",
+      "isReadOnly": false,
+      "menuItems": [
+        "lsinfoclass",
+        "lsinfoattr"
+      ],
+      "menuLabels": [
+        "Line Strip Info Attribute",
+        "Line Strip Info Attribute"
+      ]
+    },
+    {
+      "name": "Line Strip Index per Vert POP",
+      "parName": "lsindexpop",
+      "label": "Line Strip Index per Vert POP",
+      "type": "POP",
+      "description": "POP with the attribute to use for the Line Strip Index per Vert buffer.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Line Strip Index per Vert Attribute",
+      "parName": "lsindexclass",
+      "label": "Line Strip Index per Vert Attribute",
+      "type": "Menu",
+      "description": "Sets the attribute class where the line strip index per vertex attribute can be found.",
+      "isReadOnly": false,
+      "menuItems": [
+        "lsindexclass",
+        "lsindexattr"
+      ],
+      "menuLabels": [
+        "Line Strip Index per Vert Attribute",
+        "Line Strip Index per Vert Attrib"
+      ]
+    },
+    {
+      "name": "Max Verts per Line Strip",
+      "parName": "lsmaxvertsoverride",
+      "label": "Max Verts per Line Strip",
+      "type": "Toggle",
+      "description": "Specifies you want to set the max number of verts per line strip.allocation.",
+      "isReadOnly": false,
+      "menuItems": [
+        "lsmaxvertsoverride",
+        "lsmaxverts"
+      ],
+      "menuLabels": [
+        "Max Verts per Line Strip",
+        "Max Verts per Line Strip"
+      ]
+    },
+    {
+      "name": "Initialize Output Primitives",
+      "parName": "initoutputprims",
+      "label": "Initialize Output Primitives",
+      "type": "Menu",
+      "description": "Copy input primitives (point index values) and set point index for new primitives to 0.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "copy",
+        "zero"
+      ],
+      "menuLabels": [
+        "Don't Initialize",
+        "Copy input primitives (extra verts 0)",
+        "Set vertices to 0"
+      ]
+    },
+    {
+      "name": "Topology Info",
+      "parName": "topoinfo",
+      "label": "Topology Info",
+      "type": "Menu",
+      "description": "Sets the topology information source.",
+      "isReadOnly": false,
+      "menuItems": [
+        "input",
+        "fromattrs",
+        "fromparams"
+      ],
+      "menuLabels": [
+        "From Input",
+        "From Attributes",
+        "From Max Parameters"
+      ]
+    },
+    {
+      "name": "Topology Info POP",
+      "parName": "topoinfopop",
+      "label": "Topology Info POP",
+      "type": "POP",
+      "description": "Sets reference to a POP where the info attribute can be found.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Topology Info Attributes Class",
+      "parName": "topoinfoclass",
+      "label": "Topology Info Attributes Class",
+      "type": "Menu",
+      "description": "Sets the attribute class where the info attribute can be found.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Triangle Count",
+      "parName": "trianglecountmode",
+      "label": "Triangle Count",
+      "type": "Menu",
+      "description": "The triangle count when setting it manually with a parameter.",
+      "isReadOnly": false,
+      "menuItems": [
+        "trianglecountmode",
+        "trianglecountattr"
+      ],
+      "menuLabels": [
+        "Triangle Count",
+        "Triangle Count Attribute"
+      ]
+    },
+    {
+      "name": "Quad Count",
+      "parName": "quadcountmode",
+      "label": "Quad Count",
+      "type": "Menu",
+      "description": "Whether to get the count of quad primitives from the source, set it to 0, or set its value manually.",
+      "isReadOnly": false,
+      "menuItems": [
+        "quadcountmode",
+        "quadcountattr"
+      ],
+      "menuLabels": [
+        "Quad Count",
+        "Quad Count Attribute"
+      ]
+    },
+    {
+      "name": "Line Strip Count",
+      "parName": "linestripcountmode",
+      "label": "Line Strip Count",
+      "type": "Menu",
+      "description": "Whether to get the count of line strips from the source, set it to 0, or set its value manually.",
+      "isReadOnly": false,
+      "menuItems": [
+        "linestripcountmode",
+        "linestripcountattr"
+      ],
+      "menuLabels": [
+        "Line Strip Count",
+        "Line Strip Count Attribute"
+      ]
+    },
+    {
+      "name": "Line Strip Vert Count",
+      "parName": "lsvertcountmode",
+      "label": "Line Strip Vert Count",
+      "type": "Menu",
+      "description": "Whether to get the vertex count of line strips from the source, set it to 0, or set its value manually.",
+      "isReadOnly": false,
+      "menuItems": [
+        "lsvertcountmode",
+        "lsvertcountattr"
+      ],
+      "menuLabels": [
+        "Line Strip Vert Count",
+        "Line Strip Vert Count Attribute"
+      ]
+    },
+    {
+      "name": "Line Count",
+      "parName": "linecountmode",
+      "label": "Line Count",
+      "type": "Menu",
+      "description": "Whether to get the count of line primitives from the source, set it to 0, or set its value manually.",
+      "isReadOnly": false,
+      "menuItems": [
+        "linecountmode",
+        "linecountattr"
+      ],
+      "menuLabels": [
+        "Line Count",
+        "Line Count Attribute"
+      ]
+    },
+    {
+      "name": "Point Prim Count",
+      "parName": "pointprimcountmode",
+      "label": "Point Prim Count",
+      "type": "Menu",
+      "description": "Whether to get the count of point primitives from the source, set it to 0, or set its value manually.",
+      "isReadOnly": false,
+      "menuItems": [
+        "pointprimcountmode",
+        "pointprimcountattr"
+      ],
+      "menuLabels": [
+        "Point Prim Count",
+        "Point Prim Count Attrib"
+      ]
+    },
+    {
+      "name": "Extra Output",
+      "parName": "extraout",
+      "label": "Extra Output",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to declare additional POP outputs that can be picked with GLSL Select.",
+      "isReadOnly": false,
+      "menuItems": [
+        "writeonly",
+        "readwrite"
+      ],
+      "menuLabels": [
+        "Write Only",
+        "Read-Write"
+      ]
+    },
+    {
+      "name": "New Attribute",
+      "parName": "attr",
+      "label": "New Attribute",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to create new attributes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive",
+        "attr0name",
+        "attr0customname",
+        "attr0type",
+        "attr0numcomps",
+        "attr0value0",
+        "attr0value1",
+        "attr0value2",
+        "attr0value3"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive",
+        "New Attribute Name",
+        "Custom Name",
+        "New Attribute Type",
+        "New Attribute Number of Components",
+        "Value",
+        "Value",
+        "Value",
+        "Value"
+      ]
+    },
+    {
+      "name": "Matrix Attribute",
+      "parName": "matattr",
+      "label": "Matrix Attribute",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to create new matrix attributes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive",
+        "none",
+        "transformMatrix"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive",
+        "None",
+        "Transform Matrix"
+      ]
+    },
+    {
+      "name": "Pre-Multiply RGB by Alpha",
+      "parName": "premultcolor",
+      "label": "Pre-Multiply RGB by Alpha",
+      "type": "Toggle",
+      "description": "Enable RGB values pre-multiplication with the Alpha.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Color",
+      "parName": "color",
+      "label": "Color",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for color uniforms.",
+      "isReadOnly": false,
+      "menuItems": [
+        "color0rgbr",
+        "color0rgbg",
+        "color0rgbb"
+      ],
+      "menuLabels": [
+        "RGB",
+        "RGB",
+        "RGB"
+      ]
+    },
+    {
+      "name": "Vector",
+      "parName": "vec",
+      "label": "Vector",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to define uniform variables.",
+      "isReadOnly": false,
+      "menuItems": [
+        "float",
+        "vec2",
+        "vec3",
+        "vec4",
+        "double",
+        "dvec2",
+        "dvec3",
+        "dvec4",
+        "int",
+        "ivec2",
+        "ivec3",
+        "ivec4",
+        "uint",
+        "uvec2",
+        "uvec3",
+        "uvec4",
+        "vec0valuex",
+        "vec0valuey",
+        "vec0valuez",
+        "vec0valuew"
+      ],
+      "menuLabels": [
+        "float",
+        "vec2",
+        "vec3",
+        "vec4",
+        "double",
+        "dvec2",
+        "dvec3",
+        "dvec4",
+        "int",
+        "ivec2",
+        "ivec3",
+        "ivec4",
+        "uint",
+        "uvec2",
+        "uvec3",
+        "uvec4",
+        "Value",
+        "Value",
+        "Value",
+        "Value"
+      ]
+    },
+    {
+      "name": "Sampler",
+      "parName": "sampler",
+      "label": "Sampler",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for Samplers to read from the shader.",
+      "isReadOnly": false,
+      "menuItems": [
+        "hold",
+        "zero",
+        "repeat",
+        "mirror",
+        "hold",
+        "zero",
+        "repeat",
+        "mirror",
+        "hold",
+        "zero",
+        "repeat",
+        "mirror",
+        "nearest",
+        "linear"
+      ],
+      "menuLabels": [
+        "Hold",
+        "Zero",
+        "Repeat",
+        "Mirror",
+        "Hold",
+        "Zero",
+        "Repeat",
+        "Mirror",
+        "Hold",
+        "Zero",
+        "Repeat",
+        "Mirror",
+        "Nearest Pixel",
+        "Interpolate Pixels"
+      ]
+    },
+    {
+      "name": "Array",
+      "parName": "array",
+      "label": "Array",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for array uniforms.",
+      "isReadOnly": false,
+      "menuItems": [
+        "float",
+        "vec2",
+        "vec3",
+        "vec4",
+        "uniformarray",
+        "texturebuffer"
+      ],
+      "menuLabels": [
+        "float",
+        "vec2",
+        "vec3",
+        "vec4",
+        "Uniform Array",
+        "Texture Buffer"
+      ]
+    },
+    {
+      "name": "Matrix",
+      "parName": "matrix",
+      "label": "Matrix",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks of matrix uniforms.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Temp Buffer",
+      "parName": "tempbuffer",
+      "label": "Temp Buffer",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for Temporary buffers used to pass information to the shader as uniforms.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-GLSL_Advanced_POP.htm",
+  "parsedAt": "2025-08-08T03:03:55.975Z",
+  "url": "https://docs.derivative.ca/GLSL_Advanced_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=GLSL_Advanced_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live GLSL_Advanced_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=GLSL_Advanced_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "name": "Attribute POP",
+  "id": "attribute_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Attribute POP lets you: * Create new attributes * Rename attributes * Duplicate attributes * Delete attributes * Create matrix attributes Refer to [[Attribute]]. When you create a new attribute, you specify: * the name (choose from built-in pre-defined names, or create your own) * the type (float, double, int, uint) * the number of components in the attribute (1, 2, 3 or 4 only). Examples: ** A float type with 3 components is therefore a float3. ** A double with 2 components is a double2. ** An int with 4 components is an ivec4. ** A uint with 3 components is a uint3. * arrays of the above, for example create a array of 8 float3, appearing as float3[8]. The array length can be anything. * the default value for each component of the attribute New attributes can also be matrices (done on the Matrix page), like creating a mat4x4.",
+  "parameters": [
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex",
+        "primitive"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex",
+        "Primitive"
+      ]
+    },
+    {
+      "name": "Group",
+      "parName": "group",
+      "label": "Group",
+      "type": "StrMenu",
+      "description": "If there are input groups, specifying a group name in this field will cause this POP to act only upon the group specified.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Notification if Attribute Exists",
+      "parName": "notificationifexists",
+      "label": "Notification if Attribute Exists",
+      "type": "Menu",
+      "description": "Whether to display a notification if the attribute already exists on the input.",
+      "isReadOnly": false,
+      "menuItems": [
+        "ignore",
+        "warning",
+        "error"
+      ],
+      "menuLabels": [
+        "Ignore",
+        "Warning",
+        "Error"
+      ]
+    },
+    {
+      "name": "Override if Attribute Exists",
+      "parName": "overrideifexists",
+      "label": "Override if Attribute Exists",
+      "type": "Toggle",
+      "description": "When on, overrides an input attribute if a new attribute created by this POP has the same name.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Pre-Multiply RGB by Alpha",
+      "parName": "premultcolor",
+      "label": "Pre-Multiply RGB by Alpha",
+      "type": "Toggle",
+      "description": "Enable RGB values pre-multiplication with the Alpha.",
+      "isReadOnly": false
+    },
+    {
+      "name": "New Attribute",
+      "parName": "attr",
+      "label": "New Attribute",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to create new attributes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "custom",
+        "n",
+        "color",
+        "tex",
+        "pointscale",
+        "linewidth",
+        "attr0name",
+        "attr0customname",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "dir",
+        "ddir",
+        "attr0type",
+        "attr0numcomps",
+        "1",
+        "2",
+        "3",
+        "4",
+        "attr0value0",
+        "attr0value1",
+        "attr0value2",
+        "attr0value3"
+      ],
+      "menuLabels": [
+        "Custom",
+        "N",
+        "Color",
+        "Tex",
+        "PointScale",
+        "LineWidth",
+        "Name",
+        "Custom Name",
+        "float",
+        "double",
+        "int",
+        "uint",
+        "dir",
+        "dbl dir",
+        "Type",
+        "Number of Components",
+        "1",
+        "2",
+        "3",
+        "4",
+        "Value",
+        "Value",
+        "Value",
+        "Value"
+      ]
+    },
+    {
+      "name": "Matrix Attribute",
+      "parName": "matattr",
+      "label": "Matrix Attribute",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to create new matrix attributes.",
+      "isReadOnly": false,
+      "menuItems": [
+        "matattr0isarray",
+        "matattr0arraysize",
+        "none",
+        "transformMatrix"
+      ],
+      "menuLabels": [
+        "Array",
+        "Array Size",
+        "None",
+        "Transform Matrix"
+      ]
+    },
+    {
+      "name": "Rename Attribute",
+      "parName": "ren",
+      "label": "Rename Attribute",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to rename attributes.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Duplicate Attribute",
+      "parName": "dup",
+      "label": "Duplicate Attribute",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks to duplicate attributes.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Delete Point Attributes",
+      "parName": "deletepoint",
+      "label": "Delete Point Attributes",
+      "type": "StrMenu",
+      "description": "List of Point attributes to delete.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Delete Vertex Attributes",
+      "parName": "deletevert",
+      "label": "Delete Vertex Attributes",
+      "type": "StrMenu",
+      "description": "List of Vertex attributes to delete.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    },
+    {
+      "name": "Delete Primitive Attributes",
+      "parName": "deleteprim",
+      "label": "Delete Primitive Attributes",
+      "type": "StrMenu",
+      "description": "List of Primitive attributes to delete.",
+      "isReadOnly": false,
+      "menuItems": [
+        "*"
+      ],
+      "menuLabels": [
+        "*"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Attribute_POP.htm",
+  "parsedAt": "2025-08-08T03:03:54.289Z",
+  "url": "https://docs.derivative.ca/Attribute_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Attribute_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Attribute_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Attribute_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

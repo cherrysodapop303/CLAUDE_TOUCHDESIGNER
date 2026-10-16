@@ -1,0 +1,67 @@
+{
+  "name": "Subdivide POP",
+  "id": "subdivide_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Subdivide POP subdivides and smooths a surface. It divides each quad into two triangles, and then for each triangle subdivides it into 4 triangles cutting at the midpoint of each edge. The pre-existing and new points are blended with their neighbors to produce a more smooth surface. Increasing the Depth recurses several times in multiple passes, where the result of a pass is subdivided further in the next pass. Increasing the Crease Weight parameter toward 1 restores the original shape more, so this is a suitable method to simply subdivide faces as you may want with a Box POP.",
+  "parameters": [
+    {
+      "name": "Depth",
+      "parName": "iterations",
+      "label": "Depth",
+      "type": "Int",
+      "description": "Sets the number of iterations to subdivide. Higher numbers give a smoother surface.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Crease Weight",
+      "parName": "creaseweight",
+      "label": "Crease Weight",
+      "type": "Float",
+      "description": "Determines how much sharp edges in the geometry should be preserved",
+      "isReadOnly": false
+    },
+    {
+      "name": "Simple Coefficients",
+      "parName": "simplecoeffs",
+      "label": "Simple Coefficients",
+      "type": "Toggle",
+      "description": "Enables simple coefficient computation when smoothing the interpolated points.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Copy Topology Info Back to CPU",
+      "parName": "cpureadback",
+      "label": "Copy Topology Info Back to CPU",
+      "type": "Toggle",
+      "description": "Enable copying the point count and topology information held on the GPU to the CPU.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Subdivide_POP.htm",
+  "parsedAt": "2025-08-08T03:04:00.073Z",
+  "url": "https://docs.derivative.ca/Subdivide_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Subdivide_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Subdivide_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Subdivide_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

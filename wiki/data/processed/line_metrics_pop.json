@@ -1,0 +1,379 @@
+{
+  "name": "Line Metrics POP",
+  "id": "line_metrics_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "You can add metrics attributes to Line Strips. They can be created as point attribute or the vertex attributes. This gives good information about the points and the context they are in. For each point you can get the direction to the next and previous points, or the distance back to the start of the line strip, or the line strip number it is in… things useful for Math POPs or Lookup POPs. A convenience of the Line Metrics POP is to give nice values to awkward situations like co-incident points (two or more consecutive points in the same location), especially direction vectors. That’s what the Continuous Direction parameter does. It would work with Direction to Next, Direction to Previous, and do nice things to the Tangent vectors by keeping them in line.",
+  "parameters": [
+    {
+      "name": "Attribute Class",
+      "parName": "attrclass",
+      "label": "Attribute Class",
+      "type": "Menu",
+      "description": "Makes the POP operate on point attributes, vertex attributes or primitive attributes where applicable.",
+      "isReadOnly": false,
+      "menuItems": [
+        "point",
+        "vertex"
+      ],
+      "menuLabels": [
+        "Point",
+        "Vertex"
+      ]
+    },
+    {
+      "name": "Displacement to Next",
+      "parName": "dispnext",
+      "label": "Displacement to Next",
+      "type": "Toggle",
+      "description": "Whether to output an attribute with the displacement to the next vertex in the line strip.",
+      "isReadOnly": false,
+      "menuItems": [
+        "dispnext",
+        "dispnextname"
+      ],
+      "menuLabels": [
+        "Displacement to Next",
+        "Displacement to Next Attrib Name"
+      ]
+    },
+    {
+      "name": "Displacement to Previous",
+      "parName": "dispprev",
+      "label": "Displacement to Previous",
+      "type": "Toggle",
+      "description": "Whether to output an attribute with the displacement to the previous vertex in the line strip.",
+      "isReadOnly": false,
+      "menuItems": [
+        "dispprev",
+        "dispprevname"
+      ],
+      "menuLabels": [
+        "Displacement to Previous",
+        "Displacement to Previous Attrib Name"
+      ]
+    },
+    {
+      "name": "Distance to Next",
+      "parName": "distnext",
+      "label": "Distance to Next",
+      "type": "Toggle",
+      "description": "Whether to output an attribute with the distance to the next vertex in the line strip.",
+      "isReadOnly": false,
+      "menuItems": [
+        "distnext",
+        "distnextname"
+      ],
+      "menuLabels": [
+        "Distance to Next",
+        "Distance to Next Attrib Name"
+      ]
+    },
+    {
+      "name": "Distance to Previous",
+      "parName": "distprev",
+      "label": "Distance to Previous",
+      "type": "Toggle",
+      "description": "Whether to output an attribute with the distance to the previous vertex in the line strip.",
+      "isReadOnly": false,
+      "menuItems": [
+        "distprev",
+        "distprevname"
+      ],
+      "menuLabels": [
+        "Distance to Previous",
+        "Distance to Previous Attrib Name"
+      ]
+    },
+    {
+      "name": "Direction to Next",
+      "parName": "dirnext",
+      "label": "Direction to Next",
+      "type": "Toggle",
+      "description": "Whether to output an attribute with the direction to the next vertex in the line strip.",
+      "isReadOnly": false,
+      "menuItems": [
+        "dirnext",
+        "dirnextname"
+      ],
+      "menuLabels": [
+        "Direction to Next",
+        "Direction to Next Attrib Name"
+      ]
+    },
+    {
+      "name": "Direction to Previous",
+      "parName": "dirprev",
+      "label": "Direction to Previous",
+      "type": "Toggle",
+      "description": "Whether to output an attribute with the direction to the previous vertex in the line strip.",
+      "isReadOnly": false,
+      "menuItems": [
+        "dirprev",
+        "dirprevname"
+      ],
+      "menuLabels": [
+        "Direction to Previous",
+        "Direction to Previous Attrib Name"
+      ]
+    },
+    {
+      "name": "Tangent",
+      "parName": "tangent",
+      "label": "Tangent",
+      "type": "Toggle",
+      "description": "Output a tangent attribute for each point.",
+      "isReadOnly": false,
+      "menuItems": [
+        "tangent",
+        "tangentname"
+      ],
+      "menuLabels": [
+        "Tangent",
+        "Tangent Attrib Name"
+      ]
+    },
+    {
+      "name": "Curvature",
+      "parName": "curvature",
+      "label": "Curvature",
+      "type": "Toggle",
+      "description": "Whether to output an attribute containing the curvature.",
+      "isReadOnly": false,
+      "menuItems": [
+        "curvature",
+        "curvaturename"
+      ],
+      "menuLabels": [
+        "Curvature",
+        "Curvature Attrib Name"
+      ]
+    },
+    {
+      "name": "Angle per Distance",
+      "parName": "angleperdist",
+      "label": "Angle per Distance",
+      "type": "Toggle",
+      "description": "Whether to output Angle per Distance.",
+      "isReadOnly": false,
+      "menuItems": [
+        "angleperdist",
+        "angleperdistname"
+      ],
+      "menuLabels": [
+        "Angle per Distance",
+        "Angle per Distance Attrib Name"
+      ]
+    },
+    {
+      "name": "Continuous Direction",
+      "parName": "continuousdir",
+      "label": "Continuous Direction",
+      "type": "Toggle",
+      "description": "Enable returning continuous directions for co-incident points",
+      "isReadOnly": false
+    },
+    {
+      "name": "Max Neighbors",
+      "parName": "maxneighbors",
+      "label": "Max Neighbors",
+      "type": "Int",
+      "description": "When computing Direction vector, how far to look when points are in same position as next or previous points.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Distance from Start",
+      "parName": "diststart",
+      "label": "Distance from Start",
+      "type": "Toggle",
+      "description": "Whether to output an attribute with the distance from the start of the line strip.",
+      "isReadOnly": false,
+      "menuItems": [
+        "diststart",
+        "diststartname"
+      ],
+      "menuLabels": [
+        "Distance from Start",
+        "Distance from Start Attrib Name"
+      ]
+    },
+    {
+      "name": "Distance from End",
+      "parName": "distend",
+      "label": "Distance from End",
+      "type": "Toggle",
+      "description": "Whether to output an attribute with the distance from the end of the line strip.",
+      "isReadOnly": false,
+      "menuItems": [
+        "distend",
+        "distendname"
+      ],
+      "menuLabels": [
+        "Distance from End",
+        "Distance from End Attrib Name"
+      ]
+    },
+    {
+      "name": "Distance from Start Normalized",
+      "parName": "diststartnorm",
+      "label": "Distance from Start Normalized",
+      "type": "Toggle",
+      "description": "Whether to output an attribute with the normalized distance from the start of the line strip.",
+      "isReadOnly": false,
+      "menuItems": [
+        "diststartnorm",
+        "diststartnormname"
+      ],
+      "menuLabels": [
+        "Distance from Start Normalized",
+        "Distance from Start Normalized Attrib Name"
+      ]
+    },
+    {
+      "name": "Distance from End Normalized",
+      "parName": "distendnorm",
+      "label": "Distance from End Normalized",
+      "type": "Toggle",
+      "description": "Whether to output an attribute with the normalized distance from the end of the line strip.",
+      "isReadOnly": false,
+      "menuItems": [
+        "distendnorm",
+        "distendnormname"
+      ],
+      "menuLabels": [
+        "Distance from End Normalized",
+        "Distance from End Normalized Attrib Name"
+      ]
+    },
+    {
+      "name": "Line Strip Length",
+      "parName": "primlen",
+      "label": "Line Strip Length",
+      "type": "Toggle",
+      "description": "Enable addition of line strip length attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "primlen",
+        "primlenname"
+      ],
+      "menuLabels": [
+        "Line Strip Length",
+        "Line Strip Length Attrib Name"
+      ]
+    },
+    {
+      "name": "Length Attrib Primitive Attribute",
+      "parName": "primlenprim",
+      "label": "Length Attrib Primitive Attribute",
+      "type": "Toggle",
+      "description": "When on, the attribute created for the length of the line strip is a primitive attribute.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Vert Index in Line Strip",
+      "parName": "pointindex",
+      "label": "Vert Index in Line Strip",
+      "type": "Toggle",
+      "description": "Output the vertex index for each point, assuming unique.",
+      "isReadOnly": false,
+      "menuItems": [
+        "pointindex",
+        "pointindexname"
+      ],
+      "menuLabels": [
+        "Vert Index in Line Strip",
+        "Vert Index Attrib Name"
+      ]
+    },
+    {
+      "name": "Number of Verts in Line Strip",
+      "parName": "numverts",
+      "label": "Number of Verts in Line Strip",
+      "type": "Toggle",
+      "description": "Outputs attribute for number of vertices in current point's like strip.",
+      "isReadOnly": false,
+      "menuItems": [
+        "numverts",
+        "numvertsname"
+      ],
+      "menuLabels": [
+        "Number of Verts in Line Strip",
+        "Number of Verts Attrib Name"
+      ]
+    },
+    {
+      "name": "Vert Index in Line Strip Normalized",
+      "parName": "vertindexnorm",
+      "label": "Vert Index in Line Strip Normalized",
+      "type": "Toggle",
+      "description": "Output the vertex index normalized to 0-1 for each point, assuming unique.",
+      "isReadOnly": false,
+      "menuItems": [
+        "vertindexnorm",
+        "vertindexnormname"
+      ],
+      "menuLabels": [
+        "Vert Index in Line Strip Normalized",
+        "Vert Index Normalized Attrib Name"
+      ]
+    },
+    {
+      "name": "Line Strip Index",
+      "parName": "linestripindex",
+      "label": "Line Strip Index",
+      "type": "Toggle",
+      "description": "Enable addition of line strip index attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "linestripindex",
+        "linestripindexname"
+      ],
+      "menuLabels": [
+        "Line Strip Index",
+        "Line Strip Index Attrib Name"
+      ]
+    },
+    {
+      "name": "Line Strip Index Normalized",
+      "parName": "lsindexnorm",
+      "label": "Line Strip Index Normalized",
+      "type": "Toggle",
+      "description": "Enable addition of normalized line strip index attribute.",
+      "isReadOnly": false,
+      "menuItems": [
+        "lsindexnorm",
+        "lsindexnormname"
+      ],
+      "menuLabels": [
+        "Line Strip Index Normalized",
+        "Line Strip Index Normalized Attrib Name"
+      ]
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Line_Metrics_POP.htm",
+  "parsedAt": "2025-08-08T03:03:56.855Z",
+  "url": "https://docs.derivative.ca/Line_Metrics_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Line_Metrics_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Line_Metrics_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Line_Metrics_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,313 @@
+{
+  "name": "Sort POP",
+  "id": "sort_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "The Sort POP sorts the point list and/or the primitive list based on the position <code>P</code> or any attribute component. When sorting by <code>P</code> it can sort the points relative to a vector, or proximity to a point, or relative to a Geometry COMP's Z axis. The Sort POP can also randomize the point order, or shift the point order (circularly in the point list, like first point becomes the second point and the last point becomes the first). It can do the same operations to primitives. It implements https://gpuopen.com/fidelityfx-parallel-sort/",
+  "parameters": [
+    {
+      "name": "Point Method",
+      "parName": "ptmethod",
+      "label": "Point Method",
+      "type": "Menu",
+      "description": "Point sorting criteria.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "byattrib",
+        "seed",
+        "prox",
+        "vector",
+        "object"
+      ],
+      "menuLabels": [
+        "No Change",
+        "By Attribute",
+        "Random",
+        "Proximity to Point",
+        "Along Vector",
+        "Relative to Object Z-axis"
+      ]
+    },
+    {
+      "name": "Attribute",
+      "parName": "pointattr",
+      "label": "Attribute",
+      "type": "StrMenu",
+      "description": "Attribute to use for sorting.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Attrib is UInt",
+      "parName": "pointuint",
+      "label": "Attrib is UInt",
+      "type": "Menu",
+      "description": "When sorting by attribute, allows to specify whether the attribute is an unsigned integer and what the max value is. Smaller max UInt require fewer passes to sort.",
+      "isReadOnly": false,
+      "menuItems": [
+        "notuint",
+        "uint4",
+        "uint8",
+        "uint12",
+        "uint16",
+        "uint20",
+        "uint24",
+        "uint28",
+        "uint32"
+      ],
+      "menuLabels": [
+        "Not UInt Attrib",
+        "4 bits UInt (max 16)",
+        "8 bits UInt (max 256)",
+        "12 bits UInt (max 4096)",
+        "16 bits UInt (max 65,536)",
+        "20 bits UInt (max 1 M)",
+        "24 bits UInt (max 16 M)",
+        "28 bits UInt (max 268 M)",
+        "32 bits UInt (max 4 B)"
+      ]
+    },
+    {
+      "name": "Seed",
+      "parName": "pointseed",
+      "label": "Seed",
+      "type": "Float",
+      "description": "Seed for random number generator for randomly-ordered points.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Point",
+      "parName": "pointprox",
+      "label": "Point",
+      "type": "XYZW",
+      "description": "Proximity Point.",
+      "isReadOnly": false,
+      "menuItems": [
+        "pointproxx",
+        "pointproxy",
+        "pointproxz"
+      ],
+      "menuLabels": [
+        "Point",
+        "Point",
+        "Point"
+      ]
+    },
+    {
+      "name": "Vector",
+      "parName": "pointdir",
+      "label": "Vector",
+      "type": "XYZW",
+      "description": "When sorting points Along Vector, it takes the point position, finds the the closest point on a line through 0,0,0 in the direction of the vector, and then sorts along that line.",
+      "isReadOnly": false,
+      "menuItems": [
+        "pointdirx",
+        "pointdiry",
+        "pointdirz"
+      ],
+      "menuLabels": [
+        "Vector",
+        "Vector",
+        "Vector"
+      ]
+    },
+    {
+      "name": "Object",
+      "parName": "pointobj",
+      "label": "Object",
+      "type": "Object",
+      "description": "3D Object to use when sorting points relative to Object Z-axis.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Reverse",
+      "parName": "pointrev",
+      "label": "Reverse",
+      "type": "Toggle",
+      "description": "After sorting points, reverse their order.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Shift",
+      "parName": "pointshift",
+      "label": "Shift",
+      "type": "Toggle",
+      "description": "Enables offsetting on sorted points.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Offset",
+      "parName": "pointoffset",
+      "label": "Offset",
+      "type": "Int",
+      "description": "Shifts the point order by this offset.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Primitive Method",
+      "parName": "primmethod",
+      "label": "Primitive Method",
+      "type": "Menu",
+      "description": "Primitive sorting criteria.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "byptattrib",
+        "byprimattrib",
+        "seed",
+        "prox",
+        "vector",
+        "object"
+      ],
+      "menuLabels": [
+        "No Change",
+        "By Point Attribute",
+        "By Primitive Attribute",
+        "Random",
+        "Proximity to Point",
+        "Along Vector",
+        "Relative to Object Z-axis"
+      ]
+    },
+    {
+      "name": "Attribute",
+      "parName": "primattr",
+      "label": "Attribute",
+      "type": "StrMenu",
+      "description": "Attribute to use for sorting.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Attrib is UInt",
+      "parName": "primuint",
+      "label": "Attrib is UInt",
+      "type": "Menu",
+      "description": "When sorting by attribute, allows to specify whether the attribute is an unsigned integer and what the max value is. Smaller max UInt require fewer passes to sort.",
+      "isReadOnly": false,
+      "menuItems": [
+        "notuint",
+        "uint4",
+        "uint8",
+        "uint12",
+        "uint16",
+        "uint20",
+        "uint24",
+        "uint28",
+        "uint32"
+      ],
+      "menuLabels": [
+        "Not UInt Attrib",
+        "4 bits UInt (max 16)",
+        "8 bits UInt (max 256)",
+        "12 bits UInt (max 4096)",
+        "16 bits UInt (max 65,536)",
+        "20 bits UInt (max 1 M)",
+        "24 bits UInt (max 16 M)",
+        "28 bits UInt (max 268 M)",
+        "32 bits UInt (max 4 B)"
+      ]
+    },
+    {
+      "name": "Seed",
+      "parName": "primseed",
+      "label": "Seed",
+      "type": "Float",
+      "description": "Seed for primitive ranomizer.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Point",
+      "parName": "primprox",
+      "label": "Point",
+      "type": "XYZW",
+      "description": "Position when sorting by proximity to point.",
+      "isReadOnly": false,
+      "menuItems": [
+        "primproxx",
+        "primproxy",
+        "primproxz"
+      ],
+      "menuLabels": [
+        "Point",
+        "Point",
+        "Point"
+      ]
+    },
+    {
+      "name": "Vector",
+      "parName": "primdir",
+      "label": "Vector",
+      "type": "XYZW",
+      "description": "When sorting primitives Along Vector, it takes the center of the primitive, finds the closest point on a line through 0,0,0 in the direction of the vector, and then sorts along that line.",
+      "isReadOnly": false,
+      "menuItems": [
+        "primdirx",
+        "primdiry",
+        "primdirz"
+      ],
+      "menuLabels": [
+        "Vector",
+        "Vector",
+        "Vector"
+      ]
+    },
+    {
+      "name": "Object",
+      "parName": "primobj",
+      "label": "Object",
+      "type": "Object",
+      "description": "3D Object to use when sorting primitives relative to Object Z-axis.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Reverse",
+      "parName": "primrev",
+      "label": "Reverse",
+      "type": "Toggle",
+      "description": "Reverse the order of primitives.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Shift",
+      "parName": "primshift",
+      "label": "Shift",
+      "type": "Toggle",
+      "description": "Enables offsetting on sorted primitives.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Offset",
+      "parName": "primoffset",
+      "label": "Offset",
+      "type": "Int",
+      "description": "Shifts the primitive order by this offset.",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-Sort_POP.htm",
+  "parsedAt": "2025-08-08T03:03:59.781Z",
+  "url": "https://docs.derivative.ca/Sort_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=Sort_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live Sort_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=Sort_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}

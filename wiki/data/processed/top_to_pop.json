@@ -1,0 +1,497 @@
+{
+  "name": "TOP to POP",
+  "id": "top_to_pop",
+  "category": "POP",
+  "subcategory": "Experimental",
+  "description": "Position and Active is a shortcut for P in RGB, and alpha is set to 1 for active pixels (pixels with a valid attribute value). The First RGBA Contains menu lets you treat the RGBA in different ways, including as depth maps, point clouds, height maps. Using Custom you specify which attribute and components you expect in the RGBA of the TOP, so max 4 could be <code>P(0) Color(2) N(1) P(2)</code>. When you Use Dimension all pixels are active since the resolution matches the TOP When using the other modes you can end up with unused pixels (you have 40 points, fit to square gives you 7x7, so you end up with 9 unused pixels), alpha is only set to 1 for used pixels.",
+  "parameters": [
+    {
+      "name": "First RGBA Contains",
+      "parName": "rgba",
+      "label": "First RGBA Contains",
+      "type": "Menu",
+      "description": "Determines how the TOP's pixels should be interpreted.",
+      "isReadOnly": false,
+      "menuItems": [
+        "color",
+        "pactive",
+        "pos",
+        "depth",
+        "height",
+        "custom"
+      ],
+      "menuLabels": [
+        "Color (RGBA)",
+        "Position and Active (RGBA)",
+        "Position (RGB)",
+        "Depth",
+        "Height (R)",
+        "Custom"
+      ]
+    },
+    {
+      "name": "Max Number of Points",
+      "parName": "maxpointsenable",
+      "label": "Max Number of Points",
+      "type": "Toggle",
+      "description": "Enable the setting of the max number of points when First RGBA Contains is set to Position.",
+      "isReadOnly": false,
+      "menuItems": [
+        "maxpointsenable",
+        "maxpoints"
+      ],
+      "menuLabels": [
+        "Max Number of Points",
+        "Number of Points"
+      ]
+    },
+    {
+      "name": "TOP",
+      "parName": "input",
+      "label": "TOP",
+      "type": "Sequence",
+      "description": "Start of Sequential Parameter Blocks for TOPs to convert.",
+      "isReadOnly": false,
+      "menuItems": [
+        "r",
+        "g",
+        "b",
+        "a",
+        "P",
+        "P.i01",
+        "nearest",
+        "linear",
+        "highquality",
+        "attr0name",
+        "attr0customname",
+        "attr0type",
+        "attr0numcomps",
+        "attr0defaultval0",
+        "attr0defaultval1",
+        "attr0defaultval2",
+        "attr0defaultval3"
+      ],
+      "menuLabels": [
+        "r",
+        "g",
+        "b",
+        "a",
+        "P",
+        "P.i01",
+        "Nearest Pixel",
+        "Interpolate Pixels",
+        "High Quality Resize",
+        "New Attribute Name",
+        "Custom Name",
+        "Attribute Type",
+        "Components",
+        "Default Value",
+        "Default Value",
+        "Default Value",
+        "Default Value"
+      ]
+    },
+    {
+      "name": "Connectivity",
+      "parName": "surftype",
+      "label": "Connectivity",
+      "type": "Menu",
+      "description": "Determines the primitive used to connect the points.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "points",
+        "lines",
+        "linestrips",
+        "triangles",
+        "alttriangles",
+        "quads"
+      ],
+      "menuLabels": [
+        "None",
+        "Point Primitives",
+        "Lines",
+        "Line Strips",
+        "Triangles",
+        "Alternating Triangles",
+        "Quadrilaterals"
+      ]
+    },
+    {
+      "name": "Line X/Y/Z",
+      "parName": "line",
+      "label": "Line X/Y/Z",
+      "type": "Toggle",
+      "description": "Specifies whether to enable Lines in the X/Y/Z axis.",
+      "isReadOnly": false,
+      "menuItems": [
+        "linex",
+        "liney",
+        "linez"
+      ],
+      "menuLabels": [
+        "Line X/Y/Z",
+        "Line X/Y/Z",
+        "Line X/Y/Z"
+      ]
+    },
+    {
+      "name": "Plane XY/YZ/ZX",
+      "parName": "plane",
+      "label": "Plane XY/YZ/ZX",
+      "type": "Toggle",
+      "description": "Plane orientation.",
+      "isReadOnly": false,
+      "menuItems": [
+        "planex",
+        "planey",
+        "planez"
+      ],
+      "menuLabels": [
+        "Plane XY/YZ/ZX",
+        "Plane XY/YZ/ZX",
+        "Plane XY/YZ/ZX"
+      ]
+    },
+    {
+      "name": "Unique Points",
+      "parName": "uniquepoints",
+      "label": "Unique Points",
+      "type": "Toggle",
+      "description": "Enable not sharing points between primitives.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Center",
+      "parName": "t",
+      "label": "Center",
+      "type": "XYZW",
+      "description": "The center of the output geometry.",
+      "isReadOnly": false,
+      "menuItems": [
+        "tx",
+        "ty",
+        "tz"
+      ],
+      "menuLabels": [
+        "Center",
+        "Center",
+        "Center"
+      ]
+    },
+    {
+      "name": "Override Size",
+      "parName": "overridesize",
+      "label": "Override Size",
+      "type": "Toggle",
+      "description": "When on, overrides the automatic size, which is 1 in X with the size in Y respecting the input TOP aspect ratio.",
+      "isReadOnly": false,
+      "menuItems": [
+        "overridesizex",
+        "overridesizey",
+        "overridesizez"
+      ],
+      "menuLabels": [
+        "Override Size",
+        "Override Size",
+        "Override Size"
+      ]
+    },
+    {
+      "name": "Size",
+      "parName": "size",
+      "label": "Size",
+      "type": "XYZW",
+      "description": "The geometry 3D size.",
+      "isReadOnly": false,
+      "menuItems": [
+        "sizex",
+        "sizey",
+        "sizez"
+      ],
+      "menuLabels": [
+        "Size",
+        "Size",
+        "Size"
+      ]
+    },
+    {
+      "name": "Override Resolution",
+      "parName": "overrideres",
+      "label": "Override Resolution",
+      "type": "Toggle",
+      "description": "When on, overrides the automatic resolution, which is the input TOP resolution.",
+      "isReadOnly": false,
+      "menuItems": [
+        "overrideresx",
+        "overrideresy",
+        "overrideresz"
+      ],
+      "menuLabels": [
+        "Override Resolution",
+        "Override Resolution",
+        "Override Resolution"
+      ]
+    },
+    {
+      "name": "Resolution",
+      "parName": "res",
+      "label": "Resolution",
+      "type": "Int",
+      "description": "Overriden resolution.",
+      "isReadOnly": false,
+      "menuItems": [
+        "resx",
+        "resy",
+        "resz"
+      ],
+      "menuLabels": [
+        "Resolution",
+        "Resolution",
+        "Resolution"
+      ]
+    },
+    {
+      "name": "Pixel Sampling Location",
+      "parName": "pixelsamplingloc",
+      "label": "Pixel Sampling Location",
+      "type": "Menu",
+      "description": "Sets where the pixels are sampled.",
+      "isReadOnly": false,
+      "menuItems": [
+        "edgetoedge",
+        "pixelcentered"
+      ],
+      "menuLabels": [
+        "Edge to Edge",
+        "Pixel Centered"
+      ]
+    },
+    {
+      "name": "Texture Coordinates",
+      "parName": "texture",
+      "label": "Texture Coordinates",
+      "type": "Menu",
+      "description": "Sets the attribute class where the texture coordinates should be created.",
+      "isReadOnly": false,
+      "menuItems": [
+        "none",
+        "point",
+        "vert"
+      ],
+      "menuLabels": [
+        "None",
+        "Point",
+        "Vertex"
+      ]
+    },
+    {
+      "name": "Append Dimension",
+      "parName": "dimension",
+      "label": "Append Dimension",
+      "type": "Menu",
+      "description": "Always add a dimension, or only add a dimesion when its size is 2 or more.",
+      "isReadOnly": false,
+      "menuItems": [
+        "morethanone",
+        "rowscolsalways",
+        "rowscolsslicesalways"
+      ],
+      "menuLabels": [
+        "When Rows Cols Slices > 1",
+        "Always for Rows Cols",
+        "Always for Rows Cols Slices"
+      ]
+    },
+    {
+      "name": "Rerange from Low High",
+      "parName": "rerangefromlow",
+      "label": "Rerange from Low High",
+      "type": "Float",
+      "description": "Range for input values.",
+      "isReadOnly": false,
+      "menuItems": [
+        "rerangefromlow",
+        "rerangefromhigh"
+      ],
+      "menuLabels": [
+        "Rerange from Low High",
+        "Rerange from High"
+      ]
+    },
+    {
+      "name": "Rerange to Low High",
+      "parName": "rerangetolow",
+      "label": "Rerange to Low High",
+      "type": "Float",
+      "description": "Range for output values.",
+      "isReadOnly": false,
+      "menuItems": [
+        "rerangetolow",
+        "rerangetohigh"
+      ],
+      "menuLabels": [
+        "Rerange to Low High",
+        "Rerange to High"
+      ]
+    },
+    {
+      "name": "Camera",
+      "parName": "camera",
+      "label": "Camera",
+      "type": "Object",
+      "description": "Specify the camera component.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Override Camera View",
+      "parName": "overridecamera",
+      "label": "Override Camera View",
+      "type": "Toggle",
+      "description": "When on, overrides the View settings from the selected camera object.",
+      "isReadOnly": false
+    },
+    {
+      "name": "View Angle Method",
+      "parName": "viewanglemethod",
+      "label": "View Angle Method",
+      "type": "Menu",
+      "description": "Sets the method to convert the depth TOP.",
+      "isReadOnly": false,
+      "menuItems": [
+        "horfov",
+        "vertfov",
+        "focallengths"
+      ],
+      "menuLabels": [
+        "Horizontal FOV",
+        "Vertical FOV",
+        "Focal Lengths"
+      ]
+    },
+    {
+      "name": "FOV Angle",
+      "parName": "fov",
+      "label": "FOV Angle",
+      "type": "Float",
+      "description": "Determines the camera's field of view angle.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Focal Length (Fx, Fy)",
+      "parName": "focallengths",
+      "label": "Focal Length (Fx, Fy)",
+      "type": "XYZW",
+      "description": "",
+      "isReadOnly": false,
+      "menuItems": [
+        "focallengthsx",
+        "focallengthsy"
+      ],
+      "menuLabels": [
+        "Focal Length (Fx, Fy)",
+        "Focal Length (Fx, Fy)"
+      ]
+    },
+    {
+      "name": "Optical Center (Cx, Cy)",
+      "parName": "center",
+      "label": "Optical Center (Cx, Cy)",
+      "type": "XYZW",
+      "description": "The location of the center of the camera for the depth projection.",
+      "isReadOnly": false,
+      "menuItems": [
+        "centerx",
+        "centery"
+      ],
+      "menuLabels": [
+        "Optical Center (Cx, Cy)",
+        "Optical Center (Cx, Cy)"
+      ]
+    },
+    {
+      "name": "Delete Near Points",
+      "parName": "deletenear",
+      "label": "Delete Near Points",
+      "type": "Toggle",
+      "description": "Enable removal of points that are close to the camera.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Near Depth",
+      "parName": "depthnear",
+      "label": "Near Depth",
+      "type": "Float",
+      "description": "Depth of the near clipping plane.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Delete Far Points",
+      "parName": "deletefar",
+      "label": "Delete Far Points",
+      "type": "Toggle",
+      "description": "Enable removal of points that are far from the camera.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Far Depth",
+      "parName": "depthfar",
+      "label": "Far Depth",
+      "type": "Float",
+      "description": "Depth of the far clipping plane.",
+      "isReadOnly": false
+    },
+    {
+      "name": "Line Strip Behavior",
+      "parName": "linestripbehavior",
+      "label": "Line Strip Behavior",
+      "type": "Menu",
+      "description": "What to do when points of a line strip are deleted.",
+      "isReadOnly": false,
+      "menuItems": [
+        "delpointoflinestrip",
+        "splitlinestrip",
+        "dellinestrip"
+      ],
+      "menuLabels": [
+        "Delete Point of Line Strip",
+        "Split Line Strip",
+        "Delete Line Strip"
+      ]
+    },
+    {
+      "name": "Displacement Scale",
+      "parName": "dispscale",
+      "label": "Displacement Scale",
+      "type": "Float",
+      "description": "Sets the displacement scale when the pixels are interpreted as heights values",
+      "isReadOnly": false
+    }
+  ],
+  "experimental": true,
+  "sourceFile": "Experimental-TOP_to_POP.htm",
+  "parsedAt": "2025-08-08T03:04:00.446Z",
+  "url": "https://docs.derivative.ca/TOP_to_POP",
+  "summary": "",
+  "tips": [],
+  "warnings": [],
+  "relatedOperators": [],
+  "commonInputs": [],
+  "commonOutputs": [],
+  "workflowPatterns": [],
+  "keywords": [],
+  "tags": [],
+  "pythonExamples": [],
+  "codeExamples": [],
+  "paramsVerified": true,
+  "sourceUrl": "https://docs.derivative.ca/api.php?action=parse&page=TOP_to_POP&prop=wikitext",
+  "lastUpdated": "2026-06-25T00:00:00.000Z",
+  "processingVersion": "3.0.0",
+  "_provenance": [
+    {
+      "fact": "parameters and description scraped from the live TOP_to_POP wiki page ({{Parameter}}/{{ParameterItem}} templates)",
+      "url": "https://docs.derivative.ca/api.php?action=parse&page=TOP_to_POP&prop=wikitext",
+      "fetchedAt": "2026-06-25T00:00:00.000Z"
+    }
+  ]
+}
